@@ -8,6 +8,19 @@ import SwiftUI
 import AppIntents
 
 @available(iOS 17.0, *)
+private enum WordSearchWidgetAppearanceMode: String {
+    case system
+    case light
+    case dark
+
+    static func current(defaults: UserDefaults?) -> WordSearchWidgetAppearanceMode {
+        guard let defaults else { return .system }
+        guard let raw = defaults.string(forKey: WordSearchConstants.appearanceModeKey) else { return .system }
+        return WordSearchWidgetAppearanceMode(rawValue: raw) ?? .system
+    }
+}
+
+@available(iOS 17.0, *)
 struct WordSearchProvider: TimelineProvider {
     typealias Entry = WordSearchEntry
 
@@ -38,49 +51,102 @@ struct WordSearchEntry: TimelineEntry {
 @available(iOS 17.0, *)
 struct WordSearchWidgetEntryView: View {
     let entry: WordSearchEntry
+    @Environment(\.colorScheme) private var systemColorScheme
+
+    private var appearanceMode: WordSearchWidgetAppearanceMode {
+        WordSearchWidgetAppearanceMode.current(defaults: UserDefaults(suiteName: WordSearchConstants.suiteName))
+    }
+
+    private var effectiveColorScheme: ColorScheme {
+        switch appearanceMode {
+        case .system:
+            return systemColorScheme
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
+    }
+
+    private var widgetBackground: LinearGradient {
+        if effectiveColorScheme == .dark {
+            return LinearGradient(
+                colors: [
+                    Color(red: 0.10, green: 0.11, blue: 0.14),
+                    Color(red: 0.12, green: 0.14, blue: 0.19)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+        return LinearGradient(
+            colors: [
+                Color(.systemGray6),
+                Color(.secondarySystemBackground)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
 
     var body: some View {
-        WordSearchGridWidget(state: entry.state)
-            .containerBackground(.fill.tertiary, for: .widget)
+        WordSearchGridWidget(state: entry.state, colorScheme: effectiveColorScheme)
+            .containerBackground(widgetBackground, for: .widget)
     }
 }
 
 @available(iOS 17.0, *)
 private struct WordSearchGridWidget: View {
     let state: WordSearchState
+    let colorScheme: ColorScheme
 
-    private let rows = 7
-    private let cols = 7
-    private let lineColor = Color.gray.opacity(0.28)
-    private let solvedFill = Color.blue.opacity(0.16)
-    private let anchorFill = Color.gray.opacity(0.14)
-    private let okFill = Color.green.opacity(0.25)
-    private let errorFill = Color.red.opacity(0.24)
+    private struct WordOutline: Identifiable {
+        let id: String
+        let positions: [WordSearchPosition]
+    }
+
+    private let directions: [(Int, Int)] = [
+        (0, 1), (1, 0), (1, 1), (1, -1),
+        (0, -1), (-1, 0), (-1, -1), (-1, 1)
+    ]
+
+    private var rows: Int { state.grid.count }
+    private var cols: Int { state.grid.first?.count ?? 0 }
+    private var isDark: Bool { colorScheme == .dark }
+    private var lineColor: Color { isDark ? Color.white.opacity(0.18) : Color.gray.opacity(0.24) }
+    private var solvedFill: Color { isDark ? Color.blue.opacity(0.28) : Color.blue.opacity(0.16) }
+    private var solvedWordBorder: Color { isDark ? Color.blue.opacity(0.94) : Color.blue.opacity(0.84) }
+    private var anchorFill: Color { isDark ? Color.white.opacity(0.16) : Color.gray.opacity(0.14) }
+    private var okFill: Color { isDark ? Color.green.opacity(0.32) : Color.green.opacity(0.25) }
+    private var errorFill: Color { isDark ? Color.red.opacity(0.33) : Color.red.opacity(0.24) }
+    private var boardFill: Color { isDark ? Color.white.opacity(0.08) : Color.white.opacity(0.25) }
+    private var boardStroke: Color { isDark ? Color.white.opacity(0.20) : Color.white.opacity(0.35) }
+    private var letterColor: Color { isDark ? Color.white.opacity(0.94) : Color.primary }
 
     var body: some View {
         GeometryReader { geometry in
             let horizontalPadding: CGFloat = 8
             let verticalPadding: CGFloat = 8
+            let safeRows = max(rows, 1)
+            let safeCols = max(cols, 1)
             let availableWidth = max(0, geometry.size.width - horizontalPadding * 2)
             let availableHeight = max(0, geometry.size.height - verticalPadding * 2)
-            let cellSize = max(40, min(floor(availableWidth / CGFloat(cols)), floor(availableHeight / CGFloat(rows))))
-            let boardWidth = cellSize * CGFloat(cols)
-            let boardHeight = cellSize * CGFloat(rows)
+            let cellSize = max(18, min(floor(availableWidth / CGFloat(safeCols)), floor(availableHeight / CGFloat(safeRows))))
+            let boardWidth = cellSize * CGFloat(safeCols)
+            let boardHeight = cellSize * CGFloat(safeRows)
 
             ZStack {
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .fill(boardFill)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(boardStroke, lineWidth: 0.8)
+                    )
+                    .frame(width: boardWidth, height: boardHeight)
+
                 board(cellSize: cellSize)
                     .frame(width: boardWidth, height: boardHeight)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-
-                if !state.isCompleted {
-                    helpButton
-                        .padding(8)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                }
-
-                if state.isHelpVisible {
-                    helpOverlay
-                }
 
                 if state.isCompleted {
                     completionOverlay
@@ -92,68 +158,50 @@ private struct WordSearchGridWidget: View {
     }
 
     private func board(cellSize: CGFloat) -> some View {
-        VStack(spacing: 0) {
-            ForEach(0..<rows, id: \.self) { row in
-                HStack(spacing: 0) {
-                    ForEach(0..<cols, id: \.self) { col in
-                        let position = WordSearchPosition(r: row, c: col)
-                        let value = state.grid[row][col]
+        let displayRows = max(rows, 1)
+        let displayCols = max(cols, 1)
+        let letterSize = max(9, cellSize * 0.48)
 
-                        Button(intent: ToggleCellIntent(row: row, col: col)) {
-                            Text(value)
-                                .font(.system(size: 28, weight: .medium, design: .rounded))
-                                .frame(width: cellSize, height: cellSize)
-                                .foregroundStyle(.primary)
-                                .background(cellFill(for: position))
-                                .contentShape(Rectangle())
+        return ZStack {
+            VStack(spacing: 0) {
+                ForEach(0..<displayRows, id: \.self) { row in
+                    HStack(spacing: 0) {
+                        ForEach(0..<displayCols, id: \.self) { col in
+                            if row < rows, col < cols {
+                                let position = WordSearchPosition(r: row, c: col)
+                                let value = state.grid[row][col]
+
+                                Button(intent: ToggleCellIntent(row: row, col: col)) {
+                                    Text(value)
+                                        .font(.system(size: letterSize, weight: .medium, design: .rounded))
+                                        .frame(width: cellSize, height: cellSize)
+                                        .foregroundStyle(letterColor)
+                                        .background(cellFill(for: position))
+                                        .overlay(
+                                            Rectangle()
+                                                .stroke(
+                                                    cellBorderColor(for: position),
+                                                    lineWidth: cellBorderWidth(for: position)
+                                                )
+                                        )
+                                        .contentShape(Rectangle())
+                                }
+                                .buttonStyle(.plain)
+                                .disabled(state.isCompleted)
+                            } else {
+                                Color.clear
+                                    .frame(width: cellSize, height: cellSize)
+                            }
                         }
-                        .buttonStyle(.plain)
-                        .disabled(state.isCompleted || state.isHelpVisible)
                     }
                 }
             }
-        }
-        .overlay(
-            GridLines(rows: rows, cols: cols)
+
+            GridLines(rows: displayRows, cols: displayCols)
                 .stroke(lineColor, lineWidth: 1)
-        )
-    }
 
-    private var helpButton: some View {
-        Button(intent: ToggleHelpIntent()) {
-            Image(systemName: "questionmark.circle")
-                .font(.system(size: 16, weight: .semibold))
-                .frame(width: 26, height: 26)
-                .foregroundStyle(.secondary)
-                .background(.ultraThinMaterial, in: Circle())
-        }
-        .buttonStyle(.plain)
-    }
-
-    private var helpOverlay: some View {
-        ZStack {
-            Color.black.opacity(0.18)
-                .ignoresSafeArea()
-
-            VStack(spacing: 12) {
-                HStack {
-                    Spacer()
-                    Button(intent: ToggleHelpIntent()) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 20, weight: .semibold))
-                            .foregroundStyle(.secondary)
-                    }
-                    .buttonStyle(.plain)
-                }
-
-                Text(state.words.joined(separator: "  /  "))
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.primary)
-            }
-            .padding(14)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .padding(20)
+            foundWordOutlines(cellSize: cellSize)
+                .allowsHitTesting(false)
         }
     }
 
@@ -164,11 +212,11 @@ private struct WordSearchGridWidget: View {
 
             VStack(spacing: 6) {
                 Text("Completado")
-                    .font(.system(size: 29, weight: .bold, design: .rounded))
+                    .font(.system(size: 27, weight: .bold, design: .rounded))
                     .multilineTextAlignment(.center)
 
                 Text("Manana a las 9 se cargara otra sopa de letras.")
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
                     .multilineTextAlignment(.center)
                 Text("Cada dia se anade un nuevo juego.")
                     .font(.system(size: 12, weight: .regular, design: .rounded))
@@ -192,6 +240,138 @@ private struct WordSearchGridWidget: View {
             return anchorFill
         }
         return .clear
+    }
+
+    private func cellBorderColor(for position: WordSearchPosition) -> Color {
+        if let feedback = state.feedback, feedback.positions.contains(position) {
+            return feedback.kind == .correct ? Color.green.opacity(0.95) : Color.red.opacity(0.92)
+        }
+        if state.anchor == position {
+            return isDark ? Color.white.opacity(0.62) : Color.gray.opacity(0.75)
+        }
+        return .clear
+    }
+
+    private func cellBorderWidth(for position: WordSearchPosition) -> CGFloat {
+        if let feedback = state.feedback, feedback.positions.contains(position) {
+            return 2.0
+        }
+        if state.anchor == position {
+            return 1.8
+        }
+        return 0
+    }
+
+    private func foundWordOutlines(cellSize: CGFloat) -> some View {
+        let capsuleHeight = cellSize * 0.82
+        let lineWidth = max(1.5, min(3.0, cellSize * 0.10))
+
+        return ZStack {
+            ForEach(solvedWordOutlines) { outline in
+                outlineShape(
+                    for: outline.positions,
+                    cellSize: cellSize,
+                    capsuleHeight: capsuleHeight,
+                    lineWidth: lineWidth
+                )
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func outlineShape(
+        for positions: [WordSearchPosition],
+        cellSize: CGFloat,
+        capsuleHeight: CGFloat,
+        lineWidth: CGFloat
+    ) -> some View {
+        if let first = positions.first, let last = positions.last {
+            let start = center(for: first, cellSize: cellSize)
+            let end = center(for: last, cellSize: cellSize)
+            let dx = end.x - start.x
+            let dy = end.y - start.y
+            let angle = Angle(radians: atan2(dy, dx))
+            let centerPoint = CGPoint(x: (start.x + end.x) / 2, y: (start.y + end.y) / 2)
+            let capsuleWidth = max(capsuleHeight, hypot(dx, dy) + capsuleHeight)
+
+            Capsule(style: .continuous)
+                .stroke(solvedWordBorder, lineWidth: lineWidth)
+                .frame(width: capsuleWidth, height: capsuleHeight)
+                .rotationEffect(angle)
+                .position(centerPoint)
+        }
+    }
+
+    private func center(for position: WordSearchPosition, cellSize: CGFloat) -> CGPoint {
+        CGPoint(
+            x: CGFloat(position.c) * cellSize + cellSize / 2,
+            y: CGFloat(position.r) * cellSize + cellSize / 2
+        )
+    }
+
+    private var solvedWordOutlines: [WordOutline] {
+        let foundWords = Set(state.foundWords.map { $0.uppercased() })
+
+        return state.words.enumerated().compactMap { index, rawWord in
+            let word = rawWord.uppercased()
+            guard foundWords.contains(word) else { return nil }
+            guard let path = bestPath(for: word) else { return nil }
+            let signature = path.map { "\($0.r)-\($0.c)" }.joined(separator: "_")
+            return WordOutline(
+                id: "\(index)-\(word)-\(signature)",
+                positions: path
+            )
+        }
+    }
+
+    private func bestPath(for word: String) -> [WordSearchPosition]? {
+        let candidates = candidatePaths(for: word)
+        guard !candidates.isEmpty else { return nil }
+        return candidates.max { pathScore($0) < pathScore($1) }
+    }
+
+    private func pathScore(_ path: [WordSearchPosition]) -> Int {
+        path.reduce(0) { partial, position in
+            partial + (state.solvedPositions.contains(position) ? 1 : 0)
+        }
+    }
+
+    private func candidatePaths(for word: String) -> [[WordSearchPosition]] {
+        let upperWord = word.uppercased()
+        let letters = upperWord.map { String($0) }
+        let reversed = Array(letters.reversed())
+        guard !letters.isEmpty else { return [] }
+        guard rows > 0, cols > 0 else { return [] }
+
+        var results: [[WordSearchPosition]] = []
+
+        for row in 0..<rows {
+            for col in 0..<cols {
+                for (dr, dc) in directions {
+                    var path: [WordSearchPosition] = []
+                    var collected: [String] = []
+                    var isValid = true
+
+                    for step in 0..<letters.count {
+                        let r = row + step * dr
+                        let c = col + step * dc
+                        if r < 0 || c < 0 || r >= rows || c >= cols {
+                            isValid = false
+                            break
+                        }
+                        path.append(WordSearchPosition(r: r, c: c))
+                        collected.append(state.grid[r][c].uppercased())
+                    }
+
+                    guard isValid else { continue }
+                    if collected == letters || collected == reversed {
+                        results.append(path)
+                    }
+                }
+            }
+        }
+
+        return results
     }
 }
 

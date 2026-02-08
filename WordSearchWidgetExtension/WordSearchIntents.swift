@@ -55,6 +55,10 @@ enum WordSearchConstants {
     static let rotationBoundaryKey = "puzzle_rotation_boundary_v3"
     static let resetRequestKey = "puzzle_reset_request_v1"
     static let lastAppliedResetKey = "puzzle_last_applied_reset_v1"
+    static let appearanceModeKey = "puzzle_theme_mode_v1"
+    static let gridSizeKey = "puzzle_grid_size_v1"
+    static let minGridSize = 7
+    static let maxGridSize = 12
 
     static let legacyStateKey = "puzzle_state_v1"
     static let legacyMigrationFlagKey = "puzzle_v2_migrated_legacy"
@@ -68,6 +72,27 @@ enum WordSearchConstants {
         "puzzle_index_v2_b",
         "puzzle_index_v2_c"
     ]
+}
+
+@available(iOS 17.0, *)
+enum WordSearchDifficulty {
+    static func clampGridSize(_ value: Int) -> Int {
+        min(max(value, WordSearchConstants.minGridSize), WordSearchConstants.maxGridSize)
+    }
+
+    static func preferredGridSize(defaults: UserDefaults?) -> Int {
+        guard let defaults else { return WordSearchConstants.minGridSize }
+        let stored = defaults.integer(forKey: WordSearchConstants.gridSizeKey)
+        if stored == 0 {
+            defaults.set(WordSearchConstants.minGridSize, forKey: WordSearchConstants.gridSizeKey)
+            return WordSearchConstants.minGridSize
+        }
+        let clamped = clampGridSize(stored)
+        if clamped != stored {
+            defaults.set(clamped, forKey: WordSearchConstants.gridSizeKey)
+        }
+        return clamped
+    }
 }
 
 @available(iOS 17.0, *)
@@ -93,6 +118,7 @@ struct WordSearchFeedback: Codable, Equatable {
 struct WordSearchState: Codable, Equatable {
     var grid: [[String]]
     var words: [String]
+    var gridSize: Int
     var anchor: WordSearchPosition?
     var foundWords: Set<String>
     var solvedPositions: Set<WordSearchPosition>
@@ -105,6 +131,7 @@ struct WordSearchState: Codable, Equatable {
     private enum CodingKeys: String, CodingKey {
         case grid
         case words
+        case gridSize
         case anchor
         case foundWords
         case solvedPositions
@@ -118,6 +145,7 @@ struct WordSearchState: Codable, Equatable {
     init(
         grid: [[String]],
         words: [String],
+        gridSize: Int,
         anchor: WordSearchPosition?,
         foundWords: Set<String>,
         solvedPositions: Set<WordSearchPosition>,
@@ -129,6 +157,7 @@ struct WordSearchState: Codable, Equatable {
     ) {
         self.grid = grid
         self.words = words
+        self.gridSize = gridSize
         self.anchor = anchor
         self.foundWords = foundWords
         self.solvedPositions = solvedPositions
@@ -143,6 +172,8 @@ struct WordSearchState: Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         grid = try container.decode([[String]].self, forKey: .grid)
         words = try container.decode([String].self, forKey: .words)
+        let decodedSize = try container.decodeIfPresent(Int.self, forKey: .gridSize) ?? grid.count
+        gridSize = WordSearchDifficulty.clampGridSize(decodedSize)
         anchor = try container.decodeIfPresent(WordSearchPosition.self, forKey: .anchor)
         foundWords = try container.decodeIfPresent(Set<String>.self, forKey: .foundWords) ?? []
         solvedPositions = try container.decodeIfPresent(Set<WordSearchPosition>.self, forKey: .solvedPositions) ?? []
@@ -157,6 +188,7 @@ struct WordSearchState: Codable, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(grid, forKey: .grid)
         try container.encode(words, forKey: .words)
+        try container.encode(gridSize, forKey: .gridSize)
         try container.encodeIfPresent(anchor, forKey: .anchor)
         try container.encode(foundWords, forKey: .foundWords)
         try container.encode(solvedPositions, forKey: .solvedPositions)
@@ -181,67 +213,188 @@ struct WordSearchPuzzle {
 
 @available(iOS 17.0, *)
 enum WordSearchPuzzleBank {
-    static let puzzles: [WordSearchPuzzle] = [
-        build(
-            [
-                "ARBOLIP",
-                "TIERRAX",
-                "NUBELUZ",
-                "MARAZUL",
-                "SOLROCA",
-                "RIOCASA",
-                "FLORNUB"
-            ],
-            words: ["ARBOL", "TIERRA", "NUBE", "MAR", "SOL", "RIO", "FLOR"]
-        ),
-        build(
-            [
-                "QUESOXR",
-                "PANMIEL",
-                "LECHERA",
-                "UVAFRUT",
-                "PERAXYZ",
-                "SALTOMA",
-                "CAFEBAR"
-            ],
-            words: ["QUESO", "PAN", "MIEL", "LECHE", "UVA", "PERA", "CAFE"]
-        ),
-        build(
-            [
-                "TRENBUS",
-                "CARROAV",
-                "PUERTAX",
-                "PLAYAQR",
-                "LIBROSO",
-                "CINEZOO",
-                "NUBEVIA"
-            ],
-            words: ["TREN", "BUS", "CARRO", "PUERTA", "PLAYA", "LIBRO", "CINE"]
-        )
+    private static let themes: [[String]] = [
+        [
+            "ARBOL", "TIERRA", "NUBE", "MAR", "SOL", "RIO", "FLOR", "LUNA", "MONTE", "VALLE",
+            "BOSQUE", "RAMA", "ROCA", "PLAYA", "NIEVE", "VIENTO", "TRUENO", "FUEGO", "ARENA",
+            "ISLA", "CIELO", "SELVA", "LLUVIA", "CAMINO", "MUSGO", "LAGO", "PRIMAVERA",
+            "HORIZONTE", "ESTRELLA", "PLANETA"
+        ],
+        [
+            "QUESO", "PAN", "MIEL", "LECHE", "UVA", "PERA", "CAFE", "TOMATE", "ACEITE", "SAL",
+            "PASTA", "ARROZ", "PAPAYA", "MANGO", "BANANA", "NARANJA", "CEREZA", "SOPA",
+            "TORTILLA", "GALLETA", "CHOCOLATE", "YOGUR", "MANZANA", "AVENA", "ENSALADA",
+            "PIMIENTO", "LIMON", "COCO", "ALMENDRA", "ALBAHACA"
+        ],
+        [
+            "TREN", "BUS", "CARRO", "PUERTA", "PLAYA", "LIBRO", "CINE", "PUENTE", "CALLE",
+            "METRO", "AVION", "BARRIO", "PLAZA", "PARQUE", "TORRE", "MUSEO", "MAPA", "RUTA",
+            "BICICLETA", "TRAFICO", "SEMAFORO", "ESTACION", "AUTOPISTA", "TAXI", "MOTOR",
+            "VIAJE", "MOCHILA", "PASEO", "CIUDAD", "CARTEL"
+        ]
     ]
 
-    static func puzzle(at index: Int) -> WordSearchPuzzle {
-        puzzles[normalizedIndex(index)]
-    }
-
     static func normalizedIndex(_ index: Int) -> Int {
-        let count = max(puzzles.count, 1)
+        let count = max(themes.count, 1)
         let value = index % count
         return value >= 0 ? value : value + count
     }
 
-    private static func build(_ rows: [String], words: [String]) -> WordSearchPuzzle {
-        let grid = rows.map { row in
-            let letters = row.uppercased().map { String($0) }
-            if letters.count == 7 {
-                return letters
-            }
-            if letters.count > 7 {
-                return Array(letters.prefix(7))
-            }
-            return letters + Array(repeating: "X", count: 7 - letters.count)
+    static func puzzle(at index: Int, gridSize: Int) -> WordSearchPuzzle {
+        let normalizedIndex = normalizedIndex(index)
+        let size = WordSearchDifficulty.clampGridSize(gridSize)
+        let themeWords = themes[normalizedIndex]
+        let seed = stableSeed(puzzleIndex: index, gridSize: size)
+        let selectedWords = selectWords(from: themeWords, gridSize: size, seed: seed)
+        let generated = WordSearchGenerator.generate(gridSize: size, words: selectedWords, seed: seed)
+        return generated
+    }
+
+    private static func selectWords(from pool: [String], gridSize: Int, seed: UInt64) -> [String] {
+        var filtered = pool
+            .map { $0.uppercased() }
+            .filter { $0.count >= 3 && $0.count <= gridSize }
+        if filtered.isEmpty {
+            filtered = ["SOL", "MAR", "RIO", "LUNA", "FLOR", "ROCA"]
         }
-        return WordSearchPuzzle(grid: grid, words: words.map { $0.uppercased() })
+
+        var rng = WordSearchGenerator.SeededGenerator(seed: seed ^ 0xA11CE5EED)
+        for index in stride(from: filtered.count - 1, through: 1, by: -1) {
+            let swapAt = rng.int(upperBound: index + 1)
+            if swapAt != index {
+                filtered.swapAt(index, swapAt)
+            }
+        }
+
+        let targetCount = min(filtered.count, max(7, 7 + (gridSize - 7) * 2))
+        return Array(filtered.prefix(targetCount))
+    }
+
+    private static func stableSeed(puzzleIndex: Int, gridSize: Int) -> UInt64 {
+        let a = UInt64(bitPattern: Int64(puzzleIndex))
+        let b = UInt64(gridSize) << 32
+        return (a &* 0x9E3779B185EBCA87) ^ b ^ 0xC0DEC0FFEE12345F
+    }
+}
+
+@available(iOS 17.0, *)
+enum WordSearchGenerator {
+    private static let directions: [(Int, Int)] = [
+        (0, 1), (1, 0), (1, 1), (1, -1),
+        (0, -1), (-1, 0), (-1, -1), (-1, 1)
+    ]
+    private static let alphabet: [String] = Array("ABCDEFGHIJKLMNOPQRSTUVWXYZ").map { String($0) }
+
+    struct SeededGenerator {
+        private var state: UInt64
+
+        init(seed: UInt64) {
+            state = seed == 0 ? 0x1234ABCD5678EF90 : seed
+        }
+
+        mutating func next() -> UInt64 {
+            state = state &* 6364136223846793005 &+ 1442695040888963407
+            return state
+        }
+
+        mutating func int(upperBound: Int) -> Int {
+            guard upperBound > 0 else { return 0 }
+            return Int(next() % UInt64(upperBound))
+        }
+    }
+
+    static func generate(gridSize: Int, words: [String], seed: UInt64) -> WordSearchPuzzle {
+        let size = WordSearchDifficulty.clampGridSize(gridSize)
+        let sortedWords = words
+            .map { $0.uppercased() }
+            .filter { !$0.isEmpty && $0.count <= size }
+            .sorted { $0.count > $1.count }
+
+        var fallback = makePuzzle(size: size, words: sortedWords, seed: seed, reduction: 0)
+        if fallback.words.count >= 4 {
+            return fallback
+        }
+
+        for reduction in [2, 4, 6] {
+            let reduced = Array(sortedWords.prefix(max(4, sortedWords.count - reduction)))
+            let attempt = makePuzzle(size: size, words: reduced, seed: seed, reduction: reduction)
+            if attempt.words.count > fallback.words.count {
+                fallback = attempt
+            }
+            if attempt.words.count >= max(4, reduced.count - 1) {
+                return attempt
+            }
+        }
+
+        return fallback
+    }
+
+    private static func makePuzzle(size: Int, words: [String], seed: UInt64, reduction: Int) -> WordSearchPuzzle {
+        var rng = SeededGenerator(seed: seed ^ UInt64(reduction) ^ 0xFEEDBEEF15)
+        var board = Array(repeating: Array(repeating: "", count: size), count: size)
+        var placedWords: [String] = []
+
+        for word in words {
+            if place(word: word, on: &board, size: size, rng: &rng) {
+                placedWords.append(word)
+            }
+        }
+
+        for row in 0..<size {
+            for col in 0..<size where board[row][col].isEmpty {
+                board[row][col] = alphabet[rng.int(upperBound: alphabet.count)]
+            }
+        }
+
+        return WordSearchPuzzle(grid: board, words: placedWords)
+    }
+
+    private static func place(word: String, on board: inout [[String]], size: Int, rng: inout SeededGenerator) -> Bool {
+        let letters = word.map { String($0) }
+        let count = letters.count
+        guard count > 1 else { return false }
+
+        for _ in 0..<300 {
+            let direction = directions[rng.int(upperBound: directions.count)]
+            let dr = direction.0
+            let dc = direction.1
+
+            let minRow = dr < 0 ? count - 1 : 0
+            let maxRow = dr > 0 ? size - count : size - 1
+            let minCol = dc < 0 ? count - 1 : 0
+            let maxCol = dc > 0 ? size - count : size - 1
+
+            if maxRow < minRow || maxCol < minCol {
+                continue
+            }
+
+            let startRow = minRow + rng.int(upperBound: maxRow - minRow + 1)
+            let startCol = minCol + rng.int(upperBound: maxCol - minCol + 1)
+
+            var canPlace = true
+            for index in 0..<count {
+                let r = startRow + index * dr
+                let c = startCol + index * dc
+                let existing = board[r][c]
+                if !existing.isEmpty && existing != letters[index] {
+                    canPlace = false
+                    break
+                }
+            }
+
+            if !canPlace {
+                continue
+            }
+
+            for index in 0..<count {
+                let r = startRow + index * dr
+                let c = startCol + index * dc
+                board[r][c] = letters[index]
+            }
+            return true
+        }
+
+        return false
     }
 }
 
@@ -249,18 +402,19 @@ enum WordSearchPuzzleBank {
 enum WordSearchPersistence {
     static func loadState(at now: Date = Date()) -> WordSearchState {
         guard let defaults = UserDefaults(suiteName: WordSearchConstants.suiteName) else {
-            return makeState(puzzleIndex: 0)
+            return makeState(puzzleIndex: 0, gridSize: WordSearchConstants.minGridSize)
         }
 
         migrateLegacyIfNeeded(defaults: defaults)
 
+        let preferredGridSize = WordSearchDifficulty.preferredGridSize(defaults: defaults)
         let decoded = decodeState(defaults: defaults)
-        var state = decoded ?? makeState(puzzleIndex: 0)
-        state = normalizedState(state)
+        var state = decoded ?? makeState(puzzleIndex: 0, gridSize: preferredGridSize)
+        state = normalizedState(state, preferredGridSize: preferredGridSize)
         let original = state
 
-        state = applyExternalResetIfNeeded(state: state, defaults: defaults)
-        state = applyDailyRotationIfNeeded(state: state, defaults: defaults, now: now)
+        state = applyExternalResetIfNeeded(state: state, defaults: defaults, preferredGridSize: preferredGridSize)
+        state = applyDailyRotationIfNeeded(state: state, defaults: defaults, now: now, preferredGridSize: preferredGridSize)
         state = WordSearchLogic.resolveExpiredFeedback(state: state, now: now)
 
         if decoded == nil || state != original {
@@ -302,12 +456,14 @@ enum WordSearchPersistence {
         return try? JSONDecoder().decode(WordSearchState.self, from: data)
     }
 
-    private static func makeState(puzzleIndex: Int) -> WordSearchState {
+    private static func makeState(puzzleIndex: Int, gridSize: Int) -> WordSearchState {
         let normalized = WordSearchPuzzleBank.normalizedIndex(puzzleIndex)
-        let puzzle = WordSearchPuzzleBank.puzzle(at: normalized)
+        let size = WordSearchDifficulty.clampGridSize(gridSize)
+        let puzzle = WordSearchPuzzleBank.puzzle(at: normalized, gridSize: size)
         return WordSearchState(
             grid: puzzle.grid,
             words: puzzle.words,
+            gridSize: size,
             anchor: nil,
             foundWords: [],
             solvedPositions: [],
@@ -319,14 +475,22 @@ enum WordSearchPersistence {
         )
     }
 
-    private static func normalizedState(_ state: WordSearchState) -> WordSearchState {
-        guard state.grid.count == 7, state.grid.allSatisfy({ $0.count == 7 }) else {
-            return makeState(puzzleIndex: state.puzzleIndex)
+    private static func normalizedState(_ state: WordSearchState, preferredGridSize: Int) -> WordSearchState {
+        let targetSize = WordSearchDifficulty.clampGridSize(preferredGridSize)
+        guard state.gridSize == targetSize else {
+            return makeState(puzzleIndex: state.puzzleIndex, gridSize: targetSize)
+        }
+        guard state.grid.count == targetSize, state.grid.allSatisfy({ $0.count == targetSize }) else {
+            return makeState(puzzleIndex: state.puzzleIndex, gridSize: targetSize)
         }
         return state
     }
 
-    private static func applyExternalResetIfNeeded(state: WordSearchState, defaults: UserDefaults) -> WordSearchState {
+    private static func applyExternalResetIfNeeded(
+        state: WordSearchState,
+        defaults: UserDefaults,
+        preferredGridSize: Int
+    ) -> WordSearchState {
         let requestToken = defaults.double(forKey: WordSearchConstants.resetRequestKey)
         let appliedToken = defaults.double(forKey: WordSearchConstants.lastAppliedResetKey)
         guard requestToken > appliedToken else {
@@ -334,14 +498,16 @@ enum WordSearchPersistence {
         }
 
         defaults.set(requestToken, forKey: WordSearchConstants.lastAppliedResetKey)
-        return clearedState(from: state)
+        return clearedState(from: state, preferredGridSize: preferredGridSize)
     }
 
-    private static func clearedState(from state: WordSearchState) -> WordSearchState {
-        let puzzle = WordSearchPuzzleBank.puzzle(at: state.puzzleIndex)
+    private static func clearedState(from state: WordSearchState, preferredGridSize: Int) -> WordSearchState {
+        let size = WordSearchDifficulty.clampGridSize(preferredGridSize)
+        let puzzle = WordSearchPuzzleBank.puzzle(at: state.puzzleIndex, gridSize: size)
         return WordSearchState(
             grid: puzzle.grid,
             words: puzzle.words,
+            gridSize: size,
             anchor: nil,
             foundWords: [],
             solvedPositions: [],
@@ -353,7 +519,12 @@ enum WordSearchPersistence {
         )
     }
 
-    private static func applyDailyRotationIfNeeded(state: WordSearchState, defaults: UserDefaults, now: Date) -> WordSearchState {
+    private static func applyDailyRotationIfNeeded(
+        state: WordSearchState,
+        defaults: UserDefaults,
+        now: Date,
+        preferredGridSize: Int
+    ) -> WordSearchState {
         let boundary = currentRotationBoundary(for: now)
         let boundaryTimestamp = boundary.timeIntervalSince1970
 
@@ -370,7 +541,7 @@ enum WordSearchPersistence {
         let steps = max(rotationSteps(from: previousBoundary, to: boundary), 1)
         let nextIndex = WordSearchPuzzleBank.normalizedIndex(state.puzzleIndex + steps)
         defaults.set(boundaryTimestamp, forKey: WordSearchConstants.rotationBoundaryKey)
-        return makeState(puzzleIndex: nextIndex)
+        return makeState(puzzleIndex: nextIndex, gridSize: preferredGridSize)
     }
 
     private static func rotationSteps(from previousBoundary: Date, to currentBoundary: Date) -> Int {
@@ -407,9 +578,11 @@ enum WordSearchPersistence {
         if let slotData = defaults.data(forKey: WordSearchConstants.legacySlotStateKeys[0]),
            let legacy = try? JSONDecoder().decode(LegacySlotState.self, from: slotData),
            let puzzle = makePuzzleFromLegacy(legacy.grid, words: legacy.words) {
+            let size = WordSearchDifficulty.clampGridSize(puzzle.grid.count)
             let migrated = WordSearchState(
                 grid: puzzle.grid,
                 words: puzzle.words,
+                gridSize: size,
                 anchor: nil,
                 foundWords: Set(legacy.foundWords.map { $0.uppercased() }),
                 solvedPositions: Set(legacy.solvedPositions.map { WordSearchPosition(r: $0.r, c: $0.c) }),
@@ -429,9 +602,11 @@ enum WordSearchPersistence {
         if let legacyData = defaults.data(forKey: WordSearchConstants.legacyStateKey),
            let legacy = try? JSONDecoder().decode(LegacyPuzzleStateV1.self, from: legacyData),
            let puzzle = makePuzzleFromLegacy(legacy.grid, words: legacy.words) {
+            let size = WordSearchDifficulty.clampGridSize(puzzle.grid.count)
             let migrated = WordSearchState(
                 grid: puzzle.grid,
                 words: puzzle.words,
+                gridSize: size,
                 anchor: nil,
                 foundWords: Set(legacy.foundWords.map { $0.uppercased() }),
                 solvedPositions: [],
@@ -455,12 +630,15 @@ enum WordSearchPersistence {
     }
 
     private static func makePuzzleFromLegacy(_ grid: [[String]], words: [String]) -> WordSearchPuzzle? {
-        guard grid.count == 7, grid.allSatisfy({ $0.count == 7 }) else {
-            return nil
-        }
+        guard !grid.isEmpty else { return nil }
+        let size = grid.count
+        guard grid.allSatisfy({ $0.count == size }) else { return nil }
+        let safeWords = words
+            .map { $0.uppercased() }
+            .filter { !$0.isEmpty && $0.count <= size }
         return WordSearchPuzzle(
             grid: grid.map { row in row.map { $0.uppercased() } },
-            words: words.map { $0.uppercased() }
+            words: safeWords
         )
     }
 }
@@ -499,13 +677,16 @@ enum WordSearchLogic {
 
         let linePath = path(from: anchor, to: tapped, in: next)
         if let linePath, let matchedWord = wordFromPath(state: next, path: linePath) {
+            let normalizedWord = matchedWord.uppercased()
+            next.foundWords.insert(normalizedWord)
+            next.solvedPositions.formUnion(linePath)
             next.feedback = WordSearchFeedback(
                 kind: .correct,
                 positions: linePath,
                 expiresAt: now.addingTimeInterval(0.33)
             )
-            next.pendingWord = matchedWord.uppercased()
-            next.pendingSolvedPositions = Set(linePath)
+            next.pendingWord = nil
+            next.pendingSolvedPositions.removeAll()
         } else {
             let preview = linePath ?? [anchor, tapped]
             next.feedback = WordSearchFeedback(
@@ -526,6 +707,7 @@ enum WordSearchLogic {
         guard now >= feedback.expiresAt else { return state }
 
         var next = state
+        // Backward compatibility for states saved before immediate-commit logic.
         if feedback.kind == .correct, let pendingWord = next.pendingWord?.uppercased() {
             next.foundWords.insert(pendingWord)
             next.solvedPositions.formUnion(next.pendingSolvedPositions)
