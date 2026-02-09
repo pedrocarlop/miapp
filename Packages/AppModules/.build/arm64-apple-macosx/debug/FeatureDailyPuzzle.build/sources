@@ -1,0 +1,11 @@
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/DI/DailyPuzzleContainer.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Data/Repositories/FeatureDailyPuzzleRepositoryMarker.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Domain/UseCases/FeatureDailyPuzzleUseCaseMarker.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Mappers/DailyPuzzleUIMapper.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/UIModels/DailyPuzzleUIModel.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleGameSessionViewModel.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeViewModel.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleDayCarouselView.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleRootView.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleWordsView.swift

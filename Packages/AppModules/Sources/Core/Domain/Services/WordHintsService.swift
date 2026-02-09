@@ -1,0 +1,108 @@
+import Foundation
+
+public enum WordHintsService {
+    public static func displayText(for word: String, mode: WordHintMode) -> String {
+        switch mode {
+        case .word:
+            return WordSearchNormalization.normalizedWord(word)
+        case .definition:
+            return definition(for: word) ?? "Sin definicion"
+        }
+    }
+
+    public static func definition(for word: String) -> String? {
+        definitions[WordSearchNormalization.normalizedWord(word)]
+    }
+
+    private static let definitions: [String: String] = [
+        "ARBOL": "Planta grande con tronco y ramas.",
+        "TIERRA": "Suelo donde crecen las plantas.",
+        "NUBE": "Masa de vapor de agua en el cielo.",
+        "MAR": "Gran extension de agua salada.",
+        "SOL": "Estrella que ilumina la Tierra.",
+        "RIO": "Corriente natural de agua.",
+        "FLOR": "Parte de la planta que produce semillas.",
+        "LUNA": "Satelite natural de la Tierra.",
+        "MONTE": "Elevacion natural del terreno.",
+        "VALLE": "Zona baja entre montes.",
+        "BOSQUE": "Conjunto denso de arboles.",
+        "RAMA": "Parte del arbol que sale del tronco.",
+        "ROCA": "Piedra grande y dura.",
+        "PLAYA": "Orilla de arena junto al mar.",
+        "NIEVE": "Agua congelada que cae del cielo.",
+        "VIENTO": "Movimiento del aire.",
+        "TRUENO": "Sonido fuerte tras un rayo.",
+        "FUEGO": "Combustion que produce calor y luz.",
+        "ARENA": "Granitos que forman playas o desiertos.",
+        "ISLA": "Tierra rodeada de agua.",
+        "CIELO": "Espacio visible sobre la Tierra.",
+        "SELVA": "Bosque tropical muy denso.",
+        "LLUVIA": "Agua que cae de las nubes.",
+        "CAMINO": "Via o senda para ir de un lugar a otro.",
+        "MUSGO": "Planta pequena que crece en lugares humedos.",
+        "LAGO": "Cuerpo de agua interior.",
+        "PRIMAVERA": "Estacion del anio entre invierno y verano.",
+        "HORIZONTE": "Linea donde parece unirse cielo y tierra.",
+        "ESTRELLA": "Cuerpo celeste que emite luz.",
+        "PLANETA": "Cuerpo que orbita una estrella.",
+        "QUESO": "Lacteo curado o fresco hecho de leche.",
+        "PAN": "Alimento horneado a base de harina.",
+        "MIEL": "Sustancia dulce producida por abejas.",
+        "LECHE": "Liquido blanco nutritivo de mamiferos.",
+        "UVA": "Fruto pequeno que crece en racimos.",
+        "PERA": "Fruta dulce de forma alargada.",
+        "CAFE": "Bebida hecha con granos tostados.",
+        "TOMATE": "Fruto rojo usado en ensaladas y salsas.",
+        "ACEITE": "Liquido graso usado para cocinar.",
+        "SAL": "Condimento mineral que realza el sabor.",
+        "PASTA": "Masa alimenticia de harina y agua.",
+        "ARROZ": "Cereal en grano muy usado en comidas.",
+        "PAPAYA": "Fruta tropical de pulpa naranja.",
+        "MANGO": "Fruta tropical dulce y jugosa.",
+        "BANANA": "Fruta alargada y amarilla.",
+        "NARANJA": "Fruta citrica redonda y dulce.",
+        "CEREZA": "Fruta pequena roja con hueso.",
+        "SOPA": "Comida liquida y caliente.",
+        "TORTILLA": "Preparacion de huevo o de masa de maiz.",
+        "GALLETA": "Dulce horneado y crujiente.",
+        "CHOCOLATE": "Dulce hecho con cacao.",
+        "YOGUR": "Lacteo fermentado y cremoso.",
+        "MANZANA": "Fruta redonda y crujiente.",
+        "AVENA": "Cereal usado en desayunos.",
+        "ENSALADA": "Mezcla de vegetales frescos.",
+        "PIMIENTO": "Hortaliza de piel lisa y colorida.",
+        "LIMON": "Fruta citrica muy acida.",
+        "COCO": "Fruto tropical con cascara dura.",
+        "ALMENDRA": "Semilla comestible con cascara dura.",
+        "ALBAHACA": "Hierba aromatica usada en cocina.",
+        "TREN": "Vehiculo que va sobre vias.",
+        "BUS": "Vehiculo grande para pasajeros.",
+        "CARRO": "Vehiculo de cuatro ruedas.",
+        "PUERTA": "Elemento que abre o cierra un paso.",
+        "LIBRO": "Conjunto de paginas encuadernadas.",
+        "CINE": "Lugar para ver peliculas.",
+        "PUENTE": "Estructura que cruza un rio o via.",
+        "CALLE": "Via urbana entre edificios.",
+        "METRO": "Transporte subterraneo en ciudades.",
+        "AVION": "Vehiculo que vuela.",
+        "BARRIO": "Zona de una ciudad con identidad propia.",
+        "PLAZA": "Espacio publico abierto en la ciudad.",
+        "PARQUE": "Area verde para ocio.",
+        "TORRE": "Construccion alta y estrecha.",
+        "MUSEO": "Lugar donde se exhibe arte o historia.",
+        "MAPA": "Representacion grafica de un lugar.",
+        "RUTA": "Camino planificado para ir a un destino.",
+        "BICICLETA": "Vehiculo de dos ruedas con pedales.",
+        "TRAFICO": "Circulacion de vehiculos.",
+        "SEMAFORO": "Senal luminosa para regular el paso.",
+        "ESTACION": "Lugar de salida y llegada de transporte.",
+        "AUTOPISTA": "Via rapida de varios carriles.",
+        "TAXI": "Vehiculo de servicio publico individual.",
+        "MOTOR": "Maquina que genera movimiento.",
+        "VIAJE": "Desplazamiento de un lugar a otro.",
+        "MOCHILA": "Bolso que se lleva en la espalda.",
+        "PASEO": "Actividad de caminar o recorrer.",
+        "CIUDAD": "Asentamiento grande y urbano.",
+        "CARTEL": "Placa o anuncio con informacion."
+    ]
+}

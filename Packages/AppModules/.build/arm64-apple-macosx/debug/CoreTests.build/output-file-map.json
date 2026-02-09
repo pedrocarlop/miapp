@@ -1,0 +1,19 @@
+{
+  "": {
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/master.swiftdeps"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DataLayerTests.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DomainRulesTests.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.dia"
+  }
+}

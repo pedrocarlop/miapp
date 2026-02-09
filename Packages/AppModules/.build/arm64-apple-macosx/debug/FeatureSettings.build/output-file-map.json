@@ -1,0 +1,54 @@
+{
+  "": {
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/master.swiftdeps"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/DI/SettingsContainer.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Data/Repositories/FeatureSettingsRepositoryMarker.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Domain/UseCases/FeatureSettingsUseCaseMarker.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/UIModels/SettingsUIModel.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/ViewModels/SettingsViewModel.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsPanelView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsSheetView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.dia"
+  }
+}

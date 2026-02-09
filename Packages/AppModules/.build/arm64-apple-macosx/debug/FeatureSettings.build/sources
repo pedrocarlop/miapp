@@ -1,0 +1,7 @@
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/DI/SettingsContainer.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Data/Repositories/FeatureSettingsRepositoryMarker.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Domain/UseCases/FeatureSettingsUseCaseMarker.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/UIModels/SettingsUIModel.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/ViewModels/SettingsViewModel.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsPanelView.swift
+/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsSheetView.swift

@@ -1,0 +1,145 @@
+{
+  "": {
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/master.swiftdeps"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Buttons/DSButton.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Cards/DSCard.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Feedback/DSFeedbackBanner.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Inputs/DSTextInput.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/DSChip.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/SharedWordSearchBoardView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Text/DSText.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Extensions/View+DSCardStyle.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Modifiers/DSSurfaceModifier.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/PreviewSupport/PreviewThemeProvider.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/Theme.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeEnvironment.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeProvider.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ColorTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/MotionTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/RadiusTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ShadowTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/SpacingTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/TypographyTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ZIndexTokens.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.dia"
+  }
+}

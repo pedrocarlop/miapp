@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/master.swiftdeps"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureSettingsTests/FeatureSettingsSmokeTests.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.dia"
+  }
+}

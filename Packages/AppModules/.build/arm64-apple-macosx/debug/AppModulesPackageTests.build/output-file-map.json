@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/master.swiftdeps"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.dia"
+  }
+}

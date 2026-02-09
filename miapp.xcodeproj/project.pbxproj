@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10000202F39A00000CB1506 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A10000102F39A00000CB1506 /* DesignSystem */; };
+		A10000212F39A00000CB1506 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = A10000112F39A00000CB1506 /* Core */; };
+		A10000222F39A00000CB1506 /* FeatureDailyPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = A10000122F39A00000CB1506 /* FeatureDailyPuzzle */; };
+		A10000232F39A00000CB1506 /* FeatureHistory in Frameworks */ = {isa = PBXBuildFile; productRef = A10000132F39A00000CB1506 /* FeatureHistory */; };
+		A10000242F39A00000CB1506 /* FeatureSettings in Frameworks */ = {isa = PBXBuildFile; productRef = A10000142F39A00000CB1506 /* FeatureSettings */; };
+		A10000252F39A00000CB1506 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = A10000112F39A00000CB1506 /* Core */; };
+		A10000262F39A00000CB1506 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = A10000102F39A00000CB1506 /* DesignSystem */; };
 		D90100082F38A17100CB1506 /* WordSearchWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = D90100012F38A17100CB1506 /* WordSearchWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -83,6 +90,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000212F39A00000CB1506 /* Core in Frameworks */,
+				A10000202F39A00000CB1506 /* DesignSystem in Frameworks */,
+				A10000222F39A00000CB1506 /* FeatureDailyPuzzle in Frameworks */,
+				A10000232F39A00000CB1506 /* FeatureHistory in Frameworks */,
+				A10000242F39A00000CB1506 /* FeatureSettings in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10000252F39A00000CB1506 /* Core in Frameworks */,
+				A10000262F39A00000CB1506 /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +168,11 @@
 			);
 			name = miapp;
 			packageProductDependencies = (
+				A10000102F39A00000CB1506 /* DesignSystem */,
+				A10000112F39A00000CB1506 /* Core */,
+				A10000122F39A00000CB1506 /* FeatureDailyPuzzle */,
+				A10000132F39A00000CB1506 /* FeatureHistory */,
+				A10000142F39A00000CB1506 /* FeatureSettings */,
 			);
 			productName = miapp;
 			productReference = D90088362F38A17100CB1506 /* miapp.app */;
@@ -222,6 +241,8 @@
 			);
 			name = WordSearchWidgetExtension;
 			packageProductDependencies = (
+				A10000112F39A00000CB1506 /* Core */,
+				A10000102F39A00000CB1506 /* DesignSystem */,
 			);
 			productName = WordSearchWidgetExtension;
 			productReference = D90100012F38A17100CB1506 /* WordSearchWidgetExtension.appex */;
@@ -262,6 +283,9 @@
 			);
 			mainGroup = D900882D2F38A17100CB1506;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D90088372F38A17100CB1506 /* Products */;
 			projectDirPath = "";
@@ -485,14 +509,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MM9BHDUA97;
 				ENABLE_PREVIEWS = YES;
-					GENERATE_INFOPLIST_FILE = YES;
-					INFOPLIST_KEY_CFBundleDisplayName = "sopa diaria";
-					INFOPLIST_KEY_UIAppFonts = (
-						"GreatVibes-Regular.ttf",
-					);
-					INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-					INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-					INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "sopa diaria";
+				INFOPLIST_KEY_UIAppFonts = (
+					"GreatVibes-Regular.ttf",
+					"InstrumentSerif-Regular.ttf",
+				);
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -522,14 +547,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MM9BHDUA97;
 				ENABLE_PREVIEWS = YES;
-					GENERATE_INFOPLIST_FILE = YES;
-					INFOPLIST_KEY_CFBundleDisplayName = "sopa diaria";
-					INFOPLIST_KEY_UIAppFonts = (
-						"GreatVibes-Regular.ttf",
-					);
-					INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-					INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-					INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "sopa diaria";
+				INFOPLIST_KEY_UIAppFonts = (
+					"GreatVibes-Regular.ttf",
+					"InstrumentSerif-Regular.ttf",
+				);
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -720,6 +746,41 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/AppModules;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A10000102F39A00000CB1506 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */;
+			productName = DesignSystem;
+		};
+		A10000112F39A00000CB1506 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */;
+			productName = Core;
+		};
+		A10000122F39A00000CB1506 /* FeatureDailyPuzzle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */;
+			productName = FeatureDailyPuzzle;
+		};
+		A10000132F39A00000CB1506 /* FeatureHistory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */;
+			productName = FeatureHistory;
+		};
+		A10000142F39A00000CB1506 /* FeatureSettings */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A10000012F39A00000CB1506 /* XCLocalSwiftPackageReference "Packages/AppModules" */;
+			productName = FeatureSettings;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D900882E2F38A17100CB1506 /* Project object */;
 }

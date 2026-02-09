@@ -1,0 +1,82 @@
+{
+  "": {
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/master.swiftdeps"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/DI/DailyPuzzleContainer.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Data/Repositories/FeatureDailyPuzzleRepositoryMarker.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Domain/UseCases/FeatureDailyPuzzleUseCaseMarker.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Mappers/DailyPuzzleUIMapper.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/UIModels/DailyPuzzleUIModel.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleGameSessionViewModel.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeViewModel.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleDayCarouselView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleRootView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.dia"
+  },
+  "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleWordsView.swift": {
+    "dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.d",
+    "object": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.swift.o",
+    "swiftmodule": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView~partial.swiftmodule",
+    "swift-dependencies": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.swiftdeps",
+    "diagnostics": "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.dia"
+  }
+}

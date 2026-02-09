@@ -1,0 +1,3242 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.xctest/Contents/MacOS/AppModulesPackageTests",
+      "packagePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules",
+      "productName" : "AppModulesPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.AppModulesPackageTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureSettingsTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureHistoryTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureDailyPuzzleTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/CoreTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "AppModulesPackageTests",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/AppModulesPackageTests.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/include/AppModulesPackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/AppModulesPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.Core-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/DI/CoreContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/DTOs/StateDTOs.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Mappers/StateMappers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Persistence/KeyValueStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalHintRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalProgressRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalPuzzleRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSettingsRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSharedPuzzleRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalStreakRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Entities/WordSearchEntities.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Errors/DomainError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/RepositoryProtocols/Repositories.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/PuzzleFactory.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SelectionValidationService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SharedPuzzleLogicService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordHintsService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordPathFinderService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/UseCases/WordSearchUseCases.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/AppProgressRecordKey.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/DailyRefreshClock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/Normalization.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/WordSearchConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "Core",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/CoreContainer.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/StateDTOs.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/StateMappers.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/KeyValueStore.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalHintRepository.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalProgressRepository.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalPuzzleRepository.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalSettingsRepository.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalSharedPuzzleRepository.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalStreakRepository.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchEntities.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/DomainError.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/Repositories.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/PuzzleFactory.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/SelectionValidationService.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/SharedPuzzleLogicService.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordHintsService.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordPathFinderService.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchUseCases.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/AppProgressRecordKey.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/DailyRefreshClock.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/Normalization.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchConfig.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/include/Core-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/CoreContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/StateDTOs.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/StateMappers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/KeyValueStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalHintRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalProgressRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalPuzzleRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalSettingsRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalSharedPuzzleRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalStreakRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchEntities.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/DomainError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/PuzzleFactory.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/SelectionValidationService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/SharedPuzzleLogicService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordHintsService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordPathFinderService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchUseCases.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/AppProgressRecordKey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/DailyRefreshClock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/Normalization.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/DI/CoreContainer.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/DTOs/StateDTOs.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Mappers/StateMappers.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Persistence/KeyValueStore.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalHintRepository.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalProgressRepository.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalPuzzleRepository.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSettingsRepository.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSharedPuzzleRepository.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalStreakRepository.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Entities/WordSearchEntities.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Errors/DomainError.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/RepositoryProtocols/Repositories.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/PuzzleFactory.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SelectionValidationService.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SharedPuzzleLogicService.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordHintsService.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordPathFinderService.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/UseCases/WordSearchUseCases.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/AppProgressRecordKey.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/DailyRefreshClock.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/Normalization.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/WordSearchConfig.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.CoreTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DataLayerTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DomainRulesTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "CoreTests",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/CoreTests.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/CoreTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DataLayerTests.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DomainRulesTests.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.DesignSystem-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Buttons/DSButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Cards/DSCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Feedback/DSFeedbackBanner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Inputs/DSTextInput.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/DSChip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/SharedWordSearchBoardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Text/DSText.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Extensions/View+DSCardStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Modifiers/DSSurfaceModifier.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/PreviewSupport/PreviewThemeProvider.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/Theme.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeEnvironment.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeProvider.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ColorTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/MotionTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/RadiusTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ShadowTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/SpacingTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/TypographyTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ZIndexTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "DesignSystem",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/DesignSystem.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/include/DesignSystem-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/DesignSystem.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Buttons/DSButton.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Cards/DSCard.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Feedback/DSFeedbackBanner.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Inputs/DSTextInput.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/DSChip.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/SharedWordSearchBoardView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Text/DSText.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Extensions/View+DSCardStyle.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Modifiers/DSSurfaceModifier.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/PreviewSupport/PreviewThemeProvider.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/Theme.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeEnvironment.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeProvider.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ColorTokens.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/MotionTokens.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/RadiusTokens.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ShadowTokens.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/SpacingTokens.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/TypographyTokens.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ZIndexTokens.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FeatureDailyPuzzle-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/DI/DailyPuzzleContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Data/Repositories/FeatureDailyPuzzleRepositoryMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Domain/UseCases/FeatureDailyPuzzleUseCaseMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Mappers/DailyPuzzleUIMapper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/UIModels/DailyPuzzleUIModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleGameSessionViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleDayCarouselView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleRootView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleWordsView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/DesignSystem.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FeatureDailyPuzzle",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureDailyPuzzle.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/include/FeatureDailyPuzzle-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureDailyPuzzle.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/DI/DailyPuzzleContainer.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Data/Repositories/FeatureDailyPuzzleRepositoryMarker.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Domain/UseCases/FeatureDailyPuzzleUseCaseMarker.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Mappers/DailyPuzzleUIMapper.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/UIModels/DailyPuzzleUIModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleGameSessionViewModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeViewModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleDayCarouselView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleRootView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleWordsView.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FeatureDailyPuzzleTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/DailyPuzzleGameSessionViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/FeatureDailyPuzzleSmokeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureDailyPuzzle.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FeatureDailyPuzzleTests",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureDailyPuzzleTests.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/DailyPuzzleGameSessionViewModelTests.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/FeatureDailyPuzzleSmokeTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/DailyPuzzleGameSessionViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/FeatureDailyPuzzleSmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureDailyPuzzleTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/DailyPuzzleGameSessionViewModelTests.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/FeatureDailyPuzzleSmokeTests.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FeatureHistory-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/DI/HistoryContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Data/Repositories/FeatureHistoryRepositoryMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Domain/UseCases/FeatureHistoryUseCaseMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/UIModels/HistorySummaryUIModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/ViewModels/HistorySummaryViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryCounterInfoSheetView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryNavCounterView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistorySummaryView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/DesignSystem.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FeatureHistory",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureHistory.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryContainer.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/FeatureHistoryRepositoryMarker.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/FeatureHistoryUseCaseMarker.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryUIModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryViewModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryCounterInfoSheetView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryNavCounterView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/include/FeatureHistory-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/FeatureHistoryRepositoryMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/FeatureHistoryUseCaseMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryUIModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryCounterInfoSheetView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryNavCounterView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureHistory.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/DI/HistoryContainer.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Data/Repositories/FeatureHistoryRepositoryMarker.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Domain/UseCases/FeatureHistoryUseCaseMarker.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/UIModels/HistorySummaryUIModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/ViewModels/HistorySummaryViewModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryCounterInfoSheetView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryNavCounterView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistorySummaryView.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FeatureHistoryTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureHistoryTests/FeatureHistorySmokeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureHistory.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FeatureHistoryTests",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureHistoryTests.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/FeatureHistorySmokeTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/FeatureHistorySmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureHistoryTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureHistoryTests/FeatureHistorySmokeTests.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FeatureSettings-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/DI/SettingsContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Data/Repositories/FeatureSettingsRepositoryMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Domain/UseCases/FeatureSettingsUseCaseMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/UIModels/SettingsUIModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/ViewModels/SettingsViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsPanelView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsSheetView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/Core.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/DesignSystem.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FeatureSettings",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureSettings.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.swift.o",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/include/FeatureSettings-Swift.h",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureSettings.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/DI/SettingsContainer.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Data/Repositories/FeatureSettingsRepositoryMarker.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Domain/UseCases/FeatureSettingsUseCaseMarker.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/UIModels/SettingsUIModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/ViewModels/SettingsViewModel.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsPanelView.swift",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsSheetView.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FeatureSettingsTests-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/sources",
+      "importPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureSettingsTests/FeatureSettingsSmokeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureSettings.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FeatureSettingsTests",
+      "moduleOutputPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureSettingsTests.swiftmodule",
+      "objects" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j8",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "5",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "appmodules"
+      ],
+      "outputFileMapPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules/FeatureSettingsTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureSettingsTests/FeatureSettingsSmokeTests.swift"
+      ],
+      "tempsPath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "AppModulesPackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "AppModulesPackageTests",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/include/AppModulesPackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "Core" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "Core",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/DI/CoreContainer.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/DTOs/StateDTOs.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Mappers/StateMappers.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Persistence/KeyValueStore.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalHintRepository.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalProgressRepository.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalPuzzleRepository.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSettingsRepository.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSharedPuzzleRepository.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalStreakRepository.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Entities/WordSearchEntities.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Errors/DomainError.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/RepositoryProtocols/Repositories.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/PuzzleFactory.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SelectionValidationService.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SharedPuzzleLogicService.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordHintsService.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordPathFinderService.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/UseCases/WordSearchUseCases.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/AppProgressRecordKey.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/DailyRefreshClock.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/Normalization.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/WordSearchConfig.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/include/Core-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "CoreTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "CoreTests",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DataLayerTests.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DomainRulesTests.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "DesignSystem" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "DesignSystem",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Buttons/DSButton.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Cards/DSCard.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Feedback/DSFeedbackBanner.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Inputs/DSTextInput.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/DSChip.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/SharedWordSearchBoardView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Text/DSText.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Extensions/View+DSCardStyle.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Modifiers/DSSurfaceModifier.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/PreviewSupport/PreviewThemeProvider.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/Theme.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeEnvironment.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeProvider.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ColorTokens.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/MotionTokens.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/RadiusTokens.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ShadowTokens.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/SpacingTokens.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/TypographyTokens.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ZIndexTokens.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/include/DesignSystem-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FeatureDailyPuzzle" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FeatureDailyPuzzle",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/DI/DailyPuzzleContainer.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Data/Repositories/FeatureDailyPuzzleRepositoryMarker.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Domain/UseCases/FeatureDailyPuzzleUseCaseMarker.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Mappers/DailyPuzzleUIMapper.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/UIModels/DailyPuzzleUIModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleGameSessionViewModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeViewModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleDayCarouselView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleRootView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleWordsView.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/include/FeatureDailyPuzzle-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FeatureDailyPuzzleTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FeatureDailyPuzzleTests",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/DailyPuzzleGameSessionViewModelTests.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/FeatureDailyPuzzleSmokeTests.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FeatureHistory" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FeatureHistory",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/DI/HistoryContainer.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Data/Repositories/FeatureHistoryRepositoryMarker.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Domain/UseCases/FeatureHistoryUseCaseMarker.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/UIModels/HistorySummaryUIModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/ViewModels/HistorySummaryViewModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryCounterInfoSheetView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryNavCounterView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistorySummaryView.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/include/FeatureHistory-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FeatureHistoryTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FeatureHistoryTests",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureHistoryTests/FeatureHistorySmokeTests.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FeatureSettings" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FeatureSettings",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/DI/SettingsContainer.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Data/Repositories/FeatureSettingsRepositoryMarker.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Domain/UseCases/FeatureSettingsUseCaseMarker.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/UIModels/SettingsUIModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/ViewModels/SettingsViewModel.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsPanelView.swift",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsSheetView.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/include/FeatureSettings-Swift.h",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "FeatureSettingsTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "FeatureSettingsTests",
+      "-package-name",
+      "appmodules",
+      "-c",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureSettingsTests/FeatureSettingsSmokeTests.swift",
+      "-I",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j8",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "5",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.2.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "appmodules",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "AppModulesPackageTests" : [
+      "CoreTests",
+      "FeatureDailyPuzzleTests",
+      "FeatureDailyPuzzle",
+      "FeatureHistoryTests",
+      "FeatureHistory",
+      "FeatureSettingsTests",
+      "FeatureSettings",
+      "DesignSystem",
+      "Core"
+    ],
+    "Core" : [
+
+    ],
+    "CoreTests" : [
+      "Core"
+    ],
+    "DesignSystem" : [
+
+    ],
+    "FeatureDailyPuzzle" : [
+      "DesignSystem",
+      "Core"
+    ],
+    "FeatureDailyPuzzleTests" : [
+      "FeatureDailyPuzzle",
+      "DesignSystem",
+      "Core"
+    ],
+    "FeatureHistory" : [
+      "DesignSystem",
+      "Core"
+    ],
+    "FeatureHistoryTests" : [
+      "FeatureHistory",
+      "DesignSystem",
+      "Core"
+    ],
+    "FeatureSettings" : [
+      "DesignSystem",
+      "Core"
+    ],
+    "FeatureSettingsTests" : [
+      "FeatureSettings",
+      "DesignSystem",
+      "Core"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/AppProgressRecordKey.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/CoreContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/DailyRefreshClock.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/DomainError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/KeyValueStore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalHintRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalProgressRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalPuzzleRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalSettingsRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalSharedPuzzleRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/LocalStreakRepository.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/Normalization.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/PuzzleFactory.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/Repositories.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/SelectionValidationService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/SharedPuzzleLogicService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/StateDTOs.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/StateMappers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordHintsService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordPathFinderService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchEntities.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/WordSearchUseCases.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DataLayerTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/DomainRulesTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ColorTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSButton.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSCard.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSChip.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSFeedbackBanner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSSurfaceModifier.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSText.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/DSTextInput.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/MotionTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/PreviewThemeProvider.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/RadiusTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ShadowTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SharedWordSearchBoardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/SpacingTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/Theme.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeEnvironment.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ThemeProvider.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/TypographyTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/View+DSCardStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/ZIndexTokens.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleChallengeCardView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleDayCarouselView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleGameSessionViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleHomeViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleRootView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIMapper.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleUIModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/DailyPuzzleWordsView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleRepositoryMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/FeatureDailyPuzzleUseCaseMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/DailyPuzzleGameSessionViewModelTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/FeatureDailyPuzzleSmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/FeatureHistoryRepositoryMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/FeatureHistoryUseCaseMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryCounterInfoSheetView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistoryNavCounterView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryUIModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/HistorySummaryViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/FeatureHistorySmokeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsRepositoryMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/FeatureSettingsUseCaseMarker.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsContainer.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsPanelView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsSheetView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsUIModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/SettingsViewModel.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/FeatureSettingsSmokeTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/AppModulesPackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/DI/CoreContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/DTOs/StateDTOs.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Mappers/StateMappers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Persistence/KeyValueStore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalHintRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalProgressRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalPuzzleRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSettingsRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSharedPuzzleRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalStreakRepository.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Entities/WordSearchEntities.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Errors/DomainError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/RepositoryProtocols/Repositories.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/PuzzleFactory.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SelectionValidationService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SharedPuzzleLogicService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordHintsService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordPathFinderService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/UseCases/WordSearchUseCases.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/AppProgressRecordKey.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/DailyRefreshClock.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/Normalization.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/WordSearchConfig.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/Core.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DataLayerTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DomainRulesTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/CoreTests.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Buttons/DSButton.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Cards/DSCard.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Feedback/DSFeedbackBanner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Inputs/DSTextInput.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/DSChip.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Layout/SharedWordSearchBoardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Components/Text/DSText.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Extensions/View+DSCardStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Modifiers/DSSurfaceModifier.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/PreviewSupport/PreviewThemeProvider.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/Theme.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeEnvironment.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Theme/ThemeProvider.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ColorTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/MotionTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/RadiusTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ShadowTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/SpacingTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/TypographyTokens.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/DesignSystem/Tokens/ZIndexTokens.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/DesignSystem.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/DI/DailyPuzzleContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Data/Repositories/FeatureDailyPuzzleRepositoryMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Domain/UseCases/FeatureDailyPuzzleUseCaseMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Mappers/DailyPuzzleUIMapper.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/UIModels/DailyPuzzleUIModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleGameSessionViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleDayCarouselView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleRootView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleWordsView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzle.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/DailyPuzzleGameSessionViewModelTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/FeatureDailyPuzzleSmokeTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureDailyPuzzleTests.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/DI/HistoryContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Data/Repositories/FeatureHistoryRepositoryMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Domain/UseCases/FeatureHistoryUseCaseMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/UIModels/HistorySummaryUIModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/ViewModels/HistorySummaryViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryCounterInfoSheetView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistoryNavCounterView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureHistory/Presentation/Views/HistorySummaryView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistory.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureHistoryTests/FeatureHistorySmokeTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureHistoryTests.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/DI/SettingsContainer.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Data/Repositories/FeatureSettingsRepositoryMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Domain/UseCases/FeatureSettingsUseCaseMarker.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/UIModels/SettingsUIModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/ViewModels/SettingsViewModel.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsPanelView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureSettings/Presentation/Views/SettingsSheetView.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettings.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureSettingsTests/FeatureSettingsSmokeTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/FeatureSettingsTests.build/sources"
+    },
+    "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}
