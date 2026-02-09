@@ -8,6 +8,62 @@ import SwiftUI
 import AppIntents
 
 @available(iOS 17.0, *)
+private enum WordSearchWidgetColorTokens {
+    static func widgetBackground(for colorScheme: ColorScheme) -> LinearGradient {
+        if colorScheme == .dark {
+            return LinearGradient(
+                colors: [
+                    Color(.secondarySystemBackground),
+                    Color(.tertiarySystemBackground)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+        }
+        return LinearGradient(
+            colors: [
+                Color(.systemGray6),
+                Color(.secondarySystemBackground)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+
+    static func lineColor(isDark: Bool) -> Color {
+        isDark ? Color.secondary.opacity(0.34) : Color.secondary.opacity(0.24)
+    }
+
+    static func solvedWordBorder(isDark: Bool) -> Color {
+        Color.accentColor.opacity(isDark ? 0.94 : 0.84)
+    }
+
+    static func boardFill(isDark: Bool) -> Color {
+        Color(.secondarySystemBackground).opacity(isDark ? 0.30 : 0.55)
+    }
+
+    static func boardStroke(isDark: Bool) -> Color {
+        Color.primary.opacity(isDark ? 0.24 : 0.18)
+    }
+
+    static func letterColor(isDark: Bool) -> Color {
+        isDark ? Color.primary.opacity(0.94) : Color.primary
+    }
+
+    static func hintBlockingOverlay(isDark: Bool) -> Color {
+        Color(.secondarySystemFill).opacity(isDark ? 0.55 : 0.35)
+    }
+
+    static let hintCTA = Color.accentColor
+    static let hintPanelStroke = Color.primary.opacity(0.25)
+    static let completionOverlay = Color(.secondarySystemFill).opacity(0.45)
+    static let anchorBorderDark = Color.primary.opacity(0.62)
+    static let anchorBorderLight = Color.secondary.opacity(0.75)
+    static let feedbackCorrect = Color(.systemGreen)
+    static let feedbackIncorrect = Color(.systemRed)
+}
+
+@available(iOS 17.0, *)
 private enum WordSearchWidgetAppearanceMode: String {
     case system
     case light
@@ -69,24 +125,7 @@ struct WordSearchWidgetEntryView: View {
     }
 
     private var widgetBackground: LinearGradient {
-        if effectiveColorScheme == .dark {
-            return LinearGradient(
-                colors: [
-                    Color(red: 0.10, green: 0.11, blue: 0.14),
-                    Color(red: 0.12, green: 0.14, blue: 0.19)
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        }
-        return LinearGradient(
-            colors: [
-                Color(.systemGray6),
-                Color(.secondarySystemBackground)
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
+        WordSearchWidgetColorTokens.widgetBackground(for: effectiveColorScheme)
     }
 
     var body: some View {
@@ -113,11 +152,11 @@ private struct WordSearchGridWidget: View {
     private var rows: Int { state.grid.count }
     private var cols: Int { state.grid.first?.count ?? 0 }
     private var isDark: Bool { colorScheme == .dark }
-    private var lineColor: Color { isDark ? Color.white.opacity(0.18) : Color.gray.opacity(0.24) }
-    private var solvedWordBorder: Color { isDark ? Color.blue.opacity(0.94) : Color.blue.opacity(0.84) }
-    private var boardFill: Color { isDark ? Color.white.opacity(0.08) : Color.white.opacity(0.25) }
-    private var boardStroke: Color { isDark ? Color.white.opacity(0.20) : Color.white.opacity(0.35) }
-    private var letterColor: Color { isDark ? Color.white.opacity(0.94) : Color.primary }
+    private var lineColor: Color { WordSearchWidgetColorTokens.lineColor(isDark: isDark) }
+    private var solvedWordBorder: Color { WordSearchWidgetColorTokens.solvedWordBorder(isDark: isDark) }
+    private var boardFill: Color { WordSearchWidgetColorTokens.boardFill(isDark: isDark) }
+    private var boardStroke: Color { WordSearchWidgetColorTokens.boardStroke(isDark: isDark) }
+    private var letterColor: Color { WordSearchWidgetColorTokens.letterColor(isDark: isDark) }
     private var hintMode: WordSearchHintMode {
         WordSearchHintMode.current(defaults: UserDefaults(suiteName: WordSearchConstants.suiteName))
     }
@@ -152,8 +191,7 @@ private struct WordSearchGridWidget: View {
                     .allowsHitTesting(!isHintBlocking)
 
                 if isHintBlocking {
-                    Color.black
-                        .opacity(isDark ? 0.28 : 0.18)
+                    WordSearchWidgetColorTokens.hintBlockingOverlay(isDark: isDark)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .contentShape(Rectangle())
                 }
@@ -247,7 +285,7 @@ private struct WordSearchGridWidget: View {
                         .padding(.vertical, 6)
                         .background(
                             Capsule()
-                                .fill(Color.blue.opacity(isDark ? 0.35 : 0.22))
+                                .fill(WordSearchWidgetColorTokens.hintCTA.opacity(isDark ? 0.35 : 0.22))
                         )
                 }
                 .buttonStyle(.plain)
@@ -257,7 +295,7 @@ private struct WordSearchGridWidget: View {
             .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.white.opacity(isDark ? 0.25 : 0.4), lineWidth: 0.8)
+                    .stroke(WordSearchWidgetColorTokens.hintPanelStroke.opacity(isDark ? 0.35 : 1), lineWidth: 0.8)
             )
             .allowsHitTesting(true)
         }
@@ -265,7 +303,7 @@ private struct WordSearchGridWidget: View {
 
     private var completionOverlay: some View {
         ZStack {
-            Color.black.opacity(0.16)
+            WordSearchWidgetColorTokens.completionOverlay
                 .ignoresSafeArea()
 
             VStack(spacing: 6) {
@@ -293,7 +331,7 @@ private struct WordSearchGridWidget: View {
 
     private func cellBorderColor(for position: WordSearchPosition) -> Color {
         if state.anchor == position {
-            return isDark ? Color.white.opacity(0.62) : Color.gray.opacity(0.75)
+            return isDark ? WordSearchWidgetColorTokens.anchorBorderDark : WordSearchWidgetColorTokens.anchorBorderLight
         }
         return .clear
     }
@@ -315,7 +353,9 @@ private struct WordSearchGridWidget: View {
            let last = feedback.positions.last {
             let capsuleHeight = cellSize * 0.82
             let lineWidth = max(1.8, min(3.6, cellSize * 0.12))
-            let color = feedback.kind == .correct ? Color.green : Color.red
+            let color = feedback.kind == .correct
+                ? WordSearchWidgetColorTokens.feedbackCorrect
+                : WordSearchWidgetColorTokens.feedbackIncorrect
             StretchingCapsule(
                 start: center(for: first, cellSize: cellSize),
                 end: center(for: last, cellSize: cellSize),

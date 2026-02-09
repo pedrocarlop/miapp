@@ -15,6 +15,159 @@ private struct HostPresentedGame: Identifiable, Equatable {
     let id: Int
 }
 
+private enum HostAccentPalette {
+    private static func adaptiveColor(light: UIColor, dark: UIColor) -> Color {
+        Color(
+            UIColor { trait in
+                trait.userInterfaceStyle == .dark ? dark : light
+            }
+        )
+    }
+
+    static let completedOrangeGradient = LinearGradient(
+        colors: [
+            adaptiveColor(
+                light: UIColor(red: 1.0, green: 0.62, blue: 0.22, alpha: 1),
+                dark: UIColor(red: 0.94, green: 0.52, blue: 0.16, alpha: 1)
+            ),
+            adaptiveColor(
+                light: UIColor(red: 0.98, green: 0.44, blue: 0.13, alpha: 1),
+                dark: UIColor(red: 0.80, green: 0.34, blue: 0.10, alpha: 1)
+            )
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+
+    static let streakBlueGradient = LinearGradient(
+        colors: [
+            adaptiveColor(
+                light: UIColor(red: 0.22, green: 0.55, blue: 1.0, alpha: 1),
+                dark: UIColor(red: 0.36, green: 0.64, blue: 1.0, alpha: 1)
+            ),
+            adaptiveColor(
+                light: UIColor(red: 0.12, green: 0.34, blue: 0.92, alpha: 1),
+                dark: UIColor(red: 0.22, green: 0.46, blue: 0.96, alpha: 1)
+            )
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+}
+
+private enum HostSemanticColors {
+    static let appBackground = Color(.systemGroupedBackground)
+    static let surfacePrimary = Color(.systemBackground)
+    static let surfaceSecondary = Color(.secondarySystemBackground)
+    static let surfaceTertiary = Color(.tertiarySystemBackground)
+
+    static let boardBackground = surfacePrimary
+    static let boardCellBackground = surfaceSecondary
+    static let boardGridStroke = Color.secondary.opacity(0.18)
+    static let boardOuterStroke = Color.primary.opacity(0.45)
+
+    static let cardInnerStroke = surfacePrimary
+    static let cardOuterStroke = Color.secondary.opacity(0.14)
+    static let cardShadow = Color(.separator).opacity(0.35)
+
+    static let stateBadgeBackground = surfacePrimary.opacity(0.72)
+
+    static let carouselItemBackground = surfaceSecondary
+    static let carouselBorderSelected = Color.primary.opacity(0.70)
+    static let carouselBorderIdle = Color.secondary.opacity(0.22)
+    static let progressTrack = Color.secondary.opacity(0.26)
+
+    static let foundOutlineStroke = Color.primary.opacity(0.82)
+    static let feedbackCorrect = Color(.systemGreen)
+    static let feedbackIncorrect = Color(.systemRed)
+    static let celebrationStroke = Color(.systemGreen).opacity(0.85)
+    static let celebrationGlow = Color(.systemGreen).opacity(0.55)
+
+    static let completionBackdropDim = Color.primary.opacity(0.12)
+    static let completionBackdropSurface = surfacePrimary.opacity(0.88)
+    static let completionToastSurface = surfaceSecondary
+    static let completionToastStroke = Color.primary.opacity(0.24)
+    static let completionCheckmark = Color.primary
+    static let completionToastShadow = Color(.separator).opacity(0.42)
+
+    static let settingsIcon = Color.primary
+
+    static let wordChipNeutralFill = surfaceTertiary
+    static let wordChipStroke = Color.primary.opacity(0.35)
+    static let wordChipFoundText = Color.primary
+    static let wordChipFoundDecoration = Color.primary.opacity(0.8)
+    static let wordChipFoundIcon = Color.primary
+
+    static let scrollFadeBase = appBackground
+    static let scrollFadeGradient = LinearGradient(
+        gradient: Gradient(stops: [
+            .init(color: scrollFadeBase, location: 0.0),
+            .init(color: scrollFadeBase.opacity(0.62), location: 0.48),
+            .init(color: scrollFadeBase.opacity(0.0), location: 1.0)
+        ]),
+        startPoint: .top,
+        endPoint: .bottom
+    )
+    static let gameOverlayBackground = surfacePrimary
+}
+
+private enum HomeCounterInfo: String, Identifiable {
+    case completedPuzzles
+    case streak
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .completedPuzzles:
+            return "Puzzles completados"
+        case .streak:
+            return "Racha actual"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .completedPuzzles:
+            return "checkmark.seal.fill"
+        case .streak:
+            return "flame.fill"
+        }
+    }
+
+    var iconGradient: LinearGradient {
+        switch self {
+        case .completedPuzzles:
+            return HostAccentPalette.streakBlueGradient
+        case .streak:
+            return HostAccentPalette.completedOrangeGradient
+        }
+    }
+
+    var explanation: String {
+        switch self {
+        case .completedPuzzles:
+            return "Muestra cuántos retos diarios has terminado en total desde que instalaste la app."
+        case .streak:
+            return "Cuenta los días seguidos en los que completas el reto del día actual. Si un día no lo completas, la racha se reinicia."
+        }
+    }
+}
+
+private enum HomePresentedSheet: Identifiable {
+    case settings
+    case counter(HomeCounterInfo)
+
+    var id: String {
+        switch self {
+        case .settings:
+            return "settings"
+        case .counter(let info):
+            return "counter-\(info.id)"
+        }
+    }
+}
+
 private enum HostGlassRole {
     case chip
     case control
@@ -46,15 +199,15 @@ private enum HostDesignTokens {
     static func fallbackColor(for role: HostGlassRole) -> Color {
         switch role {
         case .chip:
-            return Color(.secondarySystemBackground)
+            return HostSemanticColors.surfaceSecondary
         case .control:
-            return Color(.secondarySystemBackground)
+            return HostSemanticColors.surfaceSecondary
         case .panel:
-            return Color(.systemBackground)
+            return HostSemanticColors.surfacePrimary
         case .loupe:
-            return Color(.tertiarySystemBackground)
+            return HostSemanticColors.surfaceTertiary
         case .banner:
-            return Color(.secondarySystemBackground)
+            return HostSemanticColors.surfaceSecondary
         }
     }
 
@@ -70,9 +223,76 @@ private enum HostDesignTokens {
     }
 }
 
+private enum HostWordGradientPalette {
+    private static let goldenStep = 0.61803398875
+
+    private static func adaptiveHSB(
+        hue: Double,
+        saturationLight: Double,
+        saturationDark: Double,
+        brightnessLight: Double,
+        brightnessDark: Double
+    ) -> Color {
+        Color(
+            UIColor { trait in
+                let isDark = trait.userInterfaceStyle == .dark
+                return UIColor(
+                    hue: CGFloat(hue),
+                    saturation: CGFloat(isDark ? saturationDark : saturationLight),
+                    brightness: CGFloat(isDark ? brightnessDark : brightnessLight),
+                    alpha: 1
+                )
+            }
+        )
+    }
+
+    static func gradient(for word: String, seed: Int) -> LinearGradient {
+        let normalizedSeed = max(seed, 0)
+        let seedHue = (Double(normalizedSeed) * goldenStep).truncatingRemainder(dividingBy: 1)
+        let hash = stableHash(word.uppercased())
+        let jitter = Double((hash >> 8) % 12) / 260.0
+        let hueA = (seedHue + jitter).truncatingRemainder(dividingBy: 1)
+        let hueB = (hueA + 0.10 + Double(hash % 10) / 220.0).truncatingRemainder(dividingBy: 1)
+        let saturationALight = 0.28 + Double((hash / 97) % 10) / 100.0
+        let saturationBLight = 0.22 + Double((hash / 193) % 10) / 100.0
+        let saturationADark = min(1.0, saturationALight + 0.16)
+        let saturationBDark = min(1.0, saturationBLight + 0.16)
+
+        return LinearGradient(
+            colors: [
+                adaptiveHSB(
+                    hue: hueA,
+                    saturationLight: saturationALight,
+                    saturationDark: saturationADark,
+                    brightnessLight: 0.99,
+                    brightnessDark: 0.82
+                ),
+                adaptiveHSB(
+                    hue: hueB,
+                    saturationLight: saturationBLight,
+                    saturationDark: saturationBDark,
+                    brightnessLight: 0.94,
+                    brightnessDark: 0.72
+                )
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
+
+    private static func stableHash(_ text: String) -> UInt64 {
+        var hash: UInt64 = 1_469_598_103_934_665_603
+        for byte in text.utf8 {
+            hash ^= UInt64(byte)
+            hash &*= 1_099_511_628_211
+        }
+        return hash
+    }
+}
+
 private struct SoftGlowBackground: View {
     var body: some View {
-        Color(.systemGroupedBackground)
+        HostSemanticColors.appBackground
         .ignoresSafeArea()
     }
 }
@@ -192,26 +412,58 @@ private struct GlassBanner: View {
 private struct HomeNavCounter: View {
     let value: Int
     let systemImage: String
-    let tint: Color
+    let iconGradient: LinearGradient
     let accessibilityLabel: String
+    let accessibilityHint: String
+    let action: () -> Void
 
     var body: some View {
-        HStack(spacing: 4) {
-            Image(systemName: systemImage)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(tint)
-            Text("\(value)")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(.primary)
+        Button(action: action) {
+            HStack(spacing: 4) {
+                Image(systemName: systemImage)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(iconGradient)
+                Text("\(value)")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.primary)
+            }
         }
+        .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityLabel)
+        .accessibilityHint(accessibilityHint)
+    }
+}
+
+private struct HomeCounterInfoSheet: View {
+    let info: HomeCounterInfo
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Image(systemName: info.systemImage)
+                .font(.title2.weight(.semibold))
+                .foregroundStyle(info.iconGradient)
+
+            Text(info.title)
+                .font(.system(size: 24, weight: .semibold))
+                .multilineTextAlignment(.center)
+
+            Text(info.explanation)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Spacer(minLength: 0)
+        }
+        .padding(20)
+        .frame(maxWidth: .infinity, alignment: .center)
+        .presentationDetents([.height(220), .medium])
+        .presentationDragIndicator(.visible)
     }
 }
 
 private struct DailyChallengeCard: View {
-    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
-
     let date: Date
     let puzzle: HostPuzzle
     let progress: HostPuzzleProgress
@@ -221,8 +473,28 @@ private struct DailyChallengeCard: View {
     let onPlay: () -> Void
 
     private var totalWords: Int { puzzle.words.count }
+    private var completedWordsCount: Int {
+        min(progress.foundWords.count, totalWords)
+    }
     private var isCompleted: Bool {
-        totalWords > 0 && progress.foundWords.count >= totalWords
+        totalWords > 0 && completedWordsCount >= totalWords
+    }
+    private var shouldDimPreview: Bool { isCompleted || isLocked }
+    private var previewBlurRadius: CGFloat {
+        if isCompleted || isLocked { return 3 }
+        return 0
+    }
+    private var previewOpacity: Double {
+        shouldDimPreview ? 0.72 : 1
+    }
+    private var statusLabel: String {
+        if isLocked {
+            return lockMessage
+        }
+        if isCompleted {
+            return "Completado"
+        }
+        return "\(completedWordsCount) de \(totalWords) completadas"
     }
 
     var body: some View {
@@ -235,13 +507,13 @@ private struct DailyChallengeCard: View {
                 VStack(spacing: 14) {
                     VStack(spacing: -4) {
                         Text(HostDateFormatter.weekdayName(for: date).capitalized)
-                            .font(.system(size: 54, weight: .semibold, design: .default))
+                            .font(.system(size: 32, weight: .semibold, design: .default))
                             .foregroundStyle(.secondary)
                             .lineLimit(1)
                             .minimumScaleFactor(0.45)
 
                         Text(HostDateFormatter.monthDayCompact(for: date))
-                            .font(.system(size: 68, weight: .semibold, design: .default))
+                            .font(.system(size: 84, weight: .semibold, design: .default))
                             .foregroundStyle(.primary)
                             .lineLimit(1)
                             .minimumScaleFactor(0.45)
@@ -257,36 +529,30 @@ private struct DailyChallengeCard: View {
                             sideLength: gridSide
                         )
                         .frame(width: gridSide, height: gridSide)
-                        .blur(radius: isCompleted ? 4 : 0)
-                        .overlay {
-                            if isCompleted {
-                                let previewShape = RoundedRectangle(cornerRadius: 18, style: .continuous)
-
+                        .saturation(shouldDimPreview ? 0.22 : 1)
+                        .opacity(previewOpacity)
+                        .blur(radius: previewBlurRadius)
+                        .overlay(alignment: .center) {
+                            if isLocked {
                                 ZStack {
-                                    previewShape
-                                        .fill(
-                                            reduceTransparency
-                                            ? AnyShapeStyle(Color.white.opacity(0.88))
-                                            : AnyShapeStyle(.ultraThinMaterial)
-                                        )
-
-                                    previewShape
-                                        .fill(Color.white.opacity(0.24))
-
-                                    VStack(spacing: 8) {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .font(.system(size: 28, weight: .semibold))
-                                            .foregroundStyle(.primary)
-                                        Text("Completado")
-                                            .font(.headline)
-                                            .foregroundStyle(.primary)
-                                    }
+                                    Circle()
+                                        .fill(HostSemanticColors.stateBadgeBackground)
+                                        .frame(width: 54, height: 54)
+                                    Image(systemName: "lock.fill")
+                                        .font(.system(size: 24, weight: .semibold))
+                                        .foregroundStyle(.primary)
                                 }
-                                .clipShape(previewShape)
-                                .overlay(
-                                    previewShape
-                                        .stroke(Color.white.opacity(0.20), lineWidth: 1)
-                                )
+                                .allowsHitTesting(false)
+                            } else if isCompleted {
+                                ZStack {
+                                    Circle()
+                                        .fill(HostSemanticColors.stateBadgeBackground)
+                                        .frame(width: 54, height: 54)
+                                    Image(systemName: HomeCounterInfo.completedPuzzles.systemImage)
+                                        .font(.system(size: 24, weight: .semibold))
+                                        .foregroundStyle(HomeCounterInfo.completedPuzzles.iconGradient)
+                                }
+                                .allowsHitTesting(false)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -294,51 +560,22 @@ private struct DailyChallengeCard: View {
                         .animation(.easeInOut(duration: 0.2), value: isLaunching)
                     }
                     .frame(height: 240)
+
+                    Text(statusLabel)
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.secondary)
                 }
             }
             .overlay(
                 RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous)
-                    .stroke(Color(.systemBackground), lineWidth: 1.4)
+                    .stroke(HostSemanticColors.cardInnerStroke, lineWidth: 1.4)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous)
-                    .stroke(Color.secondary.opacity(0.14), lineWidth: 1)
+                    .stroke(HostSemanticColors.cardOuterStroke, lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.10), radius: 18, x: 0, y: 10)
+            .shadow(color: HostSemanticColors.cardShadow, radius: 18, x: 0, y: 10)
             .opacity(1)
-
-            if isLocked {
-                ZStack {
-                    RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous)
-                        .fill(
-                            reduceTransparency
-                            ? AnyShapeStyle(Color(.systemBackground).opacity(0.84))
-                            : AnyShapeStyle(.regularMaterial)
-                        )
-
-                    RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous)
-                        .fill(Color.black.opacity(0.04))
-
-                    VStack(spacing: 8) {
-                        Image(systemName: "lock.fill")
-                            .font(.title2)
-                        Text("Reto bloqueado")
-                            .font(.headline)
-                        Text(lockMessage)
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                    }
-                    .multilineTextAlignment(.center)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .accessibilityElement(children: .combine)
-                }
-                .clipShape(RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous))
-                .overlay(
-                    RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous)
-                        .stroke(Color.white.opacity(0.20), lineWidth: 1)
-                )
-                .allowsHitTesting(false)
-            }
 
         }
         .contentShape(RoundedRectangle(cornerRadius: HostDesignTokens.cardCornerRadius, style: .continuous))
@@ -366,12 +603,14 @@ private struct DayCarouselView: View {
     let unlockedOffsets: Set<Int>
     let completedOffsets: Set<Int>
     let dateForOffset: (Int) -> Date
+    let progressForOffset: (Int) -> Double
     let hoursUntilAvailable: (Int) -> Int?
 
     var body: some View {
         GeometryReader { geo in
-            let itemWidth: CGFloat = 78
-            let sidePadding = max((geo.size.width - itemWidth) / 2, 16)
+            let itemWidth: CGFloat = 84
+            let itemHeight: CGFloat = 92
+            let sidePadding = max((geo.size.width - itemWidth) / 2, 10)
             let activeOffset = selectedOffset ?? todayOffset
             let scrollSelection = Binding<Int?>(
                 get: {
@@ -382,7 +621,7 @@ private struct DayCarouselView: View {
             )
 
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 12) {
+                LazyHStack(spacing: 16) {
                     ForEach(offsets, id: \.self) { offset in
                         let date = dateForOffset(offset)
                         let isLocked = offset > todayOffset && !unlockedOffsets.contains(offset)
@@ -391,9 +630,10 @@ private struct DayCarouselView: View {
                             isSelected: offset == activeOffset,
                             isLocked: isLocked,
                             isCompleted: completedOffsets.contains(offset),
+                            progress: progressForOffset(offset),
                             hoursUntilAvailable: hoursUntilAvailable(offset)
                         )
-                        .frame(width: itemWidth)
+                        .frame(width: itemWidth, height: itemHeight)
                         .onTapGesture {
                             withAnimation(.snappy(duration: 0.28, extraBounce: 0.02)) {
                                 selectedOffset = offset
@@ -405,6 +645,8 @@ private struct DayCarouselView: View {
                 .scrollTargetLayout()
                 .padding(.horizontal, sidePadding)
             }
+            .padding(.vertical, 6)
+            .scrollClipDisabled(true)
             .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
             .scrollPosition(id: scrollSelection, anchor: .center)
         }
@@ -416,26 +658,34 @@ private struct DayCarouselItem: View {
     let isSelected: Bool
     let isLocked: Bool
     let isCompleted: Bool
+    let progress: Double
     let hoursUntilAvailable: Int?
 
     var body: some View {
-        GlassPanel(
-            role: .chip,
-            cornerRadius: 20,
-            contentPadding: EdgeInsets(top: 12, leading: 10, bottom: 12, trailing: 10)
-        ) {
-            VStack(spacing: 6) {
-                Text(HostDateFormatter.shortWeekday(for: date).uppercased())
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(.secondary)
+        VStack(spacing: 6) {
+            Text(HostDateFormatter.shortWeekday(for: date).uppercased())
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(.secondary)
 
-                Text("\(Calendar.current.component(.day, from: date))")
-                    .font(.title3.weight(.bold))
+            Text("\(Calendar.current.component(.day, from: date))")
+                .font(.title3.weight(.bold))
 
-                statusView
-                    .frame(height: 14, alignment: .center)
-            }
+            statusView
+                .frame(height: 14, alignment: .center)
         }
+        .padding(EdgeInsets(top: 12, leading: 10, bottom: 12, trailing: 10))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .fill(HostSemanticColors.carouselItemBackground)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(
+                    isSelected ? HostSemanticColors.carouselBorderSelected : HostSemanticColors.carouselBorderIdle,
+                    lineWidth: isSelected ? 1.5 : 1
+                )
+        )
         .scaleEffect(isSelected ? 1.04 : 0.98)
         .opacity(isSelected ? 1 : 0.92)
         .animation(.easeInOut(duration: 0.2), value: isSelected)
@@ -450,14 +700,35 @@ private struct DayCarouselItem: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.8)
         } else if isCompleted {
-            Image(systemName: "checkmark.circle.fill")
+            Image(systemName: HomeCounterInfo.completedPuzzles.systemImage)
                 .font(.footnote.weight(.bold))
-                .foregroundStyle(.black)
+                .foregroundStyle(HomeCounterInfo.completedPuzzles.iconGradient)
         } else {
-            Circle()
-                .fill(Color.secondary.opacity(0.35))
-                .frame(width: 6, height: 6)
+            DayProgressIndicator(progress: progress)
         }
+    }
+}
+
+private struct DayProgressIndicator: View {
+    let progress: Double
+
+    var body: some View {
+        let clamped = min(max(progress, 0), 1)
+
+        ZStack {
+            Circle()
+                .stroke(HostSemanticColors.progressTrack, lineWidth: 2)
+
+            Circle()
+                .trim(from: 0, to: clamped)
+                .stroke(
+                    Color.accentColor,
+                    style: StrokeStyle(lineWidth: 2, lineCap: .round)
+                )
+                .rotationEffect(.degrees(-90))
+        }
+        .frame(width: 14, height: 14)
+        .animation(.easeInOut(duration: 0.2), value: clamped)
     }
 }
 
@@ -792,7 +1063,7 @@ private struct WordSearchGameView: View {
             GeometryReader { geometry in
                 let side = min(geometry.size.width - 32, 420)
 
-                VStack(spacing: 16) {
+                VStack(spacing: 22) {
                     WordSearchBoardView(
                         grid: puzzle.grid,
                         words: puzzle.words,
@@ -816,10 +1087,11 @@ private struct WordSearchGameView: View {
                         .offset(y: showEntryBottom ? 0 : 24)
                         .opacity(showEntryBottom ? 1 : 0)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .clipped()
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
-                .padding(.bottom, 20)
+                .padding(.bottom, 0)
             }
             .allowsHitTesting(!isCompletedOverlayVisible)
 
@@ -1170,12 +1442,15 @@ private struct WordSearchBoardView: View {
     let sideLength: CGFloat
     let onDragChanged: (HostGridPosition) -> Void
     let onDragEnded: () -> Void
+    let isInteractive: Bool
     @State private var loupeState = LoupeState(configuration: .default)
 
     private let loupeConfiguration = LoupeConfiguration.default
 
     private struct WordOutline: Identifiable {
         let id: String
+        let word: String
+        let seed: Int
         let positions: [HostGridPosition]
     }
 
@@ -1187,14 +1462,39 @@ private struct WordSearchBoardView: View {
     private var rows: Int { grid.count }
     private var cols: Int { grid.first?.count ?? 0 }
 
+    init(
+        grid: [[String]],
+        words: [String],
+        foundWords: Set<String>,
+        solvedPositions: Set<HostGridPosition>,
+        activePositions: [HostGridPosition],
+        feedback: HostSelectionFeedback?,
+        celebrations: [HostWordCelebration],
+        sideLength: CGFloat,
+        onDragChanged: @escaping (HostGridPosition) -> Void,
+        onDragEnded: @escaping () -> Void,
+        isInteractive: Bool = true
+    ) {
+        self.grid = grid
+        self.words = words
+        self.foundWords = foundWords
+        self.solvedPositions = solvedPositions
+        self.activePositions = activePositions
+        self.feedback = feedback
+        self.celebrations = celebrations
+        self.sideLength = sideLength
+        self.onDragChanged = onDragChanged
+        self.onDragEnded = onDragEnded
+        self.isInteractive = isInteractive
+    }
+
     var body: some View {
         let safeRows = max(rows, 1)
         let safeCols = max(cols, 1)
         let cellSize = sideLength / CGFloat(safeCols)
         let activeSet = Set(activePositions)
         let boardBounds = CGRect(origin: .zero, size: CGSize(width: sideLength, height: sideLength))
-
-        boardLayer(
+        let baseBoard = boardLayer(
             cellSize: cellSize,
             safeRows: safeRows,
             safeCols: safeCols,
@@ -1202,38 +1502,45 @@ private struct WordSearchBoardView: View {
         )
         .frame(width: sideLength, height: sideLength)
         .contentShape(Rectangle())
-        .overlay(alignment: .topLeading) {
-            // Magnify the board content directly to avoid per-frame screenshots.
-            LoupeView(
-                state: $loupeState,
-                configuration: loupeConfiguration,
-                boardSize: CGSize(width: sideLength, height: sideLength)
-            ) {
-                boardLayer(
-                    cellSize: cellSize,
-                    safeRows: safeRows,
-                    safeCols: safeCols,
-                    activeSet: activeSet
-                )
-            }
-        }
-        .gesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { value in
-                    loupeState.update(
-                        fingerLocation: value.location,
-                        in: boardBounds,
-                        configuration: loupeConfiguration
-                    )
-                    if let position = position(for: value.location, cellSize: cellSize) {
-                        onDragChanged(position)
+
+        if isInteractive {
+            baseBoard
+                .overlay(alignment: .topLeading) {
+                    // Magnify the board content directly to avoid per-frame screenshots.
+                    LoupeView(
+                        state: $loupeState,
+                        configuration: loupeConfiguration,
+                        boardSize: CGSize(width: sideLength, height: sideLength)
+                    ) {
+                        boardLayer(
+                            cellSize: cellSize,
+                            safeRows: safeRows,
+                            safeCols: safeCols,
+                            activeSet: activeSet
+                        )
                     }
                 }
-                .onEnded { _ in
-                    loupeState.hide()
-                    onDragEnded()
-                }
-        )
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { value in
+                            loupeState.update(
+                                fingerLocation: value.location,
+                                in: boardBounds,
+                                configuration: loupeConfiguration
+                            )
+                            if let position = position(for: value.location, cellSize: cellSize) {
+                                onDragChanged(position)
+                            }
+                        }
+                        .onEnded { _ in
+                            loupeState.hide()
+                            onDragEnded()
+                        }
+                )
+        } else {
+            baseBoard
+                .allowsHitTesting(false)
+        }
     }
 
     @ViewBuilder
@@ -1247,7 +1554,7 @@ private struct WordSearchBoardView: View {
 
         ZStack {
             boardShape
-                .fill(Color.white)
+                .fill(HostSemanticColors.boardBackground)
 
             VStack(spacing: 0) {
                 ForEach(0..<safeRows, id: \.self) { row in
@@ -1264,7 +1571,7 @@ private struct WordSearchBoardView: View {
                                 .background(cellFill(isActive: isActive))
                                 .overlay(
                                     Rectangle()
-                                        .stroke(Color.secondary.opacity(0.18), lineWidth: 1)
+                                        .stroke(HostSemanticColors.boardGridStroke, lineWidth: 1)
                                 )
                         }
                     }
@@ -1291,7 +1598,7 @@ private struct WordSearchBoardView: View {
         .clipShape(boardShape)
         .overlay(
             boardShape
-                .stroke(Color.secondary.opacity(0.25), lineWidth: 1)
+                .stroke(HostSemanticColors.boardOuterStroke, lineWidth: 1)
         )
     }
 
@@ -1299,7 +1606,7 @@ private struct WordSearchBoardView: View {
         if isActive {
             return Color.accentColor.opacity(0.22)
         }
-        return .white
+        return HostSemanticColors.boardCellBackground
     }
 
     private func selectionCapsule(from start: HostGridPosition, to end: HostGridPosition, cellSize: CGFloat) -> some View {
@@ -1326,7 +1633,9 @@ private struct WordSearchBoardView: View {
             let endPoint = center(for: last, cellSize: cellSize)
             let capsuleHeight = cellSize * 0.82
             let lineWidth = max(1.8, min(3.6, cellSize * 0.12))
-            let color = feedback.kind == .correct ? Color.green : Color.red
+            let color = feedback.kind == .correct
+                ? HostSemanticColors.feedbackCorrect
+                : HostSemanticColors.feedbackIncorrect
 
             StretchingFeedbackCapsule(
                 start: startPoint,
@@ -1352,13 +1661,10 @@ private struct WordSearchBoardView: View {
             }
 
             ForEach(celebrations.filter { $0.showsParticles }) { celebration in
-                let anchor = CGPoint(
-                    x: celebration.anchorUnit.x * boardSize,
-                    y: celebration.anchorUnit.y * boardSize
-                )
+                let trailPoints = celebration.positions.map { center(for: $0, cellSize: cellSize) }
                 ParticleBurstView(
                     burstID: celebration.id,
-                    anchorPoint: anchor,
+                    trailPoints: trailPoints,
                     intensity: celebration.intensity,
                     duration: celebration.particleDuration,
                     reduceMotion: celebration.reduceMotion
@@ -1375,7 +1681,7 @@ private struct WordSearchBoardView: View {
         return ZStack {
             ForEach(solvedWordOutlines) { outline in
                 outlineShape(
-                    for: outline.positions,
+                    outline: outline,
                     cellSize: cellSize,
                     capsuleHeight: capsuleHeight,
                     lineWidth: lineWidth
@@ -1386,12 +1692,12 @@ private struct WordSearchBoardView: View {
 
     @ViewBuilder
     private func outlineShape(
-        for positions: [HostGridPosition],
+        outline: WordOutline,
         cellSize: CGFloat,
         capsuleHeight: CGFloat,
         lineWidth: CGFloat
     ) -> some View {
-        if let first = positions.first, let last = positions.last {
+        if let first = outline.positions.first, let last = outline.positions.last {
             let startPoint = center(for: first, cellSize: cellSize)
             let endPoint = center(for: last, cellSize: cellSize)
             let dx = endPoint.x - startPoint.x
@@ -1399,12 +1705,13 @@ private struct WordSearchBoardView: View {
             let angle = Angle(radians: atan2(dy, dx))
             let centerPoint = CGPoint(x: (startPoint.x + endPoint.x) / 2, y: (startPoint.y + endPoint.y) / 2)
             let capsuleWidth = max(capsuleHeight, hypot(dx, dy) + capsuleHeight)
+            let gradient = HostWordGradientPalette.gradient(for: outline.word, seed: outline.seed)
 
             Capsule(style: .continuous)
-                .fill(Color.accentColor.opacity(0.14))
+                .fill(gradient.opacity(0.45))
                 .overlay(
                     Capsule(style: .continuous)
-                        .stroke(Color.accentColor.opacity(0.85), lineWidth: lineWidth)
+                        .stroke(HostSemanticColors.foundOutlineStroke, lineWidth: lineWidth)
                 )
                 .frame(width: capsuleWidth, height: capsuleHeight)
                 .rotationEffect(angle)
@@ -1422,6 +1729,8 @@ private struct WordSearchBoardView: View {
             let signature = path.map { "\($0.row)-\($0.col)" }.joined(separator: "_")
             return WordOutline(
                 id: "\(index)-\(word)-\(signature)",
+                word: word,
+                seed: index,
                 positions: path
             )
         }
@@ -1550,8 +1859,8 @@ private struct CelebrationGlowCapsule: View {
         let capsuleWidth = max(capsuleHeight, hypot(dx, dy) + capsuleHeight)
 
         let view = Capsule(style: .continuous)
-            .stroke(Color.green.opacity(0.85), lineWidth: lineWidth)
-            .shadow(color: Color.green.opacity(animate ? 0.55 : 0.0), radius: animate ? 10 : 2)
+            .stroke(HostSemanticColors.celebrationStroke, lineWidth: lineWidth)
+            .shadow(color: HostSemanticColors.celebrationGlow.opacity(animate ? 1 : 0), radius: animate ? 10 : 2)
             .frame(width: capsuleWidth, height: capsuleHeight)
             .scaleEffect(reduceMotion ? 1.0 : (animate ? 1.03 : 0.92))
             .opacity(animate ? 1 : 0)
@@ -1580,7 +1889,7 @@ private struct CelebrationGlowCapsule: View {
 
 private struct ParticleBurstView: UIViewRepresentable {
     let burstID: UUID
-    let anchorPoint: CGPoint
+    let trailPoints: [CGPoint]
     let intensity: HostCelebrationIntensity
     let duration: TimeInterval
     let reduceMotion: Bool
@@ -1592,7 +1901,7 @@ private struct ParticleBurstView: UIViewRepresentable {
     func updateUIView(_ uiView: ParticleBurstUIView, context: Context) {
         uiView.burst(
             id: burstID,
-            anchorPoint: anchorPoint,
+            trailPoints: trailPoints,
             intensity: intensity,
             duration: duration,
             reduceMotion: reduceMotion
@@ -1624,7 +1933,7 @@ private final class ParticleBurstUIView: UIView {
 
     func burst(
         id: UUID,
-        anchorPoint: CGPoint,
+        trailPoints: [CGPoint],
         intensity: HostCelebrationIntensity,
         duration: TimeInterval,
         reduceMotion: Bool
@@ -1637,13 +1946,49 @@ private final class ParticleBurstUIView: UIView {
             return
         }
 
-        emitter.emitterPosition = anchorPoint
-        emitter.emitterSize = CGSize(width: 12, height: 12)
-        emitter.beginTime = CACurrentMediaTime()
+        let points = trailPoints.isEmpty ? [CGPoint(x: bounds.midX, y: bounds.midY)] : trailPoints
+        let startPoint = points.first ?? CGPoint(x: bounds.midX, y: bounds.midY)
+        let endPoint = points.last ?? startPoint
+
+        emitter.removeAnimation(forKey: "trail")
+        emitter.emitterPosition = startPoint
+        emitter.emitterSize = CGSize(width: 8, height: 8)
+        let now = CACurrentMediaTime()
+        emitter.beginTime = now
         emitter.emitterCells = HostParticleFactory.wordCells(intensity: intensity, duration: duration)
         emitter.birthRate = 1
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.06) { [weak self] in
+        if points.count > 1 {
+            let path = CGMutablePath()
+            path.addLines(between: points)
+
+            var totalDistance: CGFloat = 0
+            let segmentCount = points.count - 1
+            for index in 1..<points.count {
+                let dx = points[index].x - points[index - 1].x
+                let dy = points[index].y - points[index - 1].y
+                totalDistance += hypot(dx, dy)
+            }
+
+            let distanceTravel = Double(totalDistance / 420)
+            let stepTravel = Double(segmentCount) * 0.045
+            let travelUpperBound = max(0.34, duration + 0.04)
+            let travel = min(travelUpperBound, max(0.22, max(distanceTravel, stepTravel)))
+            let positionAnimation = CAKeyframeAnimation(keyPath: "emitterPosition")
+            positionAnimation.path = path
+            positionAnimation.beginTime = now
+            positionAnimation.duration = travel
+            positionAnimation.calculationMode = .paced
+            emitter.add(positionAnimation, forKey: "trail")
+            emitter.emitterPosition = endPoint
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + travel + 0.03) { [weak self] in
+                self?.emitter.birthRate = 0
+            }
+            return
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + min(0.18, duration * 0.45)) { [weak self] in
             self?.emitter.birthRate = 0
         }
     }
@@ -1725,13 +2070,13 @@ private struct CompletionOverlayView: View {
                 Rectangle()
                     .fill(
                         reduceTransparency
-                        ? AnyShapeStyle(Color(.systemBackground).opacity(0.88))
+                        ? AnyShapeStyle(HostSemanticColors.completionBackdropSurface)
                         : AnyShapeStyle(.regularMaterial)
                     )
                     .ignoresSafeArea()
                     .transition(.opacity)
 
-                Color.black.opacity(0.12)
+                HostSemanticColors.completionBackdropDim
                     .ignoresSafeArea()
                     .transition(.opacity)
             }
@@ -1768,18 +2113,18 @@ private struct CompletionGlassToast: View {
                 Circle()
                     .fill(
                         reduceTransparency
-                        ? AnyShapeStyle(Color(.secondarySystemBackground))
+                        ? AnyShapeStyle(HostSemanticColors.completionToastSurface)
                         : AnyShapeStyle(.thinMaterial)
                     )
                     .frame(width: 54, height: 54)
 
                 Circle()
-                    .stroke(Color.white.opacity(0.24), lineWidth: 1)
+                    .stroke(HostSemanticColors.completionToastStroke, lineWidth: 1)
                     .frame(width: 54, height: 54)
 
                 Image(systemName: "checkmark")
                     .font(.title3.weight(.bold))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(HostSemanticColors.completionCheckmark)
             }
 
             Text("Completado")
@@ -1799,15 +2144,15 @@ private struct CompletionGlassToast: View {
             RoundedRectangle(cornerRadius: 30, style: .continuous)
                 .fill(
                     reduceTransparency
-                    ? AnyShapeStyle(Color(.secondarySystemBackground))
+                    ? AnyShapeStyle(HostSemanticColors.completionToastSurface)
                     : AnyShapeStyle(.ultraThinMaterial)
                 )
         )
         .overlay(
             RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .stroke(Color.white.opacity(0.26), lineWidth: 1)
+                .stroke(HostSemanticColors.completionToastStroke, lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.16), radius: 18, x: 0, y: 8)
+        .shadow(color: HostSemanticColors.completionToastShadow, radius: 18, x: 0, y: 8)
         .padding(.horizontal, 24)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityText)
@@ -1816,9 +2161,10 @@ private struct CompletionGlassToast: View {
 
 private enum HostParticleFactory {
     private static let sparkleImages: [CGImage] = [
-        makeCircleImage(color: UIColor.systemGreen),
-        makeCircleImage(color: UIColor.systemGreen),
-        makeCircleImage(color: UIColor.systemBlue)
+        makeSparkImage(color: UIColor.systemYellow),
+        makeSparkImage(color: UIColor.systemTeal),
+        makeSparkImage(color: UIColor.systemBlue),
+        makeSparkImage(color: UIColor.systemOrange)
     ]
 
     private static let confettiImages: [CGImage] = [
@@ -1830,21 +2176,25 @@ private enum HostParticleFactory {
 
     static func wordCells(intensity: HostCelebrationIntensity, duration: TimeInterval) -> [CAEmitterCell] {
         let birthRate = intensity.particleBirthRate
-        let velocity = intensity.particleVelocity
+        let velocity = intensity.particleVelocity * 1.35
         let scale = intensity.particleScale
 
         return sparkleImages.map { image in
             let cell = CAEmitterCell()
             cell.contents = image
             cell.birthRate = birthRate
-            cell.lifetime = Float(duration)
+            cell.lifetime = Float(max(0.18, duration * 0.82))
+            cell.lifetimeRange = Float(duration * 0.18)
             cell.velocity = velocity
-            cell.velocityRange = velocity * 0.45
+            cell.velocityRange = velocity * 0.55
             cell.emissionRange = .pi * 2
-            cell.scale = scale
-            cell.scaleRange = scale * 0.4
-            cell.alphaSpeed = -1.2
-            cell.spinRange = .pi
+            cell.scale = scale * 0.82
+            cell.scaleRange = scale * 0.28
+            cell.alphaSpeed = -2.4
+            cell.spin = 1.6
+            cell.spinRange = 2.6
+            cell.yAcceleration = 20
+            cell.xAcceleration = 8
             return cell
         }
     }
@@ -1867,13 +2217,26 @@ private enum HostParticleFactory {
         }
     }
 
-    private static func makeCircleImage(color: UIColor) -> CGImage {
-        let size = CGSize(width: 6, height: 6)
+    private static func makeSparkImage(color: UIColor) -> CGImage {
+        let size = CGSize(width: 14, height: 4)
         let renderer = UIGraphicsImageRenderer(size: size)
         let image = renderer.image { context in
+            let cg = context.cgContext
             let rect = CGRect(origin: .zero, size: size)
-            context.cgContext.setFillColor(color.cgColor)
-            context.cgContext.fillEllipse(in: rect)
+            let sparkRect = rect.insetBy(dx: 1.2, dy: 1.2)
+            let sparkPath = UIBezierPath(roundedRect: sparkRect, cornerRadius: sparkRect.height * 0.5)
+
+            cg.setShadow(offset: .zero, blur: 2.8, color: color.withAlphaComponent(0.65).cgColor)
+            cg.setFillColor(color.cgColor)
+            cg.addPath(sparkPath.cgPath)
+            cg.fillPath()
+
+            cg.setShadow(offset: .zero, blur: 0, color: nil)
+            let coreRect = sparkRect.insetBy(dx: sparkRect.width * 0.30, dy: sparkRect.height * 0.18)
+            let corePath = UIBezierPath(roundedRect: coreRect, cornerRadius: coreRect.height * 0.5)
+            cg.setFillColor(UIColor.white.withAlphaComponent(0.68).cgColor)
+            cg.addPath(corePath.cgPath)
+            cg.fillPath()
         }
         if let cgImage = image.cgImage {
             return cgImage
@@ -1898,7 +2261,7 @@ private enum HostParticleFactory {
 
 struct ContentView: View {
     @Environment(\.scenePhase) private var scenePhase
-    @State private var showSettings = false
+    @State private var presentedSheet: HomePresentedSheet?
     @State private var installDate = HostPuzzleCalendar.installationDate()
     @State private var selectedOffset: Int?
     @State private var presentedGame: HostPresentedGame?
@@ -1942,7 +2305,7 @@ struct ContentView: View {
                 GeometryReader { geometry in
                     let verticalInset: CGFloat = 40
                     let interSectionSpacing: CGFloat = 40
-                    let dayCarouselHeight: CGFloat = 92
+                    let dayCarouselHeight: CGFloat = 106
                     let cardWidth = min(geometry.size.width * 0.80, 450)
                     let sidePadding = max((geometry.size.width - cardWidth) / 2, 10)
                     let availableCardHeight = geometry.size.height - dayCarouselHeight - interSectionSpacing - (verticalInset * 2)
@@ -1996,12 +2359,13 @@ struct ContentView: View {
                             todayOffset: todayOffset,
                             unlockedOffsets: easterUnlockedOffsets,
                             completedOffsets: completedOffsets,
-                            dateForOffset: { puzzleDate(for: $0) }
+                            dateForOffset: { puzzleDate(for: $0) },
+                            progressForOffset: { progressFraction(for: $0) }
                         ) { offset in
                             hoursUntilAvailable(for: offset)
                         }
                         .frame(height: dayCarouselHeight)
-                        .padding(.horizontal, 20)
+                        .padding(.horizontal, 12)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .padding(.top, verticalInset)
@@ -2027,19 +2391,26 @@ struct ContentView: View {
                         HomeNavCounter(
                             value: completedOffsets.count,
                             systemImage: "checkmark.seal.fill",
-                            tint: .black,
-                            accessibilityLabel: "Retos completados \(completedOffsets.count)"
-                        )
+                            iconGradient: HostAccentPalette.streakBlueGradient,
+                            accessibilityLabel: "Retos completados \(completedOffsets.count)",
+                            accessibilityHint: "Pulsa para saber que mide este contador"
+                        ) {
+                            presentedSheet = .counter(.completedPuzzles)
+                        }
                         HomeNavCounter(
                             value: streakCount,
                             systemImage: "flame.fill",
-                            tint: .black,
-                            accessibilityLabel: "Racha actual \(streakCount)"
-                        )
+                            iconGradient: HostAccentPalette.completedOrangeGradient,
+                            accessibilityLabel: "Racha actual \(streakCount)",
+                            accessibilityHint: "Pulsa para saber que mide este contador"
+                        ) {
+                            presentedSheet = .counter(.streak)
+                        }
                         Button {
-                            showSettings = true
+                            presentedSheet = .settings
                         } label: {
                             Image(systemName: "gearshape")
+                                .foregroundStyle(HostSemanticColors.settingsIcon)
                         }
                         .accessibilityLabel("Abrir ajustes")
                     }
@@ -2067,31 +2438,36 @@ struct ContentView: View {
                     selectedOffset = maxOffset
                 }
             }
-            .sheet(isPresented: $showSettings) {
-                DifficultySettingsView(
-                    currentGridSize: gridSize,
-                    currentAppearanceMode: appearanceMode,
-                    currentWordHintMode: wordHintMode
-                ) { newGridSize, newAppearanceMode, newWordHintMode, celebrationPreferences in
-                    let clamped = HostDifficultySettings.clampGridSize(newGridSize)
+            .sheet(item: $presentedSheet) { sheet in
+                switch sheet {
+                case .settings:
+                    DifficultySettingsView(
+                        currentGridSize: gridSize,
+                        currentAppearanceMode: appearanceMode,
+                        currentWordHintMode: wordHintMode
+                    ) { newGridSize, newAppearanceMode, newWordHintMode, celebrationPreferences in
+                        let clamped = HostDifficultySettings.clampGridSize(newGridSize)
 
-                    if clamped != gridSize {
-                        gridSize = clamped
-                        HostMaintenance.applyGridSize(clamped)
+                        if clamped != gridSize {
+                            gridSize = clamped
+                            HostMaintenance.applyGridSize(clamped)
+                        }
+
+                        if newAppearanceMode != appearanceMode {
+                            appearanceMode = newAppearanceMode
+                            HostMaintenance.applyAppearance(newAppearanceMode)
+                        }
+
+                        if newWordHintMode != wordHintMode {
+                            wordHintMode = newWordHintMode
+                            HostMaintenance.applyWordHintMode(newWordHintMode)
+                        }
+
+                        HostCelebrationSettings.apply(preferences: celebrationPreferences)
+                        refreshAppProgress()
                     }
-
-                    if newAppearanceMode != appearanceMode {
-                        appearanceMode = newAppearanceMode
-                        HostMaintenance.applyAppearance(newAppearanceMode)
-                    }
-
-                    if newWordHintMode != wordHintMode {
-                        wordHintMode = newWordHintMode
-                        HostMaintenance.applyWordHintMode(newWordHintMode)
-                    }
-
-                    HostCelebrationSettings.apply(preferences: celebrationPreferences)
-                    refreshAppProgress()
+                case .counter(let info):
+                    HomeCounterInfoSheet(info: info)
                 }
             }
         }
@@ -2117,6 +2493,16 @@ struct ContentView: View {
             return record.progress(for: puzzle)
         }
         return .empty
+    }
+
+    private func progressFraction(for offset: Int) -> Double {
+        let puzzle = puzzleForOffset(offset)
+        let total = max(puzzle.words.count, 1)
+        let progress = progressForOffset(offset, puzzle: puzzle)
+        let normalizedFound = Set(progress.foundWords.map { $0.uppercased() })
+        let normalizedWords = Set(puzzle.words.map { $0.uppercased() })
+        let foundCount = normalizedFound.intersection(normalizedWords).count
+        return min(max(Double(foundCount) / Double(total), 0), 1)
     }
 
     private func appProgressRecord(for offset: Int) -> HostAppProgressRecord? {
@@ -2165,7 +2551,7 @@ struct ContentView: View {
             : appProgressRecord(for: offset)
 
         ZStack {
-            Color(.systemBackground)
+            HostSemanticColors.gameOverlayBackground
                 .ignoresSafeArea()
 
             WordSearchGameView(
@@ -2237,168 +2623,22 @@ private struct PuzzleGridPreview: View {
     let foundWords: Set<String>
     let solvedPositions: Set<HostGridPosition>
     let sideLength: CGFloat
-    
-    private struct WordOutline: Identifiable {
-        let id: String
-        let positions: [HostGridPosition]
-    }
-
-    private let directions: [(Int, Int)] = [
-        (0, 1), (1, 0), (1, 1), (1, -1),
-        (0, -1), (-1, 0), (-1, -1), (-1, 1)
-    ]
 
     var body: some View {
-        let size = max(grid.count, 1)
-        let cellSize = sideLength / CGFloat(size)
-        let fontSize = max(8, min(24, cellSize * 0.48))
-        let gridShape = RoundedRectangle(cornerRadius: 18, style: .continuous)
-
-        return ZStack {
-            VStack(spacing: 0) {
-                ForEach(0..<size, id: \.self) { row in
-                    HStack(spacing: 0) {
-                        ForEach(0..<size, id: \.self) { col in
-                            let value = row < grid.count && col < grid[row].count ? grid[row][col] : ""
-                            let position = HostGridPosition(row: row, col: col)
-                            Text(value)
-                                .font(.system(size: fontSize, weight: .medium, design: .rounded))
-                                .frame(width: cellSize, height: cellSize)
-                                .background(
-                                    solvedPositions.contains(position) ? Color.accentColor.opacity(0.16) : .clear
-                                )
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.gray.opacity(0.23), lineWidth: 1)
-                                )
-                        }
-                    }
-                }
-            }
-
-            foundWordOutlines(cellSize: cellSize)
-        }
-        .frame(width: sideLength, height: sideLength, alignment: .center)
-        .clipShape(gridShape)
-        .overlay(
-            gridShape
-                .stroke(Color.gray.opacity(0.28), lineWidth: 1)
+        WordSearchBoardView(
+            grid: grid,
+            words: words,
+            foundWords: foundWords,
+            solvedPositions: solvedPositions,
+            activePositions: [],
+            feedback: nil,
+            celebrations: [],
+            sideLength: sideLength,
+            onDragChanged: { _ in },
+            onDragEnded: {},
+            isInteractive: false
         )
-    }
-
-    private func foundWordOutlines(cellSize: CGFloat) -> some View {
-        let capsuleHeight = cellSize * 0.82
-        let lineWidth = max(1.5, min(3.0, cellSize * 0.10))
-
-        return ZStack {
-            ForEach(solvedWordOutlines) { outline in
-                outlineShape(
-                    for: outline.positions,
-                    cellSize: cellSize,
-                    capsuleHeight: capsuleHeight,
-                    lineWidth: lineWidth
-                )
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func outlineShape(
-        for positions: [HostGridPosition],
-        cellSize: CGFloat,
-        capsuleHeight: CGFloat,
-        lineWidth: CGFloat
-    ) -> some View {
-        if let first = positions.first, let last = positions.last {
-            let start = center(for: first, cellSize: cellSize)
-            let end = center(for: last, cellSize: cellSize)
-            let dx = end.x - start.x
-            let dy = end.y - start.y
-            let angle = Angle(radians: atan2(dy, dx))
-            let centerPoint = CGPoint(x: (start.x + end.x) / 2, y: (start.y + end.y) / 2)
-            let capsuleWidth = max(capsuleHeight, hypot(dx, dy) + capsuleHeight)
-
-            Capsule(style: .continuous)
-                .stroke(Color.accentColor.opacity(0.86), lineWidth: lineWidth)
-                .frame(width: capsuleWidth, height: capsuleHeight)
-                .rotationEffect(angle)
-                .position(centerPoint)
-        }
-    }
-
-    private func center(for position: HostGridPosition, cellSize: CGFloat) -> CGPoint {
-        CGPoint(
-            x: CGFloat(position.col) * cellSize + cellSize / 2,
-            y: CGFloat(position.row) * cellSize + cellSize / 2
-        )
-    }
-
-    private var solvedWordOutlines: [WordOutline] {
-        let normalizedFoundWords = Set(foundWords.map { $0.uppercased() })
-
-        return words.enumerated().compactMap { index, rawWord in
-            let word = rawWord.uppercased()
-            guard normalizedFoundWords.contains(word) else { return nil }
-            guard let path = bestPath(for: word) else { return nil }
-            let signature = path.map { "\($0.row)-\($0.col)" }.joined(separator: "_")
-            return WordOutline(
-                id: "\(index)-\(word)-\(signature)",
-                positions: path
-            )
-        }
-    }
-
-    private func bestPath(for word: String) -> [HostGridPosition]? {
-        let candidates = candidatePaths(for: word)
-        guard !candidates.isEmpty else { return nil }
-        return candidates.max { pathScore($0) < pathScore($1) }
-    }
-
-    private func pathScore(_ path: [HostGridPosition]) -> Int {
-        path.reduce(0) { partial, position in
-            partial + (solvedPositions.contains(position) ? 1 : 0)
-        }
-    }
-
-    private func candidatePaths(for word: String) -> [[HostGridPosition]] {
-        let upperWord = word.uppercased()
-        let letters = upperWord.map { String($0) }
-        let reversed = Array(letters.reversed())
-        let rowCount = grid.count
-        let colCount = grid.first?.count ?? 0
-
-        guard !letters.isEmpty else { return [] }
-        guard rowCount > 0, colCount > 0 else { return [] }
-
-        var results: [[HostGridPosition]] = []
-
-        for row in 0..<rowCount {
-            for col in 0..<colCount {
-                for (dr, dc) in directions {
-                    var path: [HostGridPosition] = []
-                    var collected: [String] = []
-                    var isValid = true
-
-                    for step in 0..<letters.count {
-                        let r = row + step * dr
-                        let c = col + step * dc
-                        if r < 0 || c < 0 || r >= rowCount || c >= colCount {
-                            isValid = false
-                            break
-                        }
-                        path.append(HostGridPosition(row: r, col: c))
-                        collected.append(grid[r][c].uppercased())
-                    }
-
-                    guard isValid else { continue }
-                    if collected == letters || collected == reversed {
-                        results.append(path)
-                    }
-                }
-            }
-        }
-
-        return results
+        .scaleEffect(0.96)
     }
 }
 
@@ -2406,56 +2646,76 @@ private struct PuzzleWordsPreview: View {
     let words: [String]
     let foundWords: Set<String>
     let displayMode: HostWordHintMode
+    private let topFadeHeight: CGFloat = 14
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
-            if displayMode == .definition {
-                LazyVStack(spacing: 8) {
-                    ForEach(Array(words.enumerated()), id: \.offset) { _, word in
-                        let displayText = HostWordHints.displayText(for: word, mode: displayMode)
-                        WordChip(
-                            word: displayText,
-                            isFound: foundWords.contains(word.uppercased()),
-                            allowMultiline: true,
-                            expandsHorizontally: true
-                        )
+            Group {
+                if displayMode == .definition {
+                    LazyVStack(spacing: 8) {
+                        ForEach(Array(words.enumerated()), id: \.offset) { index, word in
+                            let displayText = HostWordHints.displayText(for: word, mode: displayMode)
+                            WordChip(
+                                word: displayText,
+                                styleSeed: index,
+                                isFound: foundWords.contains(word.uppercased()),
+                                allowMultiline: true,
+                                expandsHorizontally: true
+                            )
+                        }
                     }
-                }
-                .padding(.trailing, 4)
-            } else {
-                WrappingFlowLayout(horizontalSpacing: 8, verticalSpacing: 8) {
-                    ForEach(Array(words.enumerated()), id: \.offset) { _, word in
-                        let displayText = HostWordHints.displayText(for: word, mode: displayMode)
-                        WordChip(
-                            word: displayText,
-                            isFound: foundWords.contains(word.uppercased()),
-                            allowMultiline: false,
-                            expandsHorizontally: false
-                        )
+                    .padding(.trailing, 4)
+                } else {
+                    WrappingFlowLayout(horizontalSpacing: 8, verticalSpacing: 8) {
+                        ForEach(Array(words.enumerated()), id: \.offset) { index, word in
+                            let displayText = HostWordHints.displayText(for: word, mode: displayMode)
+                            WordChip(
+                                word: displayText,
+                                styleSeed: index,
+                                isFound: foundWords.contains(word.uppercased()),
+                                allowMultiline: false,
+                                expandsHorizontally: false
+                            )
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.trailing, 4)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.trailing, 4)
             }
+            .padding(.top, 10)
+            .padding(.bottom, 12)
+        }
+        .overlay(alignment: .top) {
+            HostSemanticColors.scrollFadeGradient
+            .frame(height: topFadeHeight)
+            .allowsHitTesting(false)
         }
     }
 
     private struct WordChip: View {
         let word: String
+        let styleSeed: Int
         let isFound: Bool
         let allowMultiline: Bool
         let expandsHorizontally: Bool
 
-        private var chipFill: Color {
-            isFound ? Color.accentColor.opacity(0.16) : Color(.tertiarySystemBackground)
+        private var chipFillStyle: AnyShapeStyle {
+            if isFound {
+                return AnyShapeStyle(foundGradient)
+            }
+            return AnyShapeStyle(HostSemanticColors.wordChipNeutralFill)
         }
 
         private var chipStroke: Color {
-            isFound ? Color.accentColor.opacity(0.42) : Color.secondary.opacity(0.30)
+            HostSemanticColors.wordChipStroke
         }
 
         private var labelColor: Color {
-            isFound ? Color.accentColor.opacity(0.9) : .primary
+            isFound ? HostSemanticColors.wordChipFoundText : .primary
+        }
+
+        private var foundGradient: LinearGradient {
+            HostWordGradientPalette.gradient(for: word, seed: styleSeed)
         }
 
         @ViewBuilder
@@ -2467,20 +2727,20 @@ private struct PuzzleWordsPreview: View {
                     .minimumScaleFactor(allowMultiline ? 1 : 0.45)
                     .allowsTightening(true)
                     .fixedSize(horizontal: false, vertical: allowMultiline)
-                    .strikethrough(isFound, color: Color.accentColor)
+                    .strikethrough(isFound, color: HostSemanticColors.wordChipFoundDecoration)
                     .foregroundStyle(labelColor)
 
                 if isFound && !allowMultiline {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 13, weight: .semibold))
-                        .foregroundStyle(Color.accentColor)
+                        .foregroundStyle(HostSemanticColors.wordChipFoundIcon)
                         .symbolEffect(.bounce, value: isFound)
                         .transition(.scale.combined(with: .opacity))
                 }
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 9)
-            .background(Capsule().fill(chipFill))
+            .background(Capsule().fill(chipFillStyle))
             .overlay(
                 Capsule()
                     .stroke(chipStroke, lineWidth: 1)
@@ -3350,8 +3610,8 @@ private struct HostCelebrationConfig {
     let maxConcurrentCelebrations: Int
 
     static let `default` = HostCelebrationConfig(
-        popDuration: 0.24,
-        particleDuration: 0.65,
+        popDuration: 0.18,
+        particleDuration: 0.42,
         completionDuration: 1.4,
         maxConcurrentCelebrations: 2
     )
@@ -3959,6 +4219,12 @@ private enum HostPuzzleCalendar {
         return (a &* 0x9E3779B185EBCA87) ^ b ^ 0xC0DEC0FFEE12345F
     }
 
+    private static func targetWordCount(for gridSize: Int) -> Int {
+        let size = HostDifficultySettings.clampGridSize(gridSize)
+        // 7x7 -> 5 palabras; +1 por cada fila/columna extra hasta 12x12 -> 10.
+        return min(10, max(5, 5 + (size - 7)))
+    }
+
     private static func selectWords(from pool: [String], gridSize: Int, seed: UInt64) -> [String] {
         var filtered = pool
             .map { $0.uppercased() }
@@ -3975,7 +4241,7 @@ private enum HostPuzzleCalendar {
             }
         }
 
-        let targetCount = min(filtered.count, max(7, 7 + (gridSize - 7) * 2))
+        let targetCount = min(filtered.count, targetWordCount(for: gridSize))
         return Array(filtered.prefix(targetCount))
     }
 }
