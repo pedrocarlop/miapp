@@ -1,20 +1,19 @@
 import CoreGraphics
 import Metal
 
-final class WordSuccessWaveEffect: FXEffect {
+final class WordSuccessScanlineEffect: FXEffect {
     private enum Constants {
-        static let duration: Float = 0.55
-        static let ringWidth: Float = 18
-        static let maxConcurrentWaves = 24
+        static let duration: Float = 0.35
+        static let maxConcurrentLines = 24
     }
 
-    private struct WaveState {
+    private struct ScanlineState {
         let startTime: Float
+        let start: CGPoint
+        let end: CGPoint
         let center: CGPoint
-        let maxRadius: Float
+        let length: Float
         let intensity: Float
-        let pathStart: CGPoint
-        let pathEnd: CGPoint
         let bounds: CGRect
     }
 
@@ -23,18 +22,18 @@ final class WordSuccessWaveEffect: FXEffect {
     private let uniformStride: Int
 
     private var elapsedTime: Float = 0
-    private var waves: [WaveState] = []
+    private var lines: [ScanlineState] = []
     private var debugEnabled = false
 
     var isActive: Bool {
-        !waves.isEmpty
+        !lines.isEmpty
     }
 
     init?(device: MTLDevice, alphaPipeline: MTLRenderPipelineState) {
         self.alphaPipeline = alphaPipeline
 
         uniformStride = MemoryLayout<FXOverlayUniforms>.stride.alignedTo256
-        let bufferLength = uniformStride * Constants.maxConcurrentWaves
+        let bufferLength = uniformStride * Constants.maxConcurrentLines
         guard let uniformBuffer = device.makeBuffer(length: bufferLength, options: .storageModeShared) else {
             return nil
         }
@@ -46,39 +45,37 @@ final class WordSuccessWaveEffect: FXEffect {
     }
 
     func handle(event: FXEvent) {
-        guard event.type == .wordSuccessWave else { return }
+        guard event.type == .wordSuccessScanline else { return }
         guard event.gridBounds.width > 0, event.gridBounds.height > 0 else { return }
+        guard let start = event.pathPoints.first, let end = event.pathPoints.last else { return }
 
-        guard let center = MetalFXCoordinateMapper.average(event.cellCenters) ?? event.pathPoints.first else {
-            return
-        }
+        let length = Float(hypot(end.x - start.x, end.y - start.y))
+        guard length > 0.1 else { return }
 
+        let center = CGPoint(x: (start.x + end.x) / 2, y: (start.y + end.y) / 2)
         let intensity = min(max(event.intensity, 0), 1)
-        let pathStart = event.pathPoints.first ?? center
-        let pathEnd = event.pathPoints.last ?? center
-        let maxRadius = Float(hypot(event.gridBounds.width, event.gridBounds.height))
 
-        waves.append(
-            WaveState(
+        lines.append(
+            ScanlineState(
                 startTime: elapsedTime,
+                start: start,
+                end: end,
                 center: center,
-                maxRadius: maxRadius,
+                length: length,
                 intensity: intensity,
-                pathStart: pathStart,
-                pathEnd: pathEnd,
                 bounds: event.gridBounds
             )
         )
 
-        if waves.count > Constants.maxConcurrentWaves {
-            waves.removeFirst(waves.count - Constants.maxConcurrentWaves)
+        if lines.count > Constants.maxConcurrentLines {
+            lines.removeFirst(lines.count - Constants.maxConcurrentLines)
         }
     }
 
     func update(dt: Float) {
         let clampedDelta = max(0, min(dt, 0.1))
         elapsedTime += clampedDelta
-        waves.removeAll { elapsedTime - $0.startTime >= Constants.duration }
+        lines.removeAll { elapsedTime - $0.startTime >= Constants.duration }
     }
 
     func draw(
@@ -86,37 +83,40 @@ final class WordSuccessWaveEffect: FXEffect {
         resolution: SIMD2<Float>,
         time: Float
     ) {
-        guard !waves.isEmpty else { return }
+        guard !lines.isEmpty else { return }
 
         encoder.setRenderPipelineState(alphaPipeline)
 
-        let activeWaves = waves.suffix(Constants.maxConcurrentWaves)
-        for (index, wave) in activeWaves.enumerated() {
-            let age = max(0, elapsedTime - wave.startTime)
+        let activeLines = lines.suffix(Constants.maxConcurrentLines)
+        for (index, line) in activeLines.enumerated() {
+            let age = max(0, elapsedTime - line.startTime)
             let linearProgress = min(age / Constants.duration, 1)
             let progress = easeOutCubic(linearProgress)
-            let alphaDecay = 1 - smoothStep(0.74, 1, linearProgress)
+
+            let bandHalfWidth: Float = 20 + (line.intensity * 12)
+            let coreThickness: Float = 1.4 + (line.intensity * 1.2)
+            let fade = smoothStep(0, 0.06, linearProgress) * (1 - smoothStep(0.9, 1, linearProgress))
 
             let uniforms = FXOverlayUniforms(
                 resolution: resolution,
-                center: SIMD2<Float>(Float(wave.center.x), Float(wave.center.y)),
+                center: SIMD2<Float>(Float(line.center.x), Float(line.center.y)),
                 progress: progress,
-                maxRadius: wave.maxRadius,
-                ringWidth: Constants.ringWidth,
-                alpha: max(0, alphaDecay) * (0.2 + 0.2 * wave.intensity),
-                intensity: wave.intensity,
+                maxRadius: line.length,
+                ringWidth: 0,
+                alpha: max(0, fade) * (0.48 + 0.3 * line.intensity),
+                intensity: line.intensity,
                 debugEnabled: debugEnabled ? 1 : 0,
-                pathStart: SIMD2<Float>(Float(wave.pathStart.x), Float(wave.pathStart.y)),
-                pathEnd: SIMD2<Float>(Float(wave.pathEnd.x), Float(wave.pathEnd.y)),
+                pathStart: SIMD2<Float>(Float(line.start.x), Float(line.start.y)),
+                pathEnd: SIMD2<Float>(Float(line.end.x), Float(line.end.y)),
                 bounds: SIMD4<Float>(
-                    Float(wave.bounds.minX),
-                    Float(wave.bounds.minY),
-                    Float(wave.bounds.width),
-                    Float(wave.bounds.height)
+                    Float(line.bounds.minX),
+                    Float(line.bounds.minY),
+                    Float(line.bounds.width),
+                    Float(line.bounds.height)
                 ),
                 time: time,
-                effectKind: FXEffectKind.wave,
-                params: .zero
+                effectKind: FXEffectKind.scanline,
+                params: SIMD2<Float>(bandHalfWidth, coreThickness)
             )
 
             let offset = index * uniformStride
@@ -134,7 +134,7 @@ final class WordSuccessWaveEffect: FXEffect {
 
     func reset() {
         elapsedTime = 0
-        waves.removeAll(keepingCapacity: false)
+        lines.removeAll(keepingCapacity: false)
     }
 
     private func easeOutCubic(_ value: Float) -> Float {

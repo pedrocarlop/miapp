@@ -548,11 +548,44 @@ private extension DailyPuzzleGameScreenView {
         onWordFeedback(preferences)
         fxManager.setSuccessFXEnabled(preferences.enableCelebrations)
         triggerWordSuccessWave(pathCells: pathCells, intensity: preferences.intensity)
+        triggerWordSuccessScanline(pathCells: pathCells, intensity: preferences.intensity)
         _ = isPuzzleComplete
     }
 
     private func triggerWordSuccessWave(pathCells: [GridPosition], intensity: CelebrationIntensity) {
-        guard gridBounds.width > 0, gridBounds.height > 0 else { return }
+        guard let context = makeWordPathFXContext(pathCells: pathCells) else { return }
+
+        fxManager.play(
+            FXEvent(
+                type: .wordSuccessWave,
+                timestamp: ProcessInfo.processInfo.systemUptime,
+                gridBounds: context.bounds,
+                pathPoints: context.centers,
+                cellCenters: context.centers,
+                wordRects: nil,
+                intensity: intensity.fxValue
+            )
+        )
+    }
+
+    private func triggerWordSuccessScanline(pathCells: [GridPosition], intensity: CelebrationIntensity) {
+        guard let context = makeWordPathFXContext(pathCells: pathCells) else { return }
+
+        fxManager.play(
+            FXEvent(
+                type: .wordSuccessScanline,
+                timestamp: ProcessInfo.processInfo.systemUptime,
+                gridBounds: context.bounds,
+                pathPoints: context.centers,
+                cellCenters: context.centers,
+                wordRects: nil,
+                intensity: intensity.fxValue
+            )
+        )
+    }
+
+    private func makeWordPathFXContext(pathCells: [GridPosition]) -> (bounds: CGRect, centers: [CGPoint])? {
+        guard gridBounds.width > 0, gridBounds.height > 0 else { return nil }
 
         let localGridBounds = CGRect(origin: .zero, size: gridBounds.size)
         let rows = max(puzzle.grid.rowCount, 1)
@@ -563,19 +596,8 @@ private extension DailyPuzzleGameScreenView {
             rows: rows,
             cols: cols
         )
-        guard !centers.isEmpty else { return }
-
-        fxManager.play(
-            FXEvent(
-                type: .wordSuccessWave,
-                timestamp: ProcessInfo.processInfo.systemUptime,
-                gridBounds: localGridBounds,
-                pathPoints: centers,
-                cellCenters: centers,
-                wordRects: nil,
-                intensity: intensity.fxValue
-            )
-        )
+        guard !centers.isEmpty else { return nil }
+        return (localGridBounds, centers)
     }
 
     private func presentCompletionOverlay(

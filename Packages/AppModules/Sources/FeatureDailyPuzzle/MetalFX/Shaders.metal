@@ -6,7 +6,7 @@ struct FXVertexOut {
     float2 uv;
 };
 
-struct WaveUniforms {
+struct FXOverlayUniforms {
     float2 resolution;
     float2 center;
     float progress;
@@ -19,7 +19,8 @@ struct WaveUniforms {
     float2 pathEnd;
     float4 bounds;
     float time;
-    float3 padding;
+    float effectKind;
+    float2 params;
 };
 
 float hash(float2 p) {
@@ -93,7 +94,7 @@ vertex FXVertexOut vertex_passthrough(uint vertexID [[vertex_id]]) {
     return output;
 }
 
-float4 waveFragment(FXVertexOut input, constant WaveUniforms &uniforms, bool additive) {
+float4 renderWaveFragment(FXVertexOut input, constant FXOverlayUniforms &uniforms) {
     float2 pixel = input.uv * uniforms.resolution;
 
     float dist = distance(pixel, uniforms.center);
@@ -117,20 +118,68 @@ float4 waveFragment(FXVertexOut input, constant WaveUniforms &uniforms, bool add
         alpha = max(alpha, max(centerMark * 0.55, max(pathMark * 0.4, boundsMark * 0.42)));
     }
 
-    float3 color = additive ? baseColor * alpha : baseColor;
+    return float4(baseColor, alpha);
+}
+
+float4 renderScanlineFragment(FXVertexOut input, constant FXOverlayUniforms &uniforms) {
+    float2 pixel = input.uv * uniforms.resolution;
+    float2 axis = uniforms.pathEnd - uniforms.pathStart;
+    float axisLength = max(length(axis), 1e-4);
+    float2 direction = axis / axisLength;
+    float2 rel = pixel - uniforms.pathStart;
+
+    float projection = dot(rel, direction);
+    float head = uniforms.progress * axisLength;
+    float axialDistance = fabs(projection - head);
+    float bandHalfWidth = max(uniforms.params.x, 0.01);
+    float band = 1.0 - smoothstepFx(bandHalfWidth, bandHalfWidth * 1.6, axialDistance);
+
+    float inSegment = step(0.0, projection) * step(projection, axisLength);
+    float perpendicularDistance = fabs(rel.x * direction.y - rel.y * direction.x);
+    float coreThickness = max(uniforms.params.y, 0.2);
+    float core = 1.0 - smoothstepFx(coreThickness, coreThickness + 1.0, perpendicularDistance);
+    float glow = 1.0 - smoothstepFx(coreThickness * 4.0, coreThickness * 7.0, perpendicularDistance);
+
+    float pulse = 0.9 + 0.1 * sin(uniforms.time * 22.0 + uniforms.progress * 5.0);
+    float alpha = inSegment * band * (core * 0.92 + glow * 0.55) * uniforms.alpha * pulse;
+
+    float3 color = mix(float3(0.98, 0.92, 0.70), float3(1.0, 0.99, 0.86), uniforms.intensity);
+    color += glow * 0.08;
+
+    if (uniforms.debugEnabled > 0.5) {
+        float centerMark = 1.0 - smoothstepFx(0.0, 4.0, distance(pixel, uniforms.center));
+        float pathMark = 1.0 - smoothstepFx(0.0, 1.8, distanceToSegment(pixel, uniforms.pathStart, uniforms.pathEnd));
+        float boundsMark = debugBoundsMask(pixel, uniforms.bounds);
+        color = mix(color, float3(0.12, 0.96, 0.68), centerMark);
+        color = mix(color, float3(0.92, 0.30, 0.98), pathMark * 0.8);
+        color = mix(color, float3(0.24, 0.64, 1.0), boundsMark * 0.85);
+        alpha = max(alpha, max(centerMark * 0.55, max(pathMark * 0.4, boundsMark * 0.42)));
+    }
+
     return float4(color, alpha);
+}
+
+float4 resolveAlphaFragment(FXVertexOut input, constant FXOverlayUniforms &uniforms) {
+    if (uniforms.effectKind < 0.5) {
+        return renderWaveFragment(input, uniforms);
+    }
+    if (uniforms.effectKind < 1.5) {
+        return renderScanlineFragment(input, uniforms);
+    }
+    return float4(0.0);
 }
 
 fragment float4 fragment_alpha(
     FXVertexOut input [[stage_in]],
-    constant WaveUniforms &uniforms [[buffer(0)]]
+    constant FXOverlayUniforms &uniforms [[buffer(0)]]
 ) {
-    return waveFragment(input, uniforms, false);
+    return resolveAlphaFragment(input, uniforms);
 }
 
 fragment float4 fragment_additive(
     FXVertexOut input [[stage_in]],
-    constant WaveUniforms &uniforms [[buffer(0)]]
+    constant FXOverlayUniforms &uniforms [[buffer(0)]]
 ) {
-    return waveFragment(input, uniforms, true);
+    float4 color = resolveAlphaFragment(input, uniforms);
+    return float4(color.rgb * color.a, color.a);
 }

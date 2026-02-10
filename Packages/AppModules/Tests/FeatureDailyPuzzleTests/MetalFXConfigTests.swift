@@ -12,6 +12,14 @@ final class MetalFXConfigTests: XCTestCase {
         XCTAssertTrue(config.isEnabled(for: .wordSuccessScanline))
     }
 
+    func testIsEnabledHonorsScanlineToggle() {
+        var config = FXConfig()
+        config.enableWordSuccessScanline = false
+
+        XCTAssertFalse(config.isEnabled(for: .wordSuccessScanline))
+        XCTAssertTrue(config.isEnabled(for: .wordSuccessWave))
+    }
+
     func testClipSpacePointUsesExpectedFormula() {
         let size = CGSize(width: 100, height: 80)
 

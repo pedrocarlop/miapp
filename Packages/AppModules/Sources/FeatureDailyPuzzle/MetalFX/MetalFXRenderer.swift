@@ -33,10 +33,13 @@ public final class MetalFXRenderer: NSObject, MTKViewDelegate {
         guard let waveEffect = WordSuccessWaveEffect(device: device, alphaPipeline: pipelines.alpha) else {
             return nil
         }
+        guard let scanlineEffect = WordSuccessScanlineEffect(device: device, alphaPipeline: pipelines.alpha) else {
+            return nil
+        }
 
         self.commandQueue = commandQueue
         self.pipelines = pipelines
-        effects = [waveEffect]
+        effects = [waveEffect, scanlineEffect]
         self.view = view
 
         super.init()
@@ -57,6 +60,9 @@ public final class MetalFXRenderer: NSObject, MTKViewDelegate {
         for effect in effects {
             if let wave = effect as? WordSuccessWaveEffect {
                 wave.setDebugEnabled(config.debugEnabled)
+            }
+            if let scanline = effect as? WordSuccessScanlineEffect {
+                scanline.setDebugEnabled(config.debugEnabled)
             }
         }
     }
