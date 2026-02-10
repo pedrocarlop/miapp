@@ -80,6 +80,10 @@
 ### quality(core): add debug guardrail for invalid preferred grid size
 - Added debug assertion in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/ProgressRecordResolver.swift` for non-positive `preferredGridSize`.
 
+### quality(lint): add SwiftLint baseline configuration
+- Added `/Users/pedrocarrascolopezbrea/Projects/miapp/.swiftlint.yml` with project include/exclude scope and baseline rules/thresholds.
+- Added `/Users/pedrocarrascolopezbrea/Projects/miapp/Scripts/lint.sh` to run strict linting in environments where `swiftlint` is installed.
+
 ### fix(board): disambiguate domain Grid type
 - Qualified domain-grid usages as `Core.PuzzleGrid` in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift` to avoid collision with `SwiftUI.Grid`.
 - Applied the same explicit qualification in:
