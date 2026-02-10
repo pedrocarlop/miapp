@@ -8,7 +8,7 @@ final class DailyPuzzleGameSessionViewModelTests: XCTestCase {
         Puzzle(
             number: 1,
             dayKey: DayKey(offset: 0),
-            grid: Grid(letters: [
+            grid: PuzzleGrid(letters: [
                 ["C", "A", "T"],
                 ["X", "X", "X"],
                 ["D", "O", "G"]

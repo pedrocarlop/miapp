@@ -194,7 +194,7 @@ private struct DailyPuzzleChallengeCardGridPreview: View {
 
     private var outlines: [SharedWordSearchBoardOutline] {
         let normalizedFoundWords = Set(foundWords.map(WordSearchNormalization.normalizedWord))
-        let coreGrid = Core.Grid(letters: grid)
+        let coreGrid = Core.PuzzleGrid(letters: grid)
 
         return words.enumerated().compactMap { index, word in
             let normalized = WordSearchNormalization.normalizedWord(word)

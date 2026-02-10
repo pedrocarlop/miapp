@@ -28,3 +28,4 @@
 - Shared `LoupeState`/`LoupeConfiguration` in `Core` to remove duplicated loupe implementations.
 - Shared memoized path-finding in `Core` (`WordPathFinderService`) used by app and widget.
 - Structured logging wrapper (`AppLogger`) for persistence/migration diagnostics.
+- Renamed the core word-search grid model from `Grid` to `PuzzleGrid` to avoid SwiftUI name collisions and improve domain clarity.

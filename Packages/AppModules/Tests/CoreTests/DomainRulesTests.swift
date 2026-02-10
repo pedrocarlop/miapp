@@ -3,7 +3,7 @@ import XCTest
 
 final class DomainRulesTests: XCTestCase {
     private func makePuzzle() -> Puzzle {
-        let grid = Grid(letters: [
+        let grid = PuzzleGrid(letters: [
             ["C", "A", "T", "X", "X"],
             ["X", "O", "O", "X", "X"],
             ["X", "X", "G", "X", "X"],
@@ -170,7 +170,7 @@ final class DomainRulesTests: XCTestCase {
     }
 
     func testWordPathFinderPrefersSolvedCells() {
-        let grid = Grid(letters: [
+        let grid = PuzzleGrid(letters: [
             ["C", "A", "T"],
             ["A", "A", "A"],
             ["T", "A", "C"]

@@ -18,7 +18,7 @@ public enum WordPathFinderService {
 
     public static func bestPath(
         for word: String,
-        grid: Grid,
+        grid: PuzzleGrid,
         prioritizing solvedPositions: Set<GridPosition> = []
     ) -> [GridPosition]? {
         let normalizedWord = WordSearchNormalization.normalizedWord(word)
@@ -52,7 +52,7 @@ public enum WordPathFinderService {
         return resolved
     }
 
-    public static func candidatePaths(for word: String, grid: Grid) -> [[GridPosition]] {
+    public static func candidatePaths(for word: String, grid: PuzzleGrid) -> [[GridPosition]] {
         let normalizedWord = WordSearchNormalization.normalizedWord(word)
         let letters = normalizedWord.map(String.init)
         let reversed = Array(letters.reversed())
@@ -103,7 +103,7 @@ public enum WordPathFinderService {
 
     private static func cacheKey(
         normalizedWord: String,
-        grid: Grid,
+        grid: PuzzleGrid,
         solvedPositions: Set<GridPosition>
     ) -> CacheKey {
         CacheKey(
@@ -113,7 +113,7 @@ public enum WordPathFinderService {
         )
     }
 
-    private static func gridSignature(_ grid: Grid) -> String {
+    private static func gridSignature(_ grid: PuzzleGrid) -> String {
         grid.letters.map { $0.joined() }.joined(separator: "|")
     }
 

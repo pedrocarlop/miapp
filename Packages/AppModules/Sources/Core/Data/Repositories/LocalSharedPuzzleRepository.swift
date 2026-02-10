@@ -317,7 +317,7 @@ public final class LocalSharedPuzzleRepository: SharedPuzzleRepository {
         return Puzzle(
             number: 1,
             dayKey: DayKey(offset: 0),
-            grid: Grid(letters: grid),
+            grid: PuzzleGrid(letters: grid),
             words: safeWords.map(Word.init(text:))
         )
     }

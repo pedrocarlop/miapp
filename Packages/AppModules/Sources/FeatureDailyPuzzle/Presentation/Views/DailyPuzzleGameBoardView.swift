@@ -111,7 +111,7 @@ public struct DailyPuzzleGameBoardView: View {
         let outlines = Self.makeSolvedWordOutlines(
             words: words,
             foundWords: foundWords,
-            grid: Core.Grid(letters: grid),
+            grid: Core.PuzzleGrid(letters: grid),
             solvedPositions: solvedPositions
         )
         self.mappedSolvedWordOutlines = outlines.map { outline in
@@ -237,7 +237,7 @@ public struct DailyPuzzleGameBoardView: View {
     private static func makeSolvedWordOutlines(
         words: [String],
         foundWords: Set<String>,
-        grid: Core.Grid,
+        grid: Core.PuzzleGrid,
         solvedPositions: Set<GridPosition>
     ) -> [WordOutline] {
         let normalizedFound = Set(foundWords.map { WordSearchNormalization.normalizedWord($0) })

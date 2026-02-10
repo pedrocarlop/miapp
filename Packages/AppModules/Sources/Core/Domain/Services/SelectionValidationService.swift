@@ -34,7 +34,7 @@ public enum SelectionValidationService {
         from start: GridPosition,
         to end: GridPosition,
         direction: (Int, Int),
-        grid: Grid
+        grid: PuzzleGrid
     ) -> [GridPosition] {
         let drRaw = end.row - start.row
         let dcRaw = end.col - start.col
@@ -50,7 +50,7 @@ public enum SelectionValidationService {
         }
     }
 
-    public static func path(from start: GridPosition, to end: GridPosition, grid: Grid) -> [GridPosition]? {
+    public static func path(from start: GridPosition, to end: GridPosition, grid: PuzzleGrid) -> [GridPosition]? {
         let dr = end.row - start.row
         let dc = end.col - start.col
         let absDr = abs(dr)

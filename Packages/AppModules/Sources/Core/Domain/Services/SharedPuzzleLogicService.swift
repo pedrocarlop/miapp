@@ -34,7 +34,7 @@ public enum SharedPuzzleLogicService {
             return next
         }
 
-        let grid = Grid(letters: next.grid)
+        let grid = PuzzleGrid(letters: next.grid)
         let linePath = SelectionValidationService.path(from: anchor, to: tapped, grid: grid)
         if let linePath,
            let matchedWord = wordFromPath(grid: grid, allowedWords: next.words, path: linePath) {
@@ -86,7 +86,7 @@ public enum SharedPuzzleLogicService {
         return next
     }
 
-    public static func wordFromPath(grid: Grid, allowedWords: [String], path: [GridPosition]) -> String? {
+    public static func wordFromPath(grid: PuzzleGrid, allowedWords: [String], path: [GridPosition]) -> String? {
         guard path.count >= 2 else { return nil }
         guard let candidate = grid.word(at: path) else { return nil }
 

@@ -66,7 +66,7 @@
 
 ### perf(board+widget): precompute solved outlines and avoid repeated mapping
 - Refactored `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift`:
-  - Precomputes solved word outlines in `init` using a single `Grid` instance.
+  - Precomputes solved word outlines in `init` using a single `PuzzleGrid` instance.
   - Reuses pre-mapped `SharedWordSearchBoardOutline` models instead of rebuilding them during every view refresh.
 - Refactored `/Users/pedrocarrascolopezbrea/Projects/miapp/WordSearchWidgetExtension/WordSearchWidget.swift`:
   - Precomputes solved outlines once per widget view init and reuses mapped outline models.
@@ -80,10 +80,23 @@
 - Added debug assertion in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/ProgressRecordResolver.swift` for non-positive `preferredGridSize`.
 
 ### fix(board): disambiguate domain Grid type
-- Qualified `Grid` usages as `Core.Grid` in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift` to avoid collision with `SwiftUI.Grid`.
+- Qualified domain-grid usages as `Core.PuzzleGrid` in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift` to avoid collision with `SwiftUI.Grid`.
 - Applied the same explicit qualification in:
   - `/Users/pedrocarrascolopezbrea/Projects/miapp/WordSearchWidgetExtension/WordSearchWidget.swift`
   - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift`
+
+### refactor(core): rename `Grid` domain model to `PuzzleGrid`
+- Renamed the core domain type to reduce naming collisions and improve semantic clarity across modules.
+- Updated all dependent services and call sites:
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Entities/WordSearchEntities.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SelectionValidationService.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/WordPathFinderService.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/PuzzleFactory.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Domain/Services/SharedPuzzleLogicService.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Data/Repositories/LocalSharedPuzzleRepository.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeScreenViewModel.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/CoreTests/DomainRulesTests.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/DailyPuzzleGameSessionViewModelTests.swift`
 
 ## Key files modified and why
 - `/Users/pedrocarrascolopezbrea/Projects/miapp/miapp/ContentView.swift`: stop expensive card recomputation in `body`, cancel pending transition tasks safely.

@@ -49,7 +49,7 @@ public struct GridPosition: Hashable, Codable, Sendable {
     public var c: Int { col }
 }
 
-public struct Grid: Hashable, Codable, Sendable {
+public struct PuzzleGrid: Hashable, Codable, Sendable {
     public let letters: [[String]]
 
     public init(letters: [[String]]) {
@@ -97,10 +97,10 @@ public struct Grid: Hashable, Codable, Sendable {
 public struct Puzzle: Hashable, Codable, Sendable {
     public let number: Int
     public let dayKey: DayKey
-    public let grid: Grid
+    public let grid: PuzzleGrid
     public let words: [Word]
 
-    public init(number: Int, dayKey: DayKey, grid: Grid, words: [Word]) {
+    public init(number: Int, dayKey: DayKey, grid: PuzzleGrid, words: [Word]) {
         self.number = number
         self.dayKey = dayKey
         self.grid = grid

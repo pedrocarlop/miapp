@@ -183,7 +183,7 @@ public final class DailyPuzzleHomeScreenViewModel {
             return Puzzle(
                 number: sharedState.puzzleIndex + 1,
                 dayKey: DayKey(offset: offset),
-                grid: Grid(letters: sharedState.grid),
+                grid: PuzzleGrid(letters: sharedState.grid),
                 words: sharedState.words.map(Word.init(text:))
             )
         }

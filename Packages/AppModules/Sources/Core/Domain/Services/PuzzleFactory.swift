@@ -40,7 +40,7 @@ public enum PuzzleFactory {
         return Puzzle(
             number: normalizedIndex + 1,
             dayKey: dayKey,
-            grid: Grid(letters: generated.grid),
+            grid: PuzzleGrid(letters: generated.grid),
             words: generated.words.map(Word.init(text:))
         )
     }
