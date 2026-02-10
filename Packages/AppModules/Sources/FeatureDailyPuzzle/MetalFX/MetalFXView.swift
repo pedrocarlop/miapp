@@ -3,6 +3,7 @@ import MetalKit
 import SwiftUI
 import UIKit
 
+@MainActor
 public struct MetalFXView: UIViewRepresentable {
     @ObservedObject private var manager: MetalFXManager
     private let size: CGSize
@@ -56,6 +57,7 @@ public struct MetalFXView: UIViewRepresentable {
         }
     }
 
+    @MainActor
     public final class Coordinator {
         private let manager: MetalFXManager
         private var renderer: MetalFXRenderer?
@@ -88,6 +90,7 @@ public struct MetalFXView: UIViewRepresentable {
 #else
 import SwiftUI
 
+@MainActor
 public struct MetalFXView: View {
     @ObservedObject private var manager: MetalFXManager
     private let size: CGSize
