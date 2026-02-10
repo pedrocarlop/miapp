@@ -79,6 +79,9 @@
 ### quality(core): add debug guardrail for invalid preferred grid size
 - Added debug assertion in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/ProgressRecordResolver.swift` for non-positive `preferredGridSize`.
 
+### fix(board): disambiguate domain Grid type
+- Qualified `Grid` usages as `Core.Grid` in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift` to avoid collision with `SwiftUI.Grid`.
+
 ## Key files modified and why
 - `/Users/pedrocarrascolopezbrea/Projects/miapp/miapp/ContentView.swift`: stop expensive card recomputation in `body`, cancel pending transition tasks safely.
 - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeScreenViewModel.swift`: precomputed card state cache and central progress resolver.
