@@ -1,3 +1,7 @@
+import Foundation
+
+enum MetalFXShaderSource {
+    static let source = """
 #include <metal_stdlib>
 using namespace metal;
 
@@ -182,4 +186,6 @@ fragment float4 fragment_additive(
 ) {
     float4 color = resolveAlphaFragment(input, uniforms);
     return float4(color.rgb * color.a, color.a);
+}
+"""
 }

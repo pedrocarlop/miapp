@@ -200,7 +200,10 @@ public final class MetalFXRenderer: NSObject, MTKViewDelegate {
         if let bundledLibrary = try? device.makeDefaultLibrary(bundle: .module) {
             return bundledLibrary
         }
-        return device.makeDefaultLibrary()
+        if let defaultLibrary = device.makeDefaultLibrary() {
+            return defaultLibrary
+        }
+        return try? device.makeLibrary(source: MetalFXShaderSource.source, options: nil)
     }
 
     private enum BlendMode {
