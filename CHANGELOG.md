@@ -81,6 +81,9 @@
 
 ### fix(board): disambiguate domain Grid type
 - Qualified `Grid` usages as `Core.Grid` in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift` to avoid collision with `SwiftUI.Grid`.
+- Applied the same explicit qualification in:
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/WordSearchWidgetExtension/WordSearchWidget.swift`
+  - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleChallengeCardView.swift`
 
 ## Key files modified and why
 - `/Users/pedrocarrascolopezbrea/Projects/miapp/miapp/ContentView.swift`: stop expensive card recomputation in `body`, cancel pending transition tasks safely.

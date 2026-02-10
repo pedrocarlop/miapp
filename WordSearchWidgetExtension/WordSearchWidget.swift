@@ -344,7 +344,7 @@ private struct WordSearchGridWidget: View {
 
     private static func makeSolvedWordOutlines(state: WordSearchState) -> [WordOutline] {
         let normalizedFound = Set(state.foundWords.map { WordSearchNormalization.normalizedWord($0) })
-        let grid = Grid(letters: state.grid)
+        let grid = Core.Grid(letters: state.grid)
 
         return state.words.enumerated().compactMap { index, rawWord in
             let normalizedWord = WordSearchNormalization.normalizedWord(rawWord)
