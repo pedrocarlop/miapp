@@ -18,6 +18,7 @@ public enum ProgressRecordResolver {
         preferredGridSize: Int,
         records: [String: AppProgressRecord]
     ) -> AppProgressRecord? {
+        assert(preferredGridSize > 0, "Preferred grid size must be positive.")
         let preferredKey = AppProgressRecordKey.make(
             dayOffset: dayOffset,
             gridSize: preferredGridSize

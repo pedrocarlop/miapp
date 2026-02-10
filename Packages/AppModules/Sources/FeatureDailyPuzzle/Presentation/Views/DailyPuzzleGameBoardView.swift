@@ -70,6 +70,7 @@ public struct DailyPuzzleGameBoardView: View {
     @State private var snapScale: CGFloat = 1
     @State private var snapTask: Task<Void, Never>?
     private let loupeConfiguration: DailyPuzzleLoupeConfiguration
+    private let mappedSolvedWordOutlines: [SharedWordSearchBoardOutline]
 
     private struct WordOutline: Identifiable {
         let id: String
@@ -107,6 +108,20 @@ public struct DailyPuzzleGameBoardView: View {
         self.onDragEnded = onDragEnded
         self.isInteractive = isInteractive
         self.loupeConfiguration = loupeConfiguration
+        let outlines = Self.makeSolvedWordOutlines(
+            words: words,
+            foundWords: foundWords,
+            grid: Grid(letters: grid),
+            solvedPositions: solvedPositions
+        )
+        self.mappedSolvedWordOutlines = outlines.map { outline in
+            SharedWordSearchBoardOutline(
+                id: outline.id,
+                word: outline.word,
+                seed: outline.seed,
+                positions: outline.positions.map { SharedWordSearchBoardPosition(row: $0.row, col: $0.col) }
+            )
+        }
         _loupeState = State(
             initialValue: DailyPuzzleLoupeState(configuration: loupeConfiguration)
         )
@@ -172,14 +187,6 @@ public struct DailyPuzzleGameBoardView: View {
                 positions: value.positions.map { SharedWordSearchBoardPosition(row: $0.row, col: $0.col) }
             )
         }
-        let mappedOutlines = solvedWordOutlines.map { outline in
-            SharedWordSearchBoardOutline(
-                id: outline.id,
-                word: outline.word,
-                seed: outline.seed,
-                positions: outline.positions.map { SharedWordSearchBoardPosition(row: $0.row, col: $0.col) }
-            )
-        }
         let palette = SharedWordSearchBoardPalette(
             boardBackground: ColorTokens.surfacePaperGrid,
             boardCellBackground: ColorTokens.surfacePaperMuted,
@@ -199,7 +206,7 @@ public struct DailyPuzzleGameBoardView: View {
                 sideLength: sideLength,
                 activePositions: mappedActive,
                 feedback: mappedFeedback,
-                solvedWordOutlines: mappedOutlines,
+                solvedWordOutlines: mappedSolvedWordOutlines,
                 anchor: mappedActive.last,
                 palette: palette
             )
@@ -227,13 +234,22 @@ public struct DailyPuzzleGameBoardView: View {
         }
     }
 
-    private var solvedWordOutlines: [WordOutline] {
+    private static func makeSolvedWordOutlines(
+        words: [String],
+        foundWords: Set<String>,
+        grid: Grid,
+        solvedPositions: Set<GridPosition>
+    ) -> [WordOutline] {
         let normalizedFound = Set(foundWords.map { WordSearchNormalization.normalizedWord($0) })
 
         return words.enumerated().compactMap { index, rawWord in
             let normalized = WordSearchNormalization.normalizedWord(rawWord)
             guard normalizedFound.contains(normalized) else { return nil }
-            guard let path = bestPath(for: normalized) else { return nil }
+            guard let path = WordPathFinderService.bestPath(
+                for: normalized,
+                grid: grid,
+                prioritizing: solvedPositions
+            ) else { return nil }
             let signature = path.map { "\($0.row)-\($0.col)" }.joined(separator: "_")
             return WordOutline(
                 id: "\(index)-\(normalized)-\(signature)",
@@ -242,14 +258,6 @@ public struct DailyPuzzleGameBoardView: View {
                 positions: path
             )
         }
-    }
-
-    private func bestPath(for word: String) -> [GridPosition]? {
-        WordPathFinderService.bestPath(
-            for: word,
-            grid: Grid(letters: grid),
-            prioritizing: solvedPositions
-        )
     }
 
     private func center(for position: GridPosition, cellSize: CGFloat) -> CGPoint {

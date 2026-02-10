@@ -8,6 +8,7 @@ import SwiftUI
 import AppIntents
 import Foundation
 import DesignSystem
+import Core
 
 @available(iOS 17.0, *)
 private enum WordSearchWidgetColorTokens {
@@ -46,20 +47,11 @@ private enum WordSearchWidgetColorTokens {
 @available(iOS 17.0, *)
 private enum WordSearchWidgetTypographyTokens {
     static let body = TypographyTokens.body
-
-    static func sans(_ textStyle: Font.TextStyle, weight: Font.Weight? = nil) -> Font {
-        let base = Font.system(textStyle, design: .default)
-        guard let weight else { return base }
-        return base.weight(weight)
-    }
-
-    static func sans(size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .default)
-    }
-
-    static func mono(size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .monospaced)
-    }
+    static let overlayTitle = TypographyTokens.screenTitle.weight(.bold)
+    static let overlayBody = TypographyTokens.caption
+    static let hintTitle = TypographyTokens.caption.weight(.semibold)
+    static let hintBody = TypographyTokens.bodyStrong
+    static let hintCTA = TypographyTokens.footnote.weight(.semibold)
 }
 
 @available(iOS 17.0, *)
@@ -150,6 +142,21 @@ private struct WordSearchGridWidget: View {
         let seed: Int
         let positions: [WordSearchPosition]
     }
+    private let mappedSolvedWordOutlines: [SharedWordSearchBoardOutline]
+
+    init(state: WordSearchState, colorScheme: ColorScheme) {
+        self.state = state
+        self.colorScheme = colorScheme
+        let outlines = Self.makeSolvedWordOutlines(state: state)
+        self.mappedSolvedWordOutlines = outlines.map { outline in
+            SharedWordSearchBoardOutline(
+                id: outline.id,
+                word: outline.word,
+                seed: outline.seed,
+                positions: outline.positions.map { SharedWordSearchBoardPosition(row: $0.r, col: $0.c) }
+            )
+        }
+    }
 
     private var rows: Int { state.grid.count }
     private var cols: Int { state.grid.first?.count ?? 0 }
@@ -216,18 +223,10 @@ private struct WordSearchGridWidget: View {
                 positions: value.positions.map { SharedWordSearchBoardPosition(row: $0.r, col: $0.c) }
             )
         }
-        let mappedOutlines = solvedWordOutlines.map { outline in
-            SharedWordSearchBoardOutline(
-                id: outline.id,
-                word: outline.word,
-                seed: outline.seed,
-                positions: outline.positions.map { SharedWordSearchBoardPosition(row: $0.r, col: $0.c) }
-            )
-        }
         let mappedAnchor = state.anchor.map { SharedWordSearchBoardPosition(row: $0.r, col: $0.c) }
         let palette = SharedWordSearchBoardPalette(
-            boardBackground: ColorTokens.chipNeutralFill,
-            boardCellBackground: ColorTokens.chipNeutralFill,
+            boardBackground: ColorTokens.surfacePaperGrid,
+            boardCellBackground: ColorTokens.surfacePaperMuted,
             boardGridStroke: ColorTokens.boardGridStroke,
             boardOuterStroke: ColorTokens.boardOuterStroke,
             letterColor: ColorTokens.textPrimary,
@@ -246,7 +245,7 @@ private struct WordSearchGridWidget: View {
                 sideLength: sideLength,
                 activePositions: mappedActive,
                 feedback: mappedFeedback,
-                solvedWordOutlines: mappedOutlines,
+                solvedWordOutlines: mappedSolvedWordOutlines,
                 anchor: mappedAnchor,
                 palette: palette
             )
@@ -286,10 +285,10 @@ private struct WordSearchGridWidget: View {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Siguiente:")
-                        .font(WordSearchWidgetTypographyTokens.sans(size: 14, weight: .semibold))
-                        .foregroundStyle(.secondary)
+                        .font(WordSearchWidgetTypographyTokens.hintTitle)
+                        .foregroundStyle(ColorTokens.textSecondary)
                     Text(display)
-                        .font(WordSearchWidgetTypographyTokens.sans(size: 16, weight: .bold))
+                        .font(WordSearchWidgetTypographyTokens.hintBody)
                         .lineLimit(2)
                         .minimumScaleFactor(0.8)
                 }
@@ -298,7 +297,7 @@ private struct WordSearchGridWidget: View {
 
                 Button(intent: DismissHintIntent()) {
                     Text("Entendido")
-                        .font(WordSearchWidgetTypographyTokens.sans(size: 13, weight: .semibold))
+                        .font(WordSearchWidgetTypographyTokens.hintCTA)
                         .padding(.horizontal, SpacingTokens.sm)
                         .padding(.vertical, SpacingTokens.xxs)
                         .background(
@@ -310,9 +309,9 @@ private struct WordSearchGridWidget: View {
             }
             .padding(.horizontal, SpacingTokens.sm)
             .padding(.vertical, SpacingTokens.xs)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous))
             .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
                     .stroke(WordSearchWidgetColorTokens.hintPanelStroke.opacity(isDark ? 0.35 : 1), lineWidth: 0.8)
             )
             .allowsHitTesting(true)
@@ -326,34 +325,39 @@ private struct WordSearchGridWidget: View {
 
             VStack(spacing: 6) {
                 Text("Completado")
-                    .font(WordSearchWidgetTypographyTokens.sans(size: 27, weight: .bold))
+                    .font(WordSearchWidgetTypographyTokens.overlayTitle)
                     .multilineTextAlignment(.center)
 
                 Text("Manana a las \(nextRefreshTimeLabel) se cargara otra sopa de letras.")
-                    .font(WordSearchWidgetTypographyTokens.sans(size: 12, weight: .medium))
+                    .font(WordSearchWidgetTypographyTokens.overlayBody)
                     .multilineTextAlignment(.center)
                 Text("Cada dia se anade un nuevo juego.")
-                    .font(WordSearchWidgetTypographyTokens.sans(size: 12, weight: .regular))
+                    .font(WordSearchWidgetTypographyTokens.overlayBody)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, SpacingTokens.sm)
             .padding(.vertical, SpacingTokens.sm)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous))
             .padding(SpacingTokens.xl)
         }
     }
 
-    private var solvedWordOutlines: [WordOutline] {
-        let foundWords = Set(state.foundWords.map { $0.uppercased() })
+    private static func makeSolvedWordOutlines(state: WordSearchState) -> [WordOutline] {
+        let normalizedFound = Set(state.foundWords.map { WordSearchNormalization.normalizedWord($0) })
+        let grid = Grid(letters: state.grid)
 
         return state.words.enumerated().compactMap { index, rawWord in
-            let word = rawWord.uppercased()
-            guard foundWords.contains(word) else { return nil }
-            guard let path = WordSearchLogic.bestPath(for: word, in: state) else { return nil }
+            let normalizedWord = WordSearchNormalization.normalizedWord(rawWord)
+            guard normalizedFound.contains(normalizedWord) else { return nil }
+            guard let path = WordPathFinderService.bestPath(
+                for: normalizedWord,
+                grid: grid,
+                prioritizing: state.solvedPositions
+            ) else { return nil }
             let signature = path.map { "\($0.r)-\($0.c)" }.joined(separator: "_")
             return WordOutline(
-                id: "\(index)-\(word)-\(signature)",
-                word: word,
+                id: "\(index)-\(normalizedWord)-\(signature)",
+                word: normalizedWord,
                 seed: index,
                 positions: path
             )

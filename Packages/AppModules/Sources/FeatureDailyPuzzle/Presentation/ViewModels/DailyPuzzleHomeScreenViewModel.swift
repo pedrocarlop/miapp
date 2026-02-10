@@ -319,6 +319,16 @@ public final class DailyPuzzleHomeScreenViewModel {
     }
 
     private func rebuildCarouselOffsets() {
+        let expectedCount = maxOffset - minOffset + 1
+        guard expectedCount > 0 else {
+            carouselOffsets = []
+            return
+        }
+        if carouselOffsets.count == expectedCount,
+           carouselOffsets.first == minOffset,
+           carouselOffsets.last == maxOffset {
+            return
+        }
         carouselOffsets = Array(minOffset...maxOffset)
     }
 

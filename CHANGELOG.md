@@ -64,6 +64,21 @@
   - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Tests/FeatureDailyPuzzleTests/DailyPuzzleHomeScreenViewModelTests.swift`
     - Added cached challenge-card state coverage.
 
+### perf(board+widget): precompute solved outlines and avoid repeated mapping
+- Refactored `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/Views/DailyPuzzleGameBoardView.swift`:
+  - Precomputes solved word outlines in `init` using a single `Grid` instance.
+  - Reuses pre-mapped `SharedWordSearchBoardOutline` models instead of rebuilding them during every view refresh.
+- Refactored `/Users/pedrocarrascolopezbrea/Projects/miapp/WordSearchWidgetExtension/WordSearchWidget.swift`:
+  - Precomputes solved outlines once per widget view init and reuses mapped outline models.
+  - Removes repeated uppercase/path lookup work from render path.
+- Removed now-unused helper in `/Users/pedrocarrascolopezbrea/Projects/miapp/WordSearchWidgetExtension/WordSearchIntents.swift` (`WordSearchLogic`).
+
+### perf(home): avoid rebuilding carousel offsets when unchanged
+- Updated `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeScreenViewModel.swift` to skip recreating `carouselOffsets` unless range bounds changed.
+
+### quality(core): add debug guardrail for invalid preferred grid size
+- Added debug assertion in `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/Core/Utilities/ProgressRecordResolver.swift` for non-positive `preferredGridSize`.
+
 ## Key files modified and why
 - `/Users/pedrocarrascolopezbrea/Projects/miapp/miapp/ContentView.swift`: stop expensive card recomputation in `body`, cancel pending transition tasks safely.
 - `/Users/pedrocarrascolopezbrea/Projects/miapp/Packages/AppModules/Sources/FeatureDailyPuzzle/Presentation/ViewModels/DailyPuzzleHomeScreenViewModel.swift`: precomputed card state cache and central progress resolver.

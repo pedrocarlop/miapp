@@ -138,17 +138,3 @@ enum WordSearchPersistence {
         )
     }
 }
-
-@available(iOS 17.0, *)
-enum WordSearchLogic {
-    static func bestPath(
-        for word: String,
-        in state: WordSearchState
-    ) -> [WordSearchPosition]? {
-        WordPathFinderService.bestPath(
-            for: word,
-            grid: Grid(letters: state.grid),
-            prioritizing: state.solvedPositions
-        )
-    }
-}
