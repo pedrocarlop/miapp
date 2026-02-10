@@ -15,7 +15,20 @@ public final class UserDefaultsStore: KeyValueStore {
     private let defaults: UserDefaults
 
     public init?(suiteName: String = WordSearchConfig.suiteName) {
+        guard Self.isAccessibleSuite(suiteName) else {
+            AppLogger.error(
+                "App Group suite is not accessible",
+                category: .persistence,
+                metadata: ["suiteName": suiteName]
+            )
+            return nil
+        }
         guard let defaults = UserDefaults(suiteName: suiteName) else {
+            AppLogger.error(
+                "Unable to initialize UserDefaults suite",
+                category: .persistence,
+                metadata: ["suiteName": suiteName]
+            )
             return nil
         }
         self.defaults = defaults
@@ -55,6 +68,16 @@ public final class UserDefaultsStore: KeyValueStore {
 
     public func removeObject(forKey defaultName: String) {
         defaults.removeObject(forKey: defaultName)
+    }
+
+    private static func isAccessibleSuite(_ suiteName: String) -> Bool {
+        guard suiteName.hasPrefix("group.") else {
+            return true
+        }
+
+        return FileManager.default.containerURL(
+            forSecurityApplicationGroupIdentifier: suiteName
+        ) != nil
     }
 }
 

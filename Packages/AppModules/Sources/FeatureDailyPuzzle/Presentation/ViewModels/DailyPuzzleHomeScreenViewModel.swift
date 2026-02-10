@@ -23,6 +23,39 @@ public enum DailyPuzzleChallengeTapAction: Equatable, Sendable {
     case noAction
 }
 
+public struct DailyPuzzleChallengeCardState: Identifiable, Equatable, Sendable {
+    public let offset: Int
+    public let date: Date
+    public let puzzleNumber: Int
+    public let grid: [[String]]
+    public let words: [String]
+    public let progress: DailyPuzzleProgressSnapshot
+    public let isLocked: Bool
+    public let hoursUntilAvailable: Int?
+
+    public init(
+        offset: Int,
+        date: Date,
+        puzzleNumber: Int,
+        grid: [[String]],
+        words: [String],
+        progress: DailyPuzzleProgressSnapshot,
+        isLocked: Bool,
+        hoursUntilAvailable: Int?
+    ) {
+        self.offset = offset
+        self.date = date
+        self.puzzleNumber = puzzleNumber
+        self.grid = grid
+        self.words = words
+        self.progress = progress
+        self.isLocked = isLocked
+        self.hoursUntilAvailable = hoursUntilAvailable
+    }
+
+    public var id: Int { offset }
+}
+
 @Observable
 @MainActor
 public final class DailyPuzzleHomeScreenViewModel {
@@ -35,10 +68,13 @@ public final class DailyPuzzleHomeScreenViewModel {
     public private(set) var sharedState: SharedPuzzleState
     public private(set) var appProgressRecords: [String: AppProgressRecord]
     public private(set) var easterUnlockedOffsets: Set<Int> = []
+    public private(set) var carouselOffsets: [Int] = []
+    public private(set) var challengeCards: [DailyPuzzleChallengeCardState] = []
 
     private let core: CoreContainer
     private var referenceNow: Date
     private var easterTapCounts: [Int: Int] = [:]
+    private var currentPreferredGridSize: Int
 
     public init(
         core: CoreContainer,
@@ -47,6 +83,7 @@ public final class DailyPuzzleHomeScreenViewModel {
     ) {
         self.core = core
         self.referenceNow = now
+        self.currentPreferredGridSize = preferredGridSize
         self.installDate = core.installationDate()
         self.selectedOffset = nil
         self.sharedState = core.getSharedPuzzleStateUseCase.execute(
@@ -55,6 +92,7 @@ public final class DailyPuzzleHomeScreenViewModel {
         )
         self.appProgressRecords = core.loadAllProgressRecordsUseCase.execute()
         selectTodayIfNeeded()
+        rebuildDerivedState(preferredGridSize: preferredGridSize, now: now)
     }
 
     public var todayOffset: Int {
@@ -63,10 +101,6 @@ public final class DailyPuzzleHomeScreenViewModel {
 
     public var minOffset: Int { 0 }
     public var maxOffset: Int { todayOffset + 1 }
-
-    public var carouselOffsets: [Int] {
-        Array(minOffset...maxOffset)
-    }
 
     public func setSelectedOffset(_ offset: Int?) {
         selectedOffset = offset
@@ -91,6 +125,7 @@ public final class DailyPuzzleHomeScreenViewModel {
         preferredGridSize: Int,
         now: Date = Date()
     ) {
+        currentPreferredGridSize = preferredGridSize
         referenceNow = now
         installDate = core.installationDate()
         sharedState = core.getSharedPuzzleStateUseCase.execute(
@@ -113,6 +148,7 @@ public final class DailyPuzzleHomeScreenViewModel {
         }
 
         selectTodayIfNeeded()
+        rebuildDerivedState(preferredGridSize: preferredGridSize, now: now)
     }
 
     public func puzzleDate(for offset: Int) -> Date {
@@ -138,6 +174,7 @@ public final class DailyPuzzleHomeScreenViewModel {
 
         easterUnlockedOffsets.insert(offset)
         easterTapCounts[offset] = 0
+        rebuildChallengeCards(preferredGridSize: currentPreferredGridSize, now: referenceNow)
         return .unlocked
     }
 
@@ -175,13 +212,19 @@ public final class DailyPuzzleHomeScreenViewModel {
     }
 
     public func progressFraction(for offset: Int, preferredGridSize: Int) -> Double {
+        if let cached = challengeCards.first(where: { $0.offset == offset }) {
+            return progressFraction(
+                progress: cached.progress,
+                words: cached.words
+            )
+        }
+
         let puzzle = puzzleForOffset(offset, preferredGridSize: preferredGridSize)
-        let total = max(puzzle.words.count, 1)
         let progress = progressForOffset(offset, puzzle: puzzle, preferredGridSize: preferredGridSize)
-        let normalizedFound = Set(progress.foundWords.map { $0.uppercased() })
-        let normalizedWords = Set(puzzle.words.map { $0.text.uppercased() })
-        let foundCount = normalizedFound.intersection(normalizedWords).count
-        return min(max(Double(foundCount) / Double(total), 0), 1)
+        return progressFraction(
+            progress: progress,
+            words: puzzle.words.map(\.text)
+        )
     }
 
     public func hoursUntilAvailable(for offset: Int, now: Date = Date()) -> Int? {
@@ -217,30 +260,11 @@ public final class DailyPuzzleHomeScreenViewModel {
         for offset: Int,
         preferredGridSize: Int
     ) -> AppProgressRecord? {
-        let preferredKey = AppProgressRecordKey.make(
+        ProgressRecordResolver.resolve(
             dayOffset: offset,
-            gridSize: preferredGridSize
+            preferredGridSize: preferredGridSize,
+            records: appProgressRecords
         )
-        if let preferred = appProgressRecords[preferredKey] {
-            return preferred
-        }
-
-        let candidates = appProgressRecords.values.filter { $0.dayOffset == offset }
-        return candidates.max { lhs, rhs in
-            let lhsActivity = max(lhs.startedAt ?? -1, lhs.endedAt ?? -1)
-            let rhsActivity = max(rhs.startedAt ?? -1, rhs.endedAt ?? -1)
-            if lhsActivity != rhsActivity {
-                return lhsActivity < rhsActivity
-            }
-
-            let lhsEnded = lhs.endedAt ?? -1
-            let rhsEnded = rhs.endedAt ?? -1
-            if lhsEnded != rhsEnded {
-                return lhsEnded < rhsEnded
-            }
-
-            return lhs.gridSize < rhs.gridSize
-        }
     }
 
     private func progress(
@@ -284,5 +308,52 @@ public final class DailyPuzzleHomeScreenViewModel {
             startedAt: nil,
             endedAt: nil
         )
+    }
+
+    private func rebuildDerivedState(preferredGridSize: Int, now: Date) {
+        rebuildCarouselOffsets()
+        rebuildChallengeCards(
+            preferredGridSize: preferredGridSize,
+            now: now
+        )
+    }
+
+    private func rebuildCarouselOffsets() {
+        carouselOffsets = Array(minOffset...maxOffset)
+    }
+
+    private func rebuildChallengeCards(
+        preferredGridSize: Int,
+        now: Date
+    ) {
+        challengeCards = carouselOffsets.map { offset in
+            let puzzle = puzzleForOffset(offset, preferredGridSize: preferredGridSize)
+            let progress = progressForOffset(
+                offset,
+                puzzle: puzzle,
+                preferredGridSize: preferredGridSize
+            )
+            return DailyPuzzleChallengeCardState(
+                offset: offset,
+                date: puzzleDate(for: offset),
+                puzzleNumber: puzzle.number,
+                grid: puzzle.grid.letters,
+                words: puzzle.words.map(\.text),
+                progress: progress,
+                isLocked: isLocked(offset: offset),
+                hoursUntilAvailable: hoursUntilAvailable(for: offset, now: now)
+            )
+        }
+    }
+
+    private func progressFraction(
+        progress: DailyPuzzleProgressSnapshot,
+        words: [String]
+    ) -> Double {
+        let total = max(words.count, 1)
+        let normalizedFound = Set(progress.foundWords.map { $0.uppercased() })
+        let normalizedWords = Set(words.map { $0.uppercased() })
+        let foundCount = normalizedFound.intersection(normalizedWords).count
+        return min(max(Double(foundCount) / Double(total), 0), 1)
     }
 }

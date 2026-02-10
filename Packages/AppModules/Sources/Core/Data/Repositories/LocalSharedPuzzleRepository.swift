@@ -36,6 +36,15 @@ public final class LocalSharedPuzzleRepository: SharedPuzzleRepository {
     public func saveState(_ state: SharedPuzzleState) {
         let dto = StateMappers.toDTO(state)
         guard let data = try? JSONEncoder().encode(dto) else {
+            AppLogger.error(
+                "Failed to encode shared puzzle state",
+                category: .persistence,
+                metadata: [
+                    "key": WordSearchConfig.stateKey,
+                    "puzzleIndex": "\(state.puzzleIndex)",
+                    "gridSize": "\(state.gridSize)"
+                ]
+            )
             return
         }
         store.set(data, forKey: WordSearchConfig.stateKey)
@@ -86,6 +95,14 @@ public final class LocalSharedPuzzleRepository: SharedPuzzleRepository {
         }
 
         guard let dto = try? JSONDecoder().decode(SharedPuzzleStateDTO.self, from: data) else {
+            AppLogger.error(
+                "Failed to decode shared puzzle state",
+                category: .persistence,
+                metadata: [
+                    "key": WordSearchConfig.stateKey,
+                    "bytes": "\(data.count)"
+                ]
+            )
             return nil
         }
 
@@ -205,55 +222,80 @@ public final class LocalSharedPuzzleRepository: SharedPuzzleRepository {
             return
         }
 
-        if let slotData = store.data(forKey: WordSearchConfig.legacySlotStateKeys[0]),
-           let legacy = try? JSONDecoder().decode(LegacySlotStateDTO.self, from: slotData),
-           let puzzle = makePuzzleFromLegacy(legacy.grid, words: legacy.words) {
-            let size = PuzzleFactory.clampGridSize(puzzle.grid.letters.count)
-            let migrated = SharedPuzzleState(
-                grid: puzzle.grid.letters,
-                words: puzzle.words.map(\.text),
-                gridSize: size,
-                anchor: nil,
-                foundWords: Set(legacy.foundWords.map(WordSearchNormalization.normalizedWord)),
-                solvedPositions: Set(legacy.solvedPositions.map { GridPosition(row: $0.r, col: $0.c) }),
-                puzzleIndex: PuzzleFactory.normalizedPuzzleIndex(legacy.puzzleIndex),
-                isHelpVisible: false,
-                feedback: nil,
-                pendingWord: nil,
-                pendingSolvedPositions: [],
-                nextHintWord: nil,
-                nextHintExpiresAt: nil
+        if let slotData = store.data(forKey: WordSearchConfig.legacySlotStateKeys[0]) {
+            if let legacy = try? JSONDecoder().decode(LegacySlotStateDTO.self, from: slotData),
+               let puzzle = makePuzzleFromLegacy(legacy.grid, words: legacy.words) {
+                let size = PuzzleFactory.clampGridSize(puzzle.grid.letters.count)
+                let migrated = SharedPuzzleState(
+                    grid: puzzle.grid.letters,
+                    words: puzzle.words.map(\.text),
+                    gridSize: size,
+                    anchor: nil,
+                    foundWords: Set(legacy.foundWords.map(WordSearchNormalization.normalizedWord)),
+                    solvedPositions: Set(legacy.solvedPositions.map { GridPosition(row: $0.r, col: $0.c) }),
+                    puzzleIndex: PuzzleFactory.normalizedPuzzleIndex(legacy.puzzleIndex),
+                    isHelpVisible: false,
+                    feedback: nil,
+                    pendingWord: nil,
+                    pendingSolvedPositions: [],
+                    nextHintWord: nil,
+                    nextHintExpiresAt: nil
+                )
+                saveState(migrated)
+                store.removeObject(forKey: WordSearchConfig.legacyStateKey)
+                store.removeObject(forKey: WordSearchConfig.legacyMigrationFlagKey)
+                cleanupLegacySlotKeys()
+                AppLogger.info(
+                    "Migrated legacy slot state",
+                    category: .migration,
+                    metadata: ["sourceKey": WordSearchConfig.legacySlotStateKeys[0]]
+                )
+                return
+            }
+
+            AppLogger.error(
+                "Failed to decode or normalize legacy slot state",
+                category: .migration,
+                metadata: ["sourceKey": WordSearchConfig.legacySlotStateKeys[0]]
             )
-            saveState(migrated)
-            store.removeObject(forKey: WordSearchConfig.legacyStateKey)
-            store.removeObject(forKey: WordSearchConfig.legacyMigrationFlagKey)
-            cleanupLegacySlotKeys()
-            return
         }
 
-        if let legacyData = store.data(forKey: WordSearchConfig.legacyStateKey),
-           let legacy = try? JSONDecoder().decode(LegacyPuzzleStateV1DTO.self, from: legacyData),
-           let puzzle = makePuzzleFromLegacy(legacy.grid, words: legacy.words) {
-            let size = PuzzleFactory.clampGridSize(puzzle.grid.letters.count)
-            let migrated = SharedPuzzleState(
-                grid: puzzle.grid.letters,
-                words: puzzle.words.map(\.text),
-                gridSize: size,
-                anchor: nil,
-                foundWords: Set(legacy.foundWords.map(WordSearchNormalization.normalizedWord)),
-                solvedPositions: [],
-                puzzleIndex: 0,
-                isHelpVisible: false,
-                feedback: nil,
-                pendingWord: nil,
-                pendingSolvedPositions: [],
-                nextHintWord: nil,
-                nextHintExpiresAt: nil
+        if let legacyData = store.data(forKey: WordSearchConfig.legacyStateKey) {
+            if let legacy = try? JSONDecoder().decode(LegacyPuzzleStateV1DTO.self, from: legacyData),
+               let puzzle = makePuzzleFromLegacy(legacy.grid, words: legacy.words) {
+                let size = PuzzleFactory.clampGridSize(puzzle.grid.letters.count)
+                let migrated = SharedPuzzleState(
+                    grid: puzzle.grid.letters,
+                    words: puzzle.words.map(\.text),
+                    gridSize: size,
+                    anchor: nil,
+                    foundWords: Set(legacy.foundWords.map(WordSearchNormalization.normalizedWord)),
+                    solvedPositions: [],
+                    puzzleIndex: 0,
+                    isHelpVisible: false,
+                    feedback: nil,
+                    pendingWord: nil,
+                    pendingSolvedPositions: [],
+                    nextHintWord: nil,
+                    nextHintExpiresAt: nil
+                )
+                saveState(migrated)
+                store.removeObject(forKey: WordSearchConfig.legacyStateKey)
+                store.removeObject(forKey: WordSearchConfig.legacyMigrationFlagKey)
+                cleanupLegacySlotKeys()
+                AppLogger.info(
+                    "Migrated legacy v1 state",
+                    category: .migration,
+                    metadata: ["sourceKey": WordSearchConfig.legacyStateKey]
+                )
+                return
+            }
+
+            AppLogger.error(
+                "Failed to decode or normalize legacy v1 state",
+                category: .migration,
+                metadata: ["sourceKey": WordSearchConfig.legacyStateKey]
             )
-            saveState(migrated)
-            store.removeObject(forKey: WordSearchConfig.legacyStateKey)
-            store.removeObject(forKey: WordSearchConfig.legacyMigrationFlagKey)
-            cleanupLegacySlotKeys()
         }
     }
 

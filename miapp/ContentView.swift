@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import UIKit
 import WidgetKit
 import Core
 import DesignSystem
@@ -16,46 +15,6 @@ import FeatureDailyPuzzle
 
 private struct HostPresentedGame: Identifiable, Equatable {
     let id: Int
-}
-
-private enum HostAccentPalette {
-    private static func adaptiveColor(light: UIColor, dark: UIColor) -> Color {
-        Color(
-            UIColor { trait in
-                trait.userInterfaceStyle == .dark ? dark : light
-            }
-        )
-    }
-
-    static let completedOrangeGradient = LinearGradient(
-        colors: [
-            adaptiveColor(
-                light: UIColor(red: 1.0, green: 0.62, blue: 0.22, alpha: 1),
-                dark: UIColor(red: 0.94, green: 0.52, blue: 0.16, alpha: 1)
-            ),
-            adaptiveColor(
-                light: UIColor(red: 0.98, green: 0.44, blue: 0.13, alpha: 1),
-                dark: UIColor(red: 0.80, green: 0.34, blue: 0.10, alpha: 1)
-            )
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-
-    static let streakBlueGradient = LinearGradient(
-        colors: [
-            adaptiveColor(
-                light: UIColor(red: 0.22, green: 0.55, blue: 1.0, alpha: 1),
-                dark: UIColor(red: 0.36, green: 0.64, blue: 1.0, alpha: 1)
-            ),
-            adaptiveColor(
-                light: UIColor(red: 0.12, green: 0.34, blue: 0.92, alpha: 1),
-                dark: UIColor(red: 0.22, green: 0.46, blue: 0.96, alpha: 1)
-            )
-        ],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
 }
 
 private enum HomePresentedSheet: Identifiable {
@@ -74,12 +33,25 @@ private enum HomePresentedSheet: Identifiable {
 
 private struct SoftGlowBackground: View {
     var body: some View {
-        ColorTokens.backgroundPrimary
-            .ignoresSafeArea()
+        ZStack {
+            ThemeGradients.paperBackground
+                .ignoresSafeArea()
+
+            DSGridBackgroundView(spacing: SpacingTokens.xxxl, opacity: 0.08)
+                .ignoresSafeArea()
+        }
     }
 }
 
 struct ContentView: View {
+    private enum Constants {
+        static let closeGameAnimationDuration: Double = 0.22
+        static let launchCardAnimationDuration: Double = 0.18
+        static let presentGameAnimationDuration: Double = 0.22
+        static let launchCardSettleDelayNanos: UInt64 = 110_000_000
+        static let launchCardCleanupDelayNanos: UInt64 = 170_000_000
+    }
+
     @Environment(\.scenePhase) private var scenePhase
     private let container: AppContainer
     private var core: CoreContainer { container.core }
@@ -87,6 +59,7 @@ struct ContentView: View {
     @State private var presentedSheet: HomePresentedSheet?
     @State private var presentedGame: HostPresentedGame?
     @State private var launchingCardOffset: Int?
+    @State private var presentGameTask: Task<Void, Never>?
     @State private var settingsViewModel: SettingsViewModel
     @State private var historyViewModel: HistorySummaryViewModel
     @State private var dailyPuzzleHomeViewModel: DailyPuzzleHomeScreenViewModel
@@ -116,11 +89,11 @@ struct ContentView: View {
                 SoftGlowBackground()
 
                 GeometryReader { geometry in
-                    let verticalInset: CGFloat = 40
-                    let interSectionSpacing: CGFloat = 40
+                    let verticalInset = SpacingTokens.xxxl
+                    let interSectionSpacing = SpacingTokens.xxxl
                     let dayCarouselHeight: CGFloat = 106
                     let cardWidth = min(geometry.size.width * 0.80, 450)
-                    let sidePadding = max((geometry.size.width - cardWidth) / 2, 10)
+                    let sidePadding = max((geometry.size.width - cardWidth) / 2, SpacingTokens.xs)
                     let availableCardHeight = geometry.size.height - dayCarouselHeight - interSectionSpacing - (verticalInset * 2)
                     let cardHeight = min(max(availableCardHeight, 260), 620)
                     let cardSelection = Binding<Int?>(
@@ -133,39 +106,26 @@ struct ContentView: View {
 
                     VStack(spacing: interSectionSpacing) {
                         ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(spacing: 14) {
-                                ForEach(dailyPuzzleHomeViewModel.carouselOffsets, id: \.self) { offset in
-                                    let date = dailyPuzzleHomeViewModel.puzzleDate(for: offset)
-                                    let puzzle = dailyPuzzleHomeViewModel.puzzleForOffset(
-                                        offset,
-                                        preferredGridSize: settingsViewModel.model.gridSize
-                                    )
-                                    let progress = dailyPuzzleHomeViewModel.progressForOffset(
-                                        offset,
-                                        puzzle: puzzle,
-                                        preferredGridSize: settingsViewModel.model.gridSize
-                                    )
-                                    let isLocked = dailyPuzzleHomeViewModel.isLocked(offset: offset)
-                                    let hoursLeft = dailyPuzzleHomeViewModel.hoursUntilAvailable(for: offset)
-
+                            LazyHStack(spacing: SpacingTokens.sm + 2) {
+                                ForEach(dailyPuzzleHomeViewModel.challengeCards) { card in
                                     DailyPuzzleChallengeCardView(
-                                        date: date,
-                                        puzzleNumber: puzzle.number,
-                                        grid: puzzle.grid.letters,
-                                        words: puzzle.words.map(\.text),
-                                        foundWords: progress.foundWords,
-                                        solvedPositions: progress.solvedPositions,
-                                        isLocked: isLocked,
-                                        hoursUntilAvailable: hoursLeft,
-                                        isLaunching: launchingCardOffset == offset
+                                        date: card.date,
+                                        puzzleNumber: card.puzzleNumber,
+                                        grid: card.grid,
+                                        words: card.words,
+                                        foundWords: card.progress.foundWords,
+                                        solvedPositions: card.progress.solvedPositions,
+                                        isLocked: card.isLocked,
+                                        hoursUntilAvailable: card.hoursUntilAvailable,
+                                        isLaunching: launchingCardOffset == card.offset
                                     ) {
-                                        handleChallengeCardTap(offset: offset)
+                                        handleChallengeCardTap(offset: card.offset)
                                     }
                                     .frame(width: cardWidth, height: cardHeight)
-                                    .scaleEffect(launchingCardOffset == offset ? 1.10 : 1)
-                                    .opacity(launchingCardOffset == nil || launchingCardOffset == offset ? 1 : 0.45)
-                                    .zIndex(launchingCardOffset == offset ? 5 : 0)
-                                    .id(offset)
+                                    .scaleEffect(launchingCardOffset == card.offset ? 1.10 : 1)
+                                    .opacity(launchingCardOffset == nil || launchingCardOffset == card.offset ? 1 : 0.45)
+                                    .zIndex(launchingCardOffset == card.offset ? 5 : 0)
+                                    .id(card.offset)
                                 }
                             }
                             .scrollTargetLayout()
@@ -195,7 +155,7 @@ struct ContentView: View {
                             dailyPuzzleHomeViewModel.hoursUntilAvailable(for: offset)
                         }
                         .frame(height: dayCarouselHeight)
-                        .padding(.horizontal, 12)
+                        .padding(.horizontal, SpacingTokens.sm)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                     .padding(.top, verticalInset)
@@ -215,13 +175,13 @@ struct ContentView: View {
                 if presentedGame == nil {
                     ToolbarItem(placement: .principal) {
                         Text("Sopa diaria")
-                            .font(TypographyTokens.titleSmall)
+                            .font(TypographyTokens.screenTitle)
                     }
                     ToolbarItemGroup(placement: .topBarTrailing) {
                         HistoryNavCounterView(
                             value: historyViewModel.model.completedCount,
                             systemImage: "checkmark.seal.fill",
-                            iconGradient: HostAccentPalette.streakBlueGradient,
+                            iconGradient: ThemeGradients.brushWarm,
                             accessibilityLabel: "Retos completados \(historyViewModel.model.completedCount)",
                             accessibilityHint: "Pulsa para saber que mide este contador"
                         ) {
@@ -230,7 +190,7 @@ struct ContentView: View {
                         HistoryNavCounterView(
                             value: historyViewModel.model.currentStreak,
                             systemImage: "flame.fill",
-                            iconGradient: HostAccentPalette.completedOrangeGradient,
+                            iconGradient: ThemeGradients.brushWarmStrong,
                             accessibilityLabel: "Racha actual \(historyViewModel.model.currentStreak)",
                             accessibilityHint: "Pulsa para saber que mide este contador"
                         ) {
@@ -254,6 +214,10 @@ struct ContentView: View {
                 guard phase == .active else { return }
                 settingsViewModel.refresh()
                 refreshDailyPuzzleState()
+            }
+            .onDisappear {
+                presentGameTask?.cancel()
+                presentGameTask = nil
             }
             .sheet(item: $presentedSheet) { sheet in
                 switch sheet {
@@ -335,24 +299,34 @@ struct ContentView: View {
     }
 
     private func closePresentedGame() {
-        withAnimation(.easeInOut(duration: 0.22)) {
+        presentGameTask?.cancel()
+        presentGameTask = nil
+        withAnimation(.easeInOut(duration: Constants.closeGameAnimationDuration)) {
             presentedGame = nil
         }
+        launchingCardOffset = nil
     }
 
     private func presentGameFromCard(offset: Int) {
         guard presentedGame == nil else { return }
 
-        withAnimation(.easeInOut(duration: 0.18)) {
+        presentGameTask?.cancel()
+
+        withAnimation(.easeInOut(duration: Constants.launchCardAnimationDuration)) {
             launchingCardOffset = offset
         }
 
-        Task { @MainActor in
-            try? await Task.sleep(nanoseconds: 110_000_000)
-            withAnimation(.easeInOut(duration: 0.22)) {
+        presentGameTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: Constants.launchCardSettleDelayNanos)
+            guard !Task.isCancelled else { return }
+
+            withAnimation(.easeInOut(duration: Constants.presentGameAnimationDuration)) {
                 presentedGame = HostPresentedGame(id: offset)
             }
-            try? await Task.sleep(nanoseconds: 170_000_000)
+
+            try? await Task.sleep(nanoseconds: Constants.launchCardCleanupDelayNanos)
+            guard !Task.isCancelled else { return }
+
             if launchingCardOffset == offset {
                 launchingCardOffset = nil
             }

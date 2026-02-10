@@ -17,6 +17,14 @@ public final class LocalProgressRepository: ProgressRepository {
         }
 
         guard let decoded = try? JSONDecoder().decode([String: AppProgressRecordDTO].self, from: data) else {
+            AppLogger.error(
+                "Failed to decode progress records",
+                category: .persistence,
+                metadata: [
+                    "key": WordSearchConfig.appProgressKey,
+                    "bytes": "\(data.count)"
+                ]
+            )
             return [:]
         }
 
@@ -25,28 +33,11 @@ public final class LocalProgressRepository: ProgressRepository {
 
     public func loadRecord(dayKey: DayKey, preferredGridSize: Int) -> AppProgressRecord? {
         let records = loadRecords()
-        let preferredKey = Self.key(for: dayKey.offset, gridSize: preferredGridSize)
-        if let preferred = records[preferredKey] {
-            return preferred
-        }
-
-        let candidates = records.values.filter { $0.dayOffset == dayKey.offset }
-
-        return candidates.max { lhs, rhs in
-            let lhsActivity = max(lhs.startedAt ?? -1, lhs.endedAt ?? -1)
-            let rhsActivity = max(rhs.startedAt ?? -1, rhs.endedAt ?? -1)
-            if lhsActivity != rhsActivity {
-                return lhsActivity < rhsActivity
-            }
-
-            let lhsEnded = lhs.endedAt ?? -1
-            let rhsEnded = rhs.endedAt ?? -1
-            if lhsEnded != rhsEnded {
-                return lhsEnded < rhsEnded
-            }
-
-            return lhs.gridSize < rhs.gridSize
-        }
+        return ProgressRecordResolver.resolve(
+            dayKey: dayKey,
+            preferredGridSize: preferredGridSize,
+            records: records
+        )
     }
 
     public func save(_ record: AppProgressRecord) {
@@ -75,6 +66,14 @@ public final class LocalProgressRepository: ProgressRepository {
     private func persist(_ records: [String: AppProgressRecord]) {
         let dtoMap = records.mapValues(StateMappers.toDTO)
         guard let data = try? JSONEncoder().encode(dtoMap) else {
+            AppLogger.error(
+                "Failed to encode progress records",
+                category: .persistence,
+                metadata: [
+                    "key": WordSearchConfig.appProgressKey,
+                    "recordCount": "\(records.count)"
+                ]
+            )
             return
         }
         store.set(data, forKey: WordSearchConfig.appProgressKey)

@@ -1,5 +1,6 @@
 import SwiftUI
 import Core
+import DesignSystem
 
 public struct SettingsSheetValues: Equatable {
     public var gridSize: Int
@@ -73,11 +74,11 @@ public struct SettingsSheetView: View {
                         Text("Tamano de sopa: \(gridSize)x\(gridSize)")
                     }
                     Text("A mayor tamano, mas dificultad. En el widget las letras y el area tactil se reducen para que entre la cuadricula.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .font(TypographyTokens.footnote)
+                        .foregroundStyle(ColorTokens.textSecondary)
                     Text("El nuevo tamano solo se aplica a retos futuros. Los retos ya creados mantienen su tamano para no perder progreso.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .font(TypographyTokens.footnote)
+                        .foregroundStyle(ColorTokens.textSecondary)
                 }
 
                 Section("Apariencia") {
@@ -97,8 +98,8 @@ public struct SettingsSheetView: View {
                     }
                     .pickerStyle(.segmented)
                     Text("En definicion, veras la descripcion sin mostrar la palabra.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .font(TypographyTokens.footnote)
+                        .foregroundStyle(ColorTokens.textSecondary)
                 }
 
                 Section("Horario") {
@@ -108,8 +109,8 @@ public struct SettingsSheetView: View {
                         displayedComponents: .hourAndMinute
                     )
                     Text("Por defecto se renueva a las 09:00.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .font(TypographyTokens.footnote)
+                        .foregroundStyle(ColorTokens.textSecondary)
                 }
 
                 Section("Celebraciones") {
@@ -122,8 +123,8 @@ public struct SettingsSheetView: View {
                         }
                     }
                     Text("Si Reduce Motion esta activo, se desactivan las particulas.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .font(TypographyTokens.footnote)
+                        .foregroundStyle(ColorTokens.textSecondary)
                 }
             }
             .navigationTitle("Ajustes")
@@ -164,11 +165,11 @@ public struct SettingsSheetView: View {
     private func appearanceTitle(for mode: AppearanceMode) -> String {
         switch mode {
         case .system:
-            return "System"
+            return "Sistema"
         case .light:
-            return "Light"
+            return "Claro"
         case .dark:
-            return "Dark"
+            return "Oscuro"
         }
     }
 
