@@ -31,11 +31,4 @@ final class DailyPuzzleStringsTests: XCTestCase {
         let value = DailyPuzzleStrings.challengeAccessibilityLabel(number: 7, status: "Completed")
         XCTAssertTrue(value.contains("7"))
     }
-
-    func testFirstExperienceActionLabelsAreNotEmpty() {
-        XCTAssertFalse(DailyPuzzleStrings.firstExperienceNext.isEmpty)
-        XCTAssertFalse(DailyPuzzleStrings.firstExperienceSkipAll.isEmpty)
-        XCTAssertFalse(DailyPuzzleStrings.firstExperienceDragMessage.isEmpty)
-        XCTAssertFalse(DailyPuzzleStrings.firstExperienceDifficultyMessage.isEmpty)
-    }
 }

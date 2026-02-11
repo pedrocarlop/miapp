@@ -85,6 +85,8 @@ public struct DailyPuzzleGameBoardView: View {
     public let feedback: DailyPuzzleBoardFeedback?
     public let celebrations: [DailyPuzzleBoardCelebration]
     public let sideLength: CGFloat
+    public let boardRotationDegrees: Double
+    public let letterCounterRotationDegrees: Double
     public let onDragChanged: (GridPosition) -> Void
     public let onDragEnded: () -> Void
     public let isInteractive: Bool
@@ -115,6 +117,8 @@ public struct DailyPuzzleGameBoardView: View {
         feedback: DailyPuzzleBoardFeedback?,
         celebrations: [DailyPuzzleBoardCelebration],
         sideLength: CGFloat,
+        boardRotationDegrees: Double = 0,
+        letterCounterRotationDegrees: Double = 0,
         onDragChanged: @escaping (GridPosition) -> Void,
         onDragEnded: @escaping () -> Void,
         isInteractive: Bool = true
@@ -129,6 +133,8 @@ public struct DailyPuzzleGameBoardView: View {
         self.feedback = feedback
         self.celebrations = celebrations
         self.sideLength = sideLength
+        self.boardRotationDegrees = boardRotationDegrees
+        self.letterCounterRotationDegrees = letterCounterRotationDegrees
         self.onDragChanged = onDragChanged
         self.onDragEnded = onDragEnded
         self.isInteractive = isInteractive
@@ -156,9 +162,9 @@ public struct DailyPuzzleGameBoardView: View {
         let safeCols = max(cols, 1)
         let cellSize = sideLength / CGFloat(safeCols)
         let boardBounds = CGRect(origin: .zero, size: CGSize(width: sideLength, height: sideLength))
-        let baseBoard = boardLayer(cellSize: cellSize)
+        let rotatedBoard = boardLayer(cellSize: cellSize)
             .frame(width: sideLength, height: sideLength)
-            .contentShape(Rectangle())
+            .rotationEffect(.degrees(boardRotationDegrees))
             .scaleEffect(snapScale)
             .onChange(of: feedback?.id) { _ in
                 triggerCorrectSnapIfNeeded()
@@ -169,20 +175,25 @@ public struct DailyPuzzleGameBoardView: View {
             }
 
         if isInteractive {
-            baseBoard
-                .overlay(alignment: .topLeading) {
-                    DailyPuzzleLoupeView(
-                        state: $loupeState,
-                        configuration: loupeConfiguration,
-                        boardSize: CGSize(width: sideLength, height: sideLength),
-                        selectedText: selectionText,
-                        shouldAvoidTopRowFingerOverlap: activePositions.contains { $0.row == 0 }
-                    )
-                }
+            ZStack(alignment: .topLeading) {
+                rotatedBoard
+                    .allowsHitTesting(false)
+
+                DailyPuzzleLoupeView(
+                    state: $loupeState,
+                    configuration: loupeConfiguration,
+                    boardSize: CGSize(width: sideLength, height: sideLength),
+                    selectedText: selectionText,
+                    shouldAvoidTopRowFingerOverlap: activePositions.contains { $0.row == 0 }
+                )
+            }
+                .frame(width: sideLength, height: sideLength)
+                .contentShape(Rectangle())
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { value in
-                            if let position = position(for: value.location, cellSize: cellSize) {
+                            let mappedLocation = mapLocationToLogicalBoard(value.location, in: boardBounds)
+                            if let position = position(for: mappedLocation, cellSize: cellSize) {
                                 onDragChanged(position)
                             }
                             loupeState.update(
@@ -197,7 +208,7 @@ public struct DailyPuzzleGameBoardView: View {
                         }
                 )
         } else {
-            baseBoard
+            rotatedBoard
                 .allowsHitTesting(false)
         }
     }
@@ -221,7 +232,8 @@ public struct DailyPuzzleGameBoardView: View {
                 feedback: mappedFeedback,
                 solvedWordOutlines: mappedSolvedWordOutlines,
                 anchor: mappedActive.last,
-                palette: WordSearchBoardStylePreset.gameBoard
+                palette: WordSearchBoardStylePreset.gameBoard,
+                letterCounterRotationDegrees: letterCounterRotationDegrees
             )
 
             celebrationLayer(cellSize: cellSize)
@@ -278,6 +290,18 @@ public struct DailyPuzzleGameBoardView: View {
         let col = Int(location.x / cellSize)
         guard row >= 0, col >= 0, row < rows, col < cols else { return nil }
         return GridPosition(row: row, col: col)
+    }
+
+    private func mapLocationToLogicalBoard(_ location: CGPoint, in bounds: CGRect) -> CGPoint {
+        guard boardRotationDegrees.truncatingRemainder(dividingBy: 360) != 0 else {
+            return location
+        }
+
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        let translated = CGPoint(x: location.x - center.x, y: location.y - center.y)
+        let radians = CGFloat((-boardRotationDegrees) * .pi / 180)
+        let rotated = translated.applying(CGAffineTransform(rotationAngle: radians))
+        return CGPoint(x: center.x + rotated.x, y: center.y + rotated.y)
     }
 
     private func triggerCorrectSnapIfNeeded() {

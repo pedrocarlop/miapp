@@ -110,6 +110,7 @@ public struct SharedWordSearchBoardView: View {
     public let solvedWordOutlines: [SharedWordSearchBoardOutline]
     public let anchor: SharedWordSearchBoardPosition?
     public let palette: SharedWordSearchBoardPalette
+    public let letterCounterRotationDegrees: Double
 
     private var rows: Int { grid.count }
     private var cols: Int { grid.first?.count ?? 0 }
@@ -121,7 +122,8 @@ public struct SharedWordSearchBoardView: View {
         feedback: SharedWordSearchBoardFeedback?,
         solvedWordOutlines: [SharedWordSearchBoardOutline],
         anchor: SharedWordSearchBoardPosition?,
-        palette: SharedWordSearchBoardPalette
+        palette: SharedWordSearchBoardPalette,
+        letterCounterRotationDegrees: Double = 0
     ) {
         self.grid = grid
         self.sideLength = sideLength
@@ -130,6 +132,7 @@ public struct SharedWordSearchBoardView: View {
         self.solvedWordOutlines = solvedWordOutlines
         self.anchor = anchor
         self.palette = palette
+        self.letterCounterRotationDegrees = letterCounterRotationDegrees
     }
 
     public var body: some View {
@@ -151,6 +154,7 @@ public struct SharedWordSearchBoardView: View {
                             Text(letter)
                                 .font(TypographyTokens.boardLetter(size: max(10, cellSize * 0.45)))
                                 .foregroundStyle(palette.letterColor)
+                                .rotationEffect(.degrees(letterCounterRotationDegrees))
                                 .frame(width: cellSize, height: cellSize)
                                 .background(palette.boardCellBackground)
                                 .overlay(

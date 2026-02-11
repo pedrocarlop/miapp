@@ -25,7 +25,6 @@
 //
 
 import XCTest
-import CoreGraphics
 
 final class miappUITests: XCTestCase {
 
@@ -49,49 +48,6 @@ final class miappUITests: XCTestCase {
         app.launch()
 
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    @MainActor
-    func testPuzzleFirstExperienceFlow() throws {
-        let app = XCUIApplication()
-        app.launchArguments.append("--uitesting-reset-first-experience")
-        app.launch()
-
-        let playButton = app.buttons["dailyPuzzle.playButton"].firstMatch
-        XCTAssertTrue(playButton.waitForExistence(timeout: 8))
-        playButton.tap()
-
-        let step1Toast = app.otherElements["dailyPuzzle.firstExperience.toast.step1"]
-        XCTAssertTrue(step1Toast.waitForExistence(timeout: 6))
-
-        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
-
-        let step2Toast = app.otherElements["dailyPuzzle.firstExperience.toast.step2"]
-        XCTAssertTrue(step2Toast.waitForExistence(timeout: 3))
-
-        let objectivesHighlight = app.otherElements["dailyPuzzle.firstExperience.objectivesHighlight"]
-        XCTAssertTrue(objectivesHighlight.waitForExistence(timeout: 2))
-
-        let nextButton = app.buttons["dailyPuzzle.firstExperience.nextButton"].firstMatch
-        XCTAssertTrue(nextButton.waitForExistence(timeout: 2))
-        nextButton.tap()
-
-        let step3Toast = app.otherElements["dailyPuzzle.firstExperience.toast.step3"]
-        XCTAssertTrue(step3Toast.waitForExistence(timeout: 3))
-
-        let skipButton = app.buttons["dailyPuzzle.firstExperience.skipAllButton"].firstMatch
-        XCTAssertTrue(skipButton.waitForExistence(timeout: 2))
-        skipButton.tap()
-        XCTAssertFalse(step3Toast.waitForExistence(timeout: 1))
-
-        let closeButton = app.buttons["dailyPuzzle.closeButton"].firstMatch
-        XCTAssertTrue(closeButton.waitForExistence(timeout: 3))
-        closeButton.tap()
-
-        XCTAssertTrue(playButton.waitForExistence(timeout: 6))
-        playButton.tap()
-
-        XCTAssertFalse(step1Toast.waitForExistence(timeout: 2))
     }
 
     @MainActor

@@ -25,6 +25,7 @@ public struct DailyPuzzleWordsView: View {
     public let words: [String]
     public let foundWords: Set<String>
     public let displayMode: WordHintMode
+    public let onWordTapped: (String) -> Void
 
     private let topFadeHeight: CGFloat = 14
 
@@ -34,10 +35,16 @@ public struct DailyPuzzleWordsView: View {
         let isFound: Bool
     }
 
-    public init(words: [String], foundWords: Set<String>, displayMode: WordHintMode) {
+    public init(
+        words: [String],
+        foundWords: Set<String>,
+        displayMode: WordHintMode,
+        onWordTapped: @escaping (String) -> Void = { _ in }
+    ) {
         self.words = words
         self.foundWords = foundWords
         self.displayMode = displayMode
+        self.onWordTapped = onWordTapped
     }
 
     private var orderedWords: [OrderedWord] {
@@ -66,7 +73,8 @@ public struct DailyPuzzleWordsView: View {
                                 word: displayText,
                                 isFound: item.isFound,
                                 allowMultiline: true,
-                                expandsHorizontally: true
+                                expandsHorizontally: true,
+                                onTap: { onWordTapped(item.word) }
                             )
                         }
                     }
@@ -79,7 +87,8 @@ public struct DailyPuzzleWordsView: View {
                                 word: displayText,
                                 isFound: item.isFound,
                                 allowMultiline: false,
-                                expandsHorizontally: false
+                                expandsHorizontally: false,
+                                onTap: { onWordTapped(item.word) }
                             )
                         }
                     }
@@ -106,6 +115,7 @@ private struct WordChip: View {
     let isFound: Bool
     let allowMultiline: Bool
     let expandsHorizontally: Bool
+    let onTap: () -> Void
 
     private var chipFillStyle: AnyShapeStyle {
         if isFound {
@@ -154,6 +164,8 @@ private struct WordChip: View {
         )
         .scaleEffect(isFound ? 1.0 : 0.98)
         .animation(MotionTokens.celebrate, value: isFound)
+        .contentShape(RoundedRectangle(cornerRadius: RadiusTokens.chipRadius, style: .continuous))
+        .onTapGesture(perform: onTap)
 
         if expandsHorizontally {
             chipContent

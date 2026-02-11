@@ -62,7 +62,6 @@ struct ContentView: View {
 
     @Environment(\.scenePhase) private var scenePhase
     private let container: AppContainer
-    private let firstExperienceStore: HostFirstExperienceStore
     private var core: CoreContainer { container.core }
 
     @State private var presentedSheet: HomePresentedSheet?
@@ -76,12 +75,8 @@ struct ContentView: View {
     @Namespace private var toolbarActionTransitionNamespace
 
     @MainActor
-    init(
-        container: AppContainer,
-        firstExperienceStore: HostFirstExperienceStore = .live
-    ) {
+    init(container: AppContainer) {
         self.container = container
-        self.firstExperienceStore = firstExperienceStore
         let settingsViewModel = container.settings.makeViewModel()
         let initialGridSize = settingsViewModel.model.gridSize
 
@@ -124,15 +119,14 @@ struct ContentView: View {
                     hoursUntilAvailable: { dailyPuzzleHomeViewModel.hoursUntilAvailable(for: $0) }
                 )
 
-                Group {
-                    if let selection = presentedGame {
-                        gameOverlay(for: selection.id)
-                            .transition(.scale(scale: 0.94).combined(with: .opacity))
-                            .zIndex(50)
-                    }
+                if let selection = presentedGame {
+                    gameOverlay(for: selection.id)
+                        .transition(.scale(scale: 0.94).combined(with: .opacity))
+                        .zIndex(50)
                 }
 
             }
+            .animation(.easeInOut(duration: 0.24), value: presentedGame)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if presentedGame == nil {
@@ -258,12 +252,7 @@ struct ContentView: View {
                 },
                 onSharedStateMutation: {
                     reloadWidgetTimeline()
-                },
-                showsFirstExperience: firstExperienceStore.shouldShowPuzzleFirstExperience,
-                onFirstExperienceCompleted: {
-                    firstExperienceStore.markPuzzleFirstExperienceCompleted()
-                },
-                toolbarActionTransitionNamespace: toolbarActionTransitionNamespace
+                }
             )
         }
     }

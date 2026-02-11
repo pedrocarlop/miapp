@@ -88,6 +88,64 @@
         }
       }
     },
+    "daily.action.rotate_board": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rotate board"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rotar tablero"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pivoter la grille"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rodar tabuleiro"
+          }
+        }
+      }
+    },
+    "daily.action.rotate_board_hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rotates the puzzle ninety degrees counterclockwise."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rota la sopa de letras noventa grados en sentido antihorario."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fait pivoter la grille de quatre-vingt-dix degres vers la gauche."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Roda a sopa de letras noventa graus no sentido anti-horario."
+          }
+        }
+      }
+    },
     "daily.challenge.accessibility": {
       "extractionState": "manual",
       "localizations": {
@@ -519,180 +577,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reiniciar desafio"
-          }
-        }
-      }
-    },
-    "daily.first_experience.difficulty_message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "You can change the difficulty level in the app settings."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Puedes cambiar el nivel de dificultad en los ajustes de la aplicación."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Vous pouvez changer le niveau de difficulte dans les reglages de l'application."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Pode alterar o nivel de dificuldade nas definicoes da aplicacao."
-          }
-        }
-      }
-    },
-    "daily.first_experience.drag_message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Drag over the board to select words."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arrastra sobre el tablero para seleccionar palabras."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Faites glisser sur la grille pour selectionner des mots."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Arraste no tabuleiro para selecionar palavras."
-          }
-        }
-      }
-    },
-    "daily.first_experience.next": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Next"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Siguiente"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Suivant"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Seguinte"
-          }
-        }
-      }
-    },
-    "daily.first_experience.objectives_definitions_message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use these clues to deduce and complete the puzzle."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Usa estas descripciones para deducir y completar el puzzle."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utilisez ces descriptions pour deduire et completer le puzzle."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use estas descricoes para deduzir e completar o puzzle."
-          }
-        }
-      }
-    },
-    "daily.first_experience.objectives_words_message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use this word list to complete the puzzle."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Usa esta lista de palabras para completar el puzzle."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Utilisez cette liste de mots pour completer le puzzle."
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use esta lista de palavras para completar o puzzle."
-          }
-        }
-      }
-    },
-    "daily.first_experience.skip_all": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Skip all"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Omitir todo"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tout ignorer"
-          }
-        },
-        "pt": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Ignorar tudo"
           }
         }
       }

@@ -67,8 +67,8 @@ private struct DailyPuzzleEntryState {
 
 private struct DailyPuzzleCompletionOverlayState {
     var isVisible = false
-    var showsContent = false
-    var showsConfetti = false
+    var showsBackdrop = false
+    var showsToast = false
     var streakLabel: String?
 
     static let hidden = DailyPuzzleCompletionOverlayState()
@@ -148,7 +148,7 @@ private struct DailyPuzzleWordToastView: View {
                     .fill(ColorTokens.chipNeutralFill)
                     .overlay {
                         Capsule()
-                            .dsInnerStroke(ColorTokens.accentAmberStrong.opacity(0.28), lineWidth: 1)
+                            .stroke(ColorTokens.accentAmberStrong.opacity(0.28), lineWidth: 1)
                     }
             }
             .shadow(color: ColorTokens.accentAmberStrong.opacity(0.18), radius: 8, x: 0, y: 4)
@@ -190,15 +190,27 @@ public struct DailyPuzzleGameScreenView: View {
         static let feedbackShowDuration: Double = 0.08
         static let feedbackHideDelayNanos: UInt64 = 650_000_000
 
-        static let completionContentDelayNanos: UInt64 = 110_000_000
-        static let completionConfettiBurstNanos: UInt64 = 1_100_000_000
-        static let completionConfettiFadeDuration: Double = 0.22
-        static let completionHideContentDuration: Double = 0.16
-        static let completionHideContentDelayNanos: UInt64 = 90_000_000
+        static let completionBackdropDuration: Double = 0.12
+        static let completionToastDelayNanos: UInt64 = 120_000_000
+        static let completionAutoDismissDelayNanos: UInt64 = 1_500_000_000
+        static let completionHideToastDuration: Double = 0.14
+        static let completionHideToastDelayNanos: UInt64 = 100_000_000
+        static let completionHideBackdropDuration: Double = 0.1
+        static let completionHideBackdropDelayNanos: UInt64 = 110_000_000
 
         static let wordToastShowDuration: Double = 0.2
         static let wordToastHideDuration: Double = 0.22
         static let wordToastVisibleNanos: UInt64 = 980_000_000
+
+        static let boardRotateDuration: Double = 0.28
+        static let boardRotateDamping: Double = 0.84
+        static let boardRotateDelayNanos: UInt64 = 290_000_000
+        static let letterCounterRotateDuration: Double = 0.2
+        static let letterCounterRotateDelayNanos: UInt64 = 210_000_000
+
+        static let rotateButtonSize: CGFloat = 56
+        static let rotateButtonBottomInset: CGFloat = 32
+        static let wordHintEasterEggTapThreshold = 10
     }
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -219,9 +231,6 @@ public struct DailyPuzzleGameScreenView: View {
     public let onWordFeedback: (DailyPuzzleCelebrationPreferences) -> Void
     public let onCompletionFeedback: (DailyPuzzleCelebrationPreferences) -> Void
     public let onSharedStateMutation: () -> Void
-    public let showsFirstExperience: Bool
-    public let onFirstExperienceCompleted: () -> Void
-    public let toolbarActionTransitionNamespace: Namespace.ID?
 
     @StateObject private var celebrationController = DailyPuzzleCelebrationController()
     @StateObject private var fxManager = MetalFXManager()
@@ -241,7 +250,11 @@ public struct DailyPuzzleGameScreenView: View {
     @State private var feedbackDismissTask: Task<Void, Never>?
     @State private var completionOverlayTask: Task<Void, Never>?
     @State private var wordToastDismissTask: Task<Void, Never>?
-    @State private var firstExperienceState: DailyPuzzleFirstExperienceState
+    @State private var boardRotationSteps = 0
+    @State private var letterCounterRotationSteps = 0
+    @State private var pendingBoardRotations = 0
+    @State private var boardRotationTask: Task<Void, Never>?
+    @State private var wordHintTapCounts: [String: Int] = [:]
 
     public init(
         core: CoreContainer,
@@ -258,10 +271,7 @@ public struct DailyPuzzleGameScreenView: View {
         celebrationPreferencesProvider: @escaping () -> DailyPuzzleCelebrationPreferences,
         onWordFeedback: @escaping (DailyPuzzleCelebrationPreferences) -> Void = { _ in },
         onCompletionFeedback: @escaping (DailyPuzzleCelebrationPreferences) -> Void = { _ in },
-        onSharedStateMutation: @escaping () -> Void = {},
-        showsFirstExperience: Bool = false,
-        onFirstExperienceCompleted: @escaping () -> Void = {},
-        toolbarActionTransitionNamespace: Namespace.ID? = nil
+        onSharedStateMutation: @escaping () -> Void = {}
     ) {
         self.core = core
         self.dayOffset = dayOffset
@@ -278,9 +288,6 @@ public struct DailyPuzzleGameScreenView: View {
         self.onWordFeedback = onWordFeedback
         self.onCompletionFeedback = onCompletionFeedback
         self.onSharedStateMutation = onSharedStateMutation
-        self.showsFirstExperience = showsFirstExperience
-        self.onFirstExperienceCompleted = onFirstExperienceCompleted
-        self.toolbarActionTransitionNamespace = toolbarActionTransitionNamespace
 
         let initialFoundWords = Set(initialProgress?.foundWords ?? [])
         let initialSolvedPositions = Set(initialProgress?.solvedPositions ?? [])
@@ -296,11 +303,18 @@ public struct DailyPuzzleGameScreenView: View {
                 endedAt: initialProgress?.endedDate
             )
         )
-        _firstExperienceState = State(initialValue: DailyPuzzleFirstExperienceState(enabled: showsFirstExperience))
     }
 
     private var isCompleted: Bool {
         gameSession.isCompleted
+    }
+
+    private var boardRotationAngle: Double {
+        Double(boardRotationSteps) * -90
+    }
+
+    private var letterCounterRotationAngle: Double {
+        Double(letterCounterRotationSteps) * 90
     }
 
     public var body: some View {
@@ -327,12 +341,14 @@ public struct DailyPuzzleGameScreenView: View {
                                 )
                             },
                             celebrations: celebrationController.boardCelebrations,
-                            sideLength: side
+                            sideLength: side,
+                            boardRotationDegrees: boardRotationAngle,
+                            letterCounterRotationDegrees: letterCounterRotationAngle
                         ) { position in
-                            guard !isCompleted, !isFirstExperienceActive else { return }
+                            guard !isCompleted else { return }
                             handleDragChanged(position)
                         } onDragEnded: {
-                            guard !isCompleted, !isFirstExperienceActive else { return }
+                            guard !isCompleted else { return }
                             handleDragEnded()
                         }
                         .background {
@@ -347,6 +363,7 @@ public struct DailyPuzzleGameScreenView: View {
                         if gridBounds.width > 0, gridBounds.height > 0 {
                             MetalFXView(manager: fxManager, size: gridBounds.size)
                                 .frame(width: gridBounds.width, height: gridBounds.height)
+                                .rotationEffect(.degrees(boardRotationAngle))
                                 .allowsHitTesting(false)
                         }
                     }
@@ -362,20 +379,6 @@ public struct DailyPuzzleGameScreenView: View {
                         .opacity(entryState.bottomVisible ? 1 : 0)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                         .clipped()
-                        .overlay {
-                            if firstExperienceState.isObjectivesHighlightVisible {
-                                RoundedRectangle(cornerRadius: RadiusTokens.overlayRadius, style: .continuous)
-                                    .fill(ColorTokens.accentAmberStrong.opacity(0.08))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: RadiusTokens.overlayRadius, style: .continuous)
-                                            .dsInnerStroke(ColorTokens.accentAmberStrong.opacity(0.65), lineWidth: 2)
-                                    )
-                                    .padding(.vertical, SpacingTokens.xxs)
-                                    .allowsHitTesting(false)
-                                    .accessibilityElement(children: .ignore)
-                                    .accessibilityIdentifier("dailyPuzzle.firstExperience.objectivesHighlight")
-                            }
-                        }
                 }
                 .padding(.horizontal, SpacingTokens.md)
                 .padding(.top, SpacingTokens.sm)
@@ -383,45 +386,19 @@ public struct DailyPuzzleGameScreenView: View {
             }
             .allowsHitTesting(!completionOverlay.isVisible)
 
-            if isFirstExperienceActive, !completionOverlay.isVisible {
-                Color.clear
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        advanceFirstExperienceStep()
-                    }
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityIdentifier("dailyPuzzle.firstExperience.tapCatcher")
-                    .zIndex(3)
-            }
-
-            if let firstExperienceStep, !completionOverlay.isVisible {
-                VStack {
-                    if firstExperienceToastPlacement == .bottom {
-                        Spacer(minLength: 0)
-                    }
-
-                    DailyPuzzleFirstExperienceToastView(
-                        message: firstExperienceMessage,
-                        placement: firstExperienceToastPlacement,
-                        onNext: {
-                            advanceFirstExperienceStep()
-                        },
-                        onSkipAll: {
-                            skipFirstExperience()
-                        }
-                    )
-                    .accessibilityIdentifier(firstExperienceStepAccessibilityIdentifier)
-
-                    if firstExperienceToastPlacement == .top {
-                        Spacer(minLength: 0)
-                    }
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
+                    rotateBoardButton
                 }
-                .padding(.top, SpacingTokens.md)
-                .padding(.bottom, SpacingTokens.lg)
-                .padding(.horizontal, SpacingTokens.lg)
-                .transition(.move(edge: firstExperienceToastPlacement == .top ? .top : .bottom).combined(with: .opacity))
-                .zIndex(4)
             }
+            .padding(.trailing, SpacingTokens.md)
+            .padding(.bottom, Constants.rotateButtonBottomInset)
+            .ignoresSafeArea(edges: .bottom)
+            .offset(y: entryState.bottomVisible ? 0 : 12)
+            .opacity(entryState.bottomVisible ? 1 : 0)
+            .zIndex(1)
 
             if let wordToast, !completionOverlay.isVisible {
                 VStack {
@@ -438,19 +415,19 @@ public struct DailyPuzzleGameScreenView: View {
             if completionOverlay.isVisible {
                 DailyPuzzleCompletionOverlayView(
                     navigationTitle: navigationTitle,
-                    showContent: completionOverlay.showsContent,
-                    showConfetti: completionOverlay.showsConfetti,
+                    showContent: completionOverlay.showsToast,
+                    showConfetti: completionOverlay.showsBackdrop,
                     streakLabel: completionOverlay.streakLabel,
                     reduceMotion: reduceMotion,
                     reduceTransparency: reduceTransparency,
                     onClose: {
                         Task { @MainActor in
-                            await closeFromCompletionScreen()
+                            await dismissCompletionOverlay()
                         }
                     },
                     onContinue: {
                         Task { @MainActor in
-                            await closeFromCompletionScreen()
+                            await dismissCompletionOverlay()
                         }
                     }
                 )
@@ -459,7 +436,6 @@ public struct DailyPuzzleGameScreenView: View {
         }
         .navigationTitle(navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(completionOverlay.isVisible ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             if let onClose {
                 ToolbarItem(placement: .topBarLeading) {
@@ -467,28 +443,15 @@ public struct DailyPuzzleGameScreenView: View {
                         Image(systemName: "chevron.down")
                     }
                     .accessibilityLabel(DailyPuzzleStrings.close)
-                    .accessibilityIdentifier("dailyPuzzle.closeButton")
                 }
             }
-            if #available(iOS 26.0, *), let toolbarActionTransitionNamespace {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showResetAlert = true
-                    } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                    }
-                    .accessibilityLabel(DailyPuzzleStrings.resetChallenge)
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showResetAlert = true
+                } label: {
+                    Image(systemName: "arrow.counterclockwise")
                 }
-                .matchedTransitionSource(id: "puzzle-nav-actions", in: toolbarActionTransitionNamespace)
-            } else {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showResetAlert = true
-                    } label: {
-                        Image(systemName: "arrow.counterclockwise")
-                    }
-                    .accessibilityLabel(DailyPuzzleStrings.resetChallenge)
-                }
+                .accessibilityLabel(DailyPuzzleStrings.resetChallenge)
             }
         }
         .onAppear {
@@ -508,6 +471,8 @@ public struct DailyPuzzleGameScreenView: View {
             wordToastDismissTask = nil
             completionOverlayTask?.cancel()
             completionOverlayTask = nil
+            boardRotationTask?.cancel()
+            boardRotationTask = nil
         }
         .alert(DailyPuzzleStrings.resetAlertTitle, isPresented: $showResetAlert) {
             Button(DailyPuzzleStrings.resetAlertCancel, role: .cancel) {}
@@ -522,50 +487,6 @@ public struct DailyPuzzleGameScreenView: View {
 }
 
 private extension DailyPuzzleGameScreenView {
-    var isFirstExperienceActive: Bool {
-        firstExperienceState.isActive
-    }
-
-    var firstExperienceStep: DailyPuzzleFirstExperienceStep? {
-        firstExperienceState.step
-    }
-
-    var firstExperienceToastPlacement: DailyPuzzleFirstExperienceToastView.Placement {
-        guard let firstExperienceStep else { return .top }
-        switch firstExperienceStep {
-        case .dragToSelect:
-            return .top
-        case .objectivesHint, .difficultyHint:
-            return .bottom
-        }
-    }
-
-    var firstExperienceMessage: String {
-        guard let firstExperienceStep else { return "" }
-        switch firstExperienceStep {
-        case .dragToSelect:
-            return DailyPuzzleStrings.firstExperienceDragMessage
-        case .objectivesHint:
-            return DailyPuzzleStrings.firstExperienceObjectivesMessage(for: wordHintMode)
-        case .difficultyHint:
-            return DailyPuzzleStrings.firstExperienceDifficultyMessage
-        }
-    }
-
-    var firstExperienceStepAccessibilityIdentifier: String {
-        guard let firstExperienceStep else {
-            return "dailyPuzzle.firstExperience.toast.unknown"
-        }
-        switch firstExperienceStep {
-        case .dragToSelect:
-            return "dailyPuzzle.firstExperience.toast.step1"
-        case .objectivesHint:
-            return "dailyPuzzle.firstExperience.toast.step2"
-        case .difficultyHint:
-            return "dailyPuzzle.firstExperience.toast.step3"
-        }
-    }
-
     var activeSelectionText: String {
         let letters = puzzle.grid.letters
         guard !letters.isEmpty else { return "" }
@@ -582,13 +503,82 @@ private extension DailyPuzzleGameScreenView {
         DailyPuzzleWordsView(
             words: puzzle.words.map(\.text),
             foundWords: gameSession.foundWords,
-            displayMode: wordHintMode
+            displayMode: wordHintMode,
+            onWordTapped: { tappedWord in
+                handleWordHintTapped(tappedWord)
+            }
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 
+    var rotateBoardButton: some View {
+        Button {
+            rotateBoardCounterClockwise()
+        } label: {
+            Image(systemName: "arrow.counterclockwise.square")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(ColorTokens.surfacePaper)
+                .frame(width: Constants.rotateButtonSize, height: Constants.rotateButtonSize)
+                .clipShape(Circle())
+                .background {
+                    Circle()
+                        .fill(ThemeGradients.brushWarm)
+                        .overlay {
+                            Circle()
+                                .dsInnerStroke(ColorTokens.borderSoft.opacity(0.34), lineWidth: 1)
+                        }
+                }
+                .shadow(color: ColorTokens.inkPrimary.opacity(0.22), radius: 10, x: 0, y: 5)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(DailyPuzzleStrings.rotateBoard)
+        .accessibilityHint(DailyPuzzleStrings.rotateBoardHint)
+        .disabled(dragAnchor != nil)
+        .opacity(dragAnchor != nil ? 0.58 : 1)
+    }
+
+    private func rotateBoardCounterClockwise() {
+        pendingBoardRotations += 1
+        guard boardRotationTask == nil else { return }
+
+        boardRotationTask = Task { @MainActor in
+            defer {
+                boardRotationTask = nil
+            }
+
+            while pendingBoardRotations > 0 {
+                pendingBoardRotations -= 1
+                let nextStep = boardRotationSteps + 1
+
+                if reduceMotion {
+                    boardRotationSteps = nextStep
+                    letterCounterRotationSteps = nextStep
+                    continue
+                }
+
+                withAnimation(
+                    .spring(
+                        response: Constants.boardRotateDuration,
+                        dampingFraction: Constants.boardRotateDamping
+                    )
+                ) {
+                    boardRotationSteps = nextStep
+                }
+
+                try? await Task.sleep(nanoseconds: Constants.boardRotateDelayNanos)
+                guard !Task.isCancelled else { return }
+
+                withAnimation(.easeInOut(duration: Constants.letterCounterRotateDuration)) {
+                    letterCounterRotationSteps = nextStep
+                }
+
+                try? await Task.sleep(nanoseconds: Constants.letterCounterRotateDelayNanos)
+                guard !Task.isCancelled else { return }
+            }
+        }
+    }
+
     private func handleDragChanged(_ position: GridPosition) {
-        guard !isFirstExperienceActive else { return }
         if dragAnchor == nil {
             dragAnchor = position
             activeSelection = [position]
@@ -609,7 +599,6 @@ private extension DailyPuzzleGameScreenView {
     }
 
     private func handleDragEnded() {
-        guard !isFirstExperienceActive else { return }
         let selection = activeSelection
         dragAnchor = nil
         guard selection.count >= 2 else {
@@ -620,17 +609,15 @@ private extension DailyPuzzleGameScreenView {
         activeSelection = []
     }
 
-    private func advanceFirstExperienceStep() {
-        guard firstExperienceState.isActive else { return }
-        let didComplete = firstExperienceState.advance()
-        guard didComplete else { return }
-        onFirstExperienceCompleted()
-    }
+    private func handleWordHintTapped(_ word: String) {
+        let normalizedWord = WordSearchNormalization.normalizedWord(word)
+        guard !normalizedWord.isEmpty else { return }
 
-    private func skipFirstExperience() {
-        let didSkip = firstExperienceState.skipAll()
-        guard didSkip else { return }
-        onFirstExperienceCompleted()
+        let nextCount = (wordHintTapCounts[normalizedWord] ?? 0) + 1
+        wordHintTapCounts[normalizedWord] = nextCount
+        guard nextCount >= Constants.wordHintEasterEggTapThreshold else { return }
+        guard triggerHintWordEasterEggWave(for: normalizedWord) else { return }
+        wordHintTapCounts[normalizedWord] = 0
     }
 
     private func finalizeSelection(_ positions: [GridPosition]) {
@@ -815,6 +802,17 @@ private extension DailyPuzzleGameScreenView {
         }
     }
 
+    private func triggerHintWordEasterEggWave(for normalizedWord: String) -> Bool {
+        let preferences = celebrationPreferencesProvider()
+        fxManager.setSuccessFXEnabled(preferences.enableCelebrations)
+        guard preferences.enableCelebrations else { return false }
+        guard let context = makeHintWordInitialFXContext(for: normalizedWord) else { return false }
+
+        let intensity = max(0.3 as Float, preferences.intensity.fxValue * 0.74)
+        triggerWordSuccessWave(context: context, intensity: intensity)
+        return true
+    }
+
     private func triggerWordSuccessWave(
         context: (bounds: CGRect, centers: [CGPoint]),
         intensity: Float
@@ -883,6 +881,49 @@ private extension DailyPuzzleGameScreenView {
         return (localGridBounds, centers)
     }
 
+    private func makeHintWordInitialFXContext(for normalizedWord: String) -> (bounds: CGRect, centers: [CGPoint])? {
+        guard gridBounds.width > 0, gridBounds.height > 0 else { return nil }
+
+        guard let path = WordPathFinderService.bestPath(
+            for: normalizedWord,
+            grid: puzzle.grid,
+            prioritizing: gameSession.solvedPositions
+        ) else {
+            return nil
+        }
+        guard let targetPosition = firstLetterPosition(in: path, for: normalizedWord) else { return nil }
+
+        let localGridBounds = CGRect(origin: .zero, size: gridBounds.size)
+        let center = MetalFXGridGeometry.center(
+            for: targetPosition,
+            in: localGridBounds,
+            rows: max(puzzle.grid.rowCount, 1),
+            cols: max(puzzle.grid.columnCount, 1)
+        )
+        return (localGridBounds, [center])
+    }
+
+    private func firstLetterPosition(in path: [GridPosition], for normalizedWord: String) -> GridPosition? {
+        guard !path.isEmpty else { return nil }
+        let firstLetter = String(normalizedWord.prefix(1))
+        guard !firstLetter.isEmpty else { return path.first }
+
+        if let start = path.first, letter(at: start) == firstLetter {
+            return start
+        }
+        if let end = path.last, letter(at: end) == firstLetter {
+            return end
+        }
+        return path.first
+    }
+
+    private func letter(at position: GridPosition) -> String? {
+        guard position.row >= 0, position.row < puzzle.grid.rowCount else { return nil }
+        guard position.col >= 0, position.col < puzzle.grid.columnCount else { return nil }
+        let normalized = WordSearchNormalization.normalizedWord(puzzle.grid.letters[position.row][position.col])
+        return normalized.isEmpty ? nil : String(normalized.prefix(1))
+    }
+
     private func presentCompletionOverlay(
         streakCount: Int?,
         preferences: DailyPuzzleCelebrationPreferences
@@ -894,60 +935,53 @@ private extension DailyPuzzleGameScreenView {
         completionOverlayTask?.cancel()
         completionOverlay = DailyPuzzleCompletionOverlayState(
             isVisible: true,
-            showsContent: false,
-            showsConfetti: false,
+            showsBackdrop: false,
+            showsToast: false,
             streakLabel: streakCount.map(DailyPuzzleStrings.streakLabel(_:))
         )
 
         onCompletionFeedback(preferences)
 
+        withAnimation(.easeInOut(duration: Constants.completionBackdropDuration)) {
+            completionOverlay.showsBackdrop = true
+        }
+
         completionOverlayTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: Constants.completionContentDelayNanos)
+            try? await Task.sleep(nanoseconds: Constants.completionToastDelayNanos)
             guard !Task.isCancelled else { return }
-            withAnimation(.easeOut(duration: 0.18)) {
-                completionOverlay.showsConfetti = true
-            }
-            withAnimation(
-                reduceMotion
-                    ? .easeInOut(duration: 0.16)
-                    : .spring(response: 0.40, dampingFraction: 0.84)
-            ) {
-                completionOverlay.showsContent = true
+            withAnimation(reduceMotion ? .easeInOut(duration: 0.16) : .easeOut(duration: 0.2)) {
+                completionOverlay.showsToast = true
             }
 
-            try? await Task.sleep(nanoseconds: Constants.completionConfettiBurstNanos)
+            try? await Task.sleep(nanoseconds: Constants.completionAutoDismissDelayNanos)
             guard !Task.isCancelled else { return }
-            withAnimation(.easeOut(duration: Constants.completionConfettiFadeDuration)) {
-                completionOverlay.showsConfetti = false
-            }
+            await dismissCompletionOverlay(cancelScheduledTask: false)
         }
     }
 
     @MainActor
-    private func dismissCompletionOverlay() async {
-        completionOverlayTask?.cancel()
-        completionOverlayTask = nil
-
-        withAnimation(.easeInOut(duration: Constants.completionHideContentDuration)) {
-            completionOverlay.showsContent = false
-            completionOverlay.showsConfetti = false
+    private func dismissCompletionOverlay(cancelScheduledTask: Bool = true) async {
+        if cancelScheduledTask {
+            completionOverlayTask?.cancel()
+            completionOverlayTask = nil
         }
 
-        try? await Task.sleep(nanoseconds: Constants.completionHideContentDelayNanos)
+        withAnimation(.easeInOut(duration: Constants.completionHideToastDuration)) {
+            completionOverlay.showsToast = false
+        }
 
-        completionOverlay = .hidden
-    }
+        try? await Task.sleep(nanoseconds: Constants.completionHideToastDelayNanos)
 
-    @MainActor
-    private func closeFromCompletionScreen() async {
-        completionOverlayTask?.cancel()
-        completionOverlayTask = nil
+        withAnimation(.easeInOut(duration: Constants.completionHideBackdropDuration)) {
+            completionOverlay.showsBackdrop = false
+        }
 
-        if let onClose {
-            completionOverlay = .hidden
-            onClose()
-        } else {
-            await dismissCompletionOverlay()
+        try? await Task.sleep(nanoseconds: Constants.completionHideBackdropDelayNanos)
+
+        completionOverlay.isVisible = false
+        completionOverlay.streakLabel = nil
+        if !cancelScheduledTask {
+            completionOverlayTask = nil
         }
     }
 }

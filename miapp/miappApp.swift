@@ -24,19 +24,12 @@
 //  Created by Pedro Carrasco lopez brea on 8/2/26.
 //
 
-import Foundation
 import SwiftUI
 import DesignSystem
 
 @main
 struct miappApp: App {
     @StateObject private var container = AppContainer.live
-
-    init() {
-        HostFirstExperienceStore.resetForUITestingIfNeeded(
-            launchArguments: ProcessInfo.processInfo.arguments
-        )
-    }
 
     var body: some Scene {
         WindowGroup {
