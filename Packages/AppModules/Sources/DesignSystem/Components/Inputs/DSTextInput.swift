@@ -40,7 +40,7 @@ public struct DSTextInput: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous)
-                    .stroke(ColorTokens.borderDefault, lineWidth: 1)
+                    .dsInnerStroke(ColorTokens.borderDefault, lineWidth: 1)
             )
     }
 }

@@ -35,11 +35,11 @@ public struct DSCard<Content: View>: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
-                    .stroke(ColorTokens.borderSoft, lineWidth: 1)
+                    .dsInnerStroke(ColorTokens.borderSoft, lineWidth: 1)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
-                    .stroke(ColorTokens.cardHighlightStroke, lineWidth: 0.8)
+                    .dsInnerStroke(ColorTokens.cardHighlightStroke, lineWidth: 0.8)
             )
             .shadow(color: ShadowTokens.cardAmbient.color, radius: ShadowTokens.cardAmbient.radius, x: 0, y: ShadowTokens.cardAmbient.y)
             .shadow(color: ShadowTokens.cardDrop.color, radius: ShadowTokens.cardDrop.radius, x: 0, y: ShadowTokens.cardDrop.y)

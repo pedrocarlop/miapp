@@ -28,10 +28,31 @@ public struct DailyPuzzleWordsView: View {
 
     private let topFadeHeight: CGFloat = 14
 
+    private struct OrderedWord: Identifiable {
+        let id: Int
+        let word: String
+        let isFound: Bool
+    }
+
     public init(words: [String], foundWords: Set<String>, displayMode: WordHintMode) {
         self.words = words
         self.foundWords = foundWords
         self.displayMode = displayMode
+    }
+
+    private var orderedWords: [OrderedWord] {
+        let normalizedFoundWords = Set(foundWords.map(WordSearchNormalization.normalizedWord))
+        let mappedWords = words.enumerated().map { index, word in
+            OrderedWord(
+                id: index,
+                word: word,
+                isFound: normalizedFoundWords.contains(WordSearchNormalization.normalizedWord(word))
+            )
+        }
+
+        let pendingWords = mappedWords.filter { !$0.isFound }
+        let completedWords = mappedWords.filter(\.isFound)
+        return pendingWords + completedWords
     }
 
     public var body: some View {
@@ -39,11 +60,11 @@ public struct DailyPuzzleWordsView: View {
             Group {
                 if displayMode == .definition {
                     LazyVStack(spacing: SpacingTokens.xs) {
-                        ForEach(Array(words.enumerated()), id: \.offset) { _, word in
-                            let displayText = WordHintsService.displayText(for: word, mode: displayMode)
+                        ForEach(orderedWords) { item in
+                            let displayText = WordHintsService.displayText(for: item.word, mode: displayMode)
                             WordChip(
                                 word: displayText,
-                                isFound: foundWords.contains(word.uppercased()),
+                                isFound: item.isFound,
                                 allowMultiline: true,
                                 expandsHorizontally: true
                             )
@@ -52,11 +73,11 @@ public struct DailyPuzzleWordsView: View {
                     .padding(.trailing, SpacingTokens.xxs)
                 } else {
                     WrappingFlowLayout(horizontalSpacing: SpacingTokens.xs, verticalSpacing: SpacingTokens.xs) {
-                        ForEach(Array(words.enumerated()), id: \.offset) { _, word in
-                            let displayText = WordHintsService.displayText(for: word, mode: displayMode)
+                        ForEach(orderedWords) { item in
+                            let displayText = WordHintsService.displayText(for: item.word, mode: displayMode)
                             WordChip(
                                 word: displayText,
-                                isFound: foundWords.contains(word.uppercased()),
+                                isFound: item.isFound,
                                 allowMultiline: false,
                                 expandsHorizontally: false
                             )
@@ -129,7 +150,7 @@ private struct WordChip: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: RadiusTokens.chipRadius, style: .continuous)
-                .stroke(chipStroke, lineWidth: 1)
+                .dsInnerStroke(chipStroke, lineWidth: 1)
         )
         .scaleEffect(isFound ? 1.0 : 0.98)
         .animation(MotionTokens.celebrate, value: isFound)

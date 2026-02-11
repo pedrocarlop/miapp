@@ -235,8 +235,27 @@ public enum AppLanguage: String, CaseIterable, Codable, Sendable {
         Locale(identifier: localeIdentifier)
     }
 
-    public static func resolved(from locale: Locale = .autoupdatingCurrent) -> AppLanguage {
-        let normalized = locale.identifier.lowercased()
+    public static func resolved() -> AppLanguage {
+        let candidates = Bundle.main.preferredLocalizations + Locale.preferredLanguages
+        for identifier in candidates {
+            if let language = resolve(fromIdentifier: identifier) {
+                return language
+            }
+        }
+
+        return resolved(from: .autoupdatingCurrent)
+    }
+
+    public static func resolved(from locale: Locale) -> AppLanguage {
+        if let language = resolve(fromIdentifier: locale.identifier) {
+            return language
+        }
+
+        return .english
+    }
+
+    private static func resolve(fromIdentifier identifier: String) -> AppLanguage? {
+        let normalized = identifier.lowercased()
         if normalized.hasPrefix("es") {
             return .spanish
         }
@@ -246,7 +265,11 @@ public enum AppLanguage: String, CaseIterable, Codable, Sendable {
         if normalized.hasPrefix("pt") {
             return .portuguese
         }
-        return .english
+        if normalized.hasPrefix("en") {
+            return .english
+        }
+
+        return nil
     }
 }
 

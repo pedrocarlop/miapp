@@ -174,7 +174,9 @@ public struct DailyPuzzleGameBoardView: View {
                     DailyPuzzleLoupeView(
                         state: $loupeState,
                         configuration: loupeConfiguration,
-                        selectedText: selectionText
+                        boardSize: CGSize(width: sideLength, height: sideLength),
+                        selectedText: selectionText,
+                        shouldAvoidTopRowFingerOverlap: activePositions.contains { $0.row == 0 }
                     )
                 }
                 .gesture(

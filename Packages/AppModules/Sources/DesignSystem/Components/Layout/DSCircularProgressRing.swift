@@ -39,11 +39,11 @@ public struct DSCircularProgressRing: View {
 
         ZStack {
             Circle()
-                .stroke(ColorTokens.gridLine.opacity(0.75), lineWidth: lineWidth)
+                .dsInnerStroke(ColorTokens.gridLine.opacity(0.75), lineWidth: lineWidth)
 
             Circle()
                 .trim(from: 0, to: clamped)
-                .stroke(
+                .dsInnerStroke(
                     ThemeGradients.brushWarm,
                     style: StrokeStyle(lineWidth: lineWidth, lineCap: .round)
                 )

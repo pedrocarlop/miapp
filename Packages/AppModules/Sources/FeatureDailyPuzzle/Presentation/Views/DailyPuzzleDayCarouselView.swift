@@ -134,16 +134,16 @@ private struct DailyPuzzleDayCarouselItem: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: RadiusTokens.lg, style: .continuous)
-                .stroke(ColorTokens.cardHighlightStroke, lineWidth: 1)
+                .dsInnerStroke(ColorTokens.cardHighlightStroke, lineWidth: 1)
         )
         .overlay(
             RoundedRectangle(cornerRadius: RadiusTokens.lg, style: .continuous)
-                .stroke(ColorTokens.borderDefault, lineWidth: 1)
+                .dsInnerStroke(ColorTokens.borderDefault, lineWidth: 1)
         )
         .overlay {
             if isSelected {
                 RoundedRectangle(cornerRadius: RadiusTokens.lg, style: .continuous)
-                    .stroke(ThemeGradients.brushWarmStrong, lineWidth: 2)
+                    .dsInnerStroke(ThemeGradients.brushWarmStrong, lineWidth: 2)
             }
         }
         .scaleEffect(isSelected ? 1.04 : 0.98)

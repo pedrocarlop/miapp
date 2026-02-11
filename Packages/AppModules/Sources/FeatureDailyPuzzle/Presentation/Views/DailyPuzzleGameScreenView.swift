@@ -67,8 +67,8 @@ private struct DailyPuzzleEntryState {
 
 private struct DailyPuzzleCompletionOverlayState {
     var isVisible = false
-    var showsBackdrop = false
-    var showsToast = false
+    var showsContent = false
+    var showsConfetti = false
     var streakLabel: String?
 
     static let hidden = DailyPuzzleCompletionOverlayState()
@@ -148,7 +148,7 @@ private struct DailyPuzzleWordToastView: View {
                     .fill(ColorTokens.chipNeutralFill)
                     .overlay {
                         Capsule()
-                            .stroke(ColorTokens.accentAmberStrong.opacity(0.28), lineWidth: 1)
+                            .dsInnerStroke(ColorTokens.accentAmberStrong.opacity(0.28), lineWidth: 1)
                     }
             }
             .shadow(color: ColorTokens.accentAmberStrong.opacity(0.18), radius: 8, x: 0, y: 4)
@@ -190,13 +190,11 @@ public struct DailyPuzzleGameScreenView: View {
         static let feedbackShowDuration: Double = 0.08
         static let feedbackHideDelayNanos: UInt64 = 650_000_000
 
-        static let completionBackdropDuration: Double = 0.12
-        static let completionToastDelayNanos: UInt64 = 120_000_000
-        static let completionAutoDismissDelayNanos: UInt64 = 1_500_000_000
-        static let completionHideToastDuration: Double = 0.14
-        static let completionHideToastDelayNanos: UInt64 = 100_000_000
-        static let completionHideBackdropDuration: Double = 0.1
-        static let completionHideBackdropDelayNanos: UInt64 = 110_000_000
+        static let completionContentDelayNanos: UInt64 = 110_000_000
+        static let completionConfettiBurstNanos: UInt64 = 1_100_000_000
+        static let completionConfettiFadeDuration: Double = 0.22
+        static let completionHideContentDuration: Double = 0.16
+        static let completionHideContentDelayNanos: UInt64 = 90_000_000
 
         static let wordToastShowDuration: Double = 0.2
         static let wordToastHideDuration: Double = 0.22
@@ -221,6 +219,7 @@ public struct DailyPuzzleGameScreenView: View {
     public let onWordFeedback: (DailyPuzzleCelebrationPreferences) -> Void
     public let onCompletionFeedback: (DailyPuzzleCelebrationPreferences) -> Void
     public let onSharedStateMutation: () -> Void
+    public let toolbarActionTransitionNamespace: Namespace.ID?
 
     @StateObject private var celebrationController = DailyPuzzleCelebrationController()
     @StateObject private var fxManager = MetalFXManager()
@@ -256,7 +255,8 @@ public struct DailyPuzzleGameScreenView: View {
         celebrationPreferencesProvider: @escaping () -> DailyPuzzleCelebrationPreferences,
         onWordFeedback: @escaping (DailyPuzzleCelebrationPreferences) -> Void = { _ in },
         onCompletionFeedback: @escaping (DailyPuzzleCelebrationPreferences) -> Void = { _ in },
-        onSharedStateMutation: @escaping () -> Void = {}
+        onSharedStateMutation: @escaping () -> Void = {},
+        toolbarActionTransitionNamespace: Namespace.ID? = nil
     ) {
         self.core = core
         self.dayOffset = dayOffset
@@ -273,6 +273,7 @@ public struct DailyPuzzleGameScreenView: View {
         self.onWordFeedback = onWordFeedback
         self.onCompletionFeedback = onCompletionFeedback
         self.onSharedStateMutation = onSharedStateMutation
+        self.toolbarActionTransitionNamespace = toolbarActionTransitionNamespace
 
         let initialFoundWords = Set(initialProgress?.foundWords ?? [])
         let initialSolvedPositions = Set(initialProgress?.solvedPositions ?? [])
@@ -374,14 +375,20 @@ public struct DailyPuzzleGameScreenView: View {
 
             if completionOverlay.isVisible {
                 DailyPuzzleCompletionOverlayView(
-                    showBackdrop: completionOverlay.showsBackdrop,
-                    showToast: completionOverlay.showsToast,
+                    navigationTitle: navigationTitle,
+                    showContent: completionOverlay.showsContent,
+                    showConfetti: completionOverlay.showsConfetti,
                     streakLabel: completionOverlay.streakLabel,
                     reduceMotion: reduceMotion,
                     reduceTransparency: reduceTransparency,
-                    onTapDismiss: {
+                    onClose: {
                         Task { @MainActor in
-                            await dismissCompletionOverlay()
+                            await closeFromCompletionScreen()
+                        }
+                    },
+                    onContinue: {
+                        Task { @MainActor in
+                            await closeFromCompletionScreen()
                         }
                     }
                 )
@@ -390,6 +397,7 @@ public struct DailyPuzzleGameScreenView: View {
         }
         .navigationTitle(navigationTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(completionOverlay.isVisible ? .hidden : .visible, for: .navigationBar)
         .toolbar {
             if let onClose {
                 ToolbarItem(placement: .topBarLeading) {
@@ -399,13 +407,25 @@ public struct DailyPuzzleGameScreenView: View {
                     .accessibilityLabel(DailyPuzzleStrings.close)
                 }
             }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showResetAlert = true
-                } label: {
-                    Image(systemName: "arrow.counterclockwise")
+            if #available(iOS 26.0, *), let toolbarActionTransitionNamespace {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showResetAlert = true
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
+                    }
+                    .accessibilityLabel(DailyPuzzleStrings.resetChallenge)
                 }
-                .accessibilityLabel(DailyPuzzleStrings.resetChallenge)
+                .matchedTransitionSource(id: "puzzle-nav-actions", in: toolbarActionTransitionNamespace)
+            } else {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showResetAlert = true
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
+                    }
+                    .accessibilityLabel(DailyPuzzleStrings.resetChallenge)
+                }
             }
         }
         .onAppear {
@@ -752,53 +772,60 @@ private extension DailyPuzzleGameScreenView {
         completionOverlayTask?.cancel()
         completionOverlay = DailyPuzzleCompletionOverlayState(
             isVisible: true,
-            showsBackdrop: false,
-            showsToast: false,
+            showsContent: false,
+            showsConfetti: false,
             streakLabel: streakCount.map(DailyPuzzleStrings.streakLabel(_:))
         )
 
         onCompletionFeedback(preferences)
 
-        withAnimation(.easeInOut(duration: Constants.completionBackdropDuration)) {
-            completionOverlay.showsBackdrop = true
-        }
-
         completionOverlayTask = Task { @MainActor in
-            try? await Task.sleep(nanoseconds: Constants.completionToastDelayNanos)
+            try? await Task.sleep(nanoseconds: Constants.completionContentDelayNanos)
             guard !Task.isCancelled else { return }
-            withAnimation(reduceMotion ? .easeInOut(duration: 0.16) : .easeOut(duration: 0.2)) {
-                completionOverlay.showsToast = true
+            withAnimation(.easeOut(duration: 0.18)) {
+                completionOverlay.showsConfetti = true
+            }
+            withAnimation(
+                reduceMotion
+                    ? .easeInOut(duration: 0.16)
+                    : .spring(response: 0.40, dampingFraction: 0.84)
+            ) {
+                completionOverlay.showsContent = true
             }
 
-            try? await Task.sleep(nanoseconds: Constants.completionAutoDismissDelayNanos)
+            try? await Task.sleep(nanoseconds: Constants.completionConfettiBurstNanos)
             guard !Task.isCancelled else { return }
-            await dismissCompletionOverlay(cancelScheduledTask: false)
+            withAnimation(.easeOut(duration: Constants.completionConfettiFadeDuration)) {
+                completionOverlay.showsConfetti = false
+            }
         }
     }
 
     @MainActor
-    private func dismissCompletionOverlay(cancelScheduledTask: Bool = true) async {
-        if cancelScheduledTask {
-            completionOverlayTask?.cancel()
-            completionOverlayTask = nil
+    private func dismissCompletionOverlay() async {
+        completionOverlayTask?.cancel()
+        completionOverlayTask = nil
+
+        withAnimation(.easeInOut(duration: Constants.completionHideContentDuration)) {
+            completionOverlay.showsContent = false
+            completionOverlay.showsConfetti = false
         }
 
-        withAnimation(.easeInOut(duration: Constants.completionHideToastDuration)) {
-            completionOverlay.showsToast = false
-        }
+        try? await Task.sleep(nanoseconds: Constants.completionHideContentDelayNanos)
 
-        try? await Task.sleep(nanoseconds: Constants.completionHideToastDelayNanos)
+        completionOverlay = .hidden
+    }
 
-        withAnimation(.easeInOut(duration: Constants.completionHideBackdropDuration)) {
-            completionOverlay.showsBackdrop = false
-        }
+    @MainActor
+    private func closeFromCompletionScreen() async {
+        completionOverlayTask?.cancel()
+        completionOverlayTask = nil
 
-        try? await Task.sleep(nanoseconds: Constants.completionHideBackdropDelayNanos)
-
-        completionOverlay.isVisible = false
-        completionOverlay.streakLabel = nil
-        if !cancelScheduledTask {
-            completionOverlayTask = nil
+        if let onClose {
+            completionOverlay = .hidden
+            onClose()
+        } else {
+            await dismissCompletionOverlay()
         }
     }
 }

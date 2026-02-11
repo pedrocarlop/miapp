@@ -138,9 +138,9 @@ private struct WordSearchGridWidget: View {
         let displayRows = max(rows, 1)
         let displayCols = max(cols, 1)
         let sideLength = cellSize * CGFloat(displayCols)
-        let mappedActive = state.pendingSolvedPositions.map {
-            SharedWordSearchBoardPosition(row: $0.r, col: $0.c)
-        }
+        let mappedActive = state.anchor.map {
+            [SharedWordSearchBoardPosition(row: $0.r, col: $0.c)]
+        } ?? []
         let mappedFeedback = state.feedback.map { value in
             SharedWordSearchBoardFeedback(
                 id: "feedback-\(value.kind.rawValue)-\(value.expiresAt.timeIntervalSince1970)",
@@ -225,7 +225,7 @@ private struct WordSearchGridWidget: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
-                    .stroke(WordSearchWidgetColorTokens.hintPanelStroke.opacity(isDark ? 0.35 : 1), lineWidth: 0.8)
+                    .dsInnerStroke(WordSearchWidgetColorTokens.hintPanelStroke.opacity(isDark ? 0.35 : 1), lineWidth: 0.8)
             )
             .allowsHitTesting(true)
         }

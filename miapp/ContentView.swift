@@ -72,6 +72,7 @@ struct ContentView: View {
     @State private var historyViewModel: HistorySummaryViewModel
     @State private var dailyPuzzleHomeViewModel: DailyPuzzleHomeScreenViewModel
     @State private var lastHomeRefreshAt: Date = .distantPast
+    @Namespace private var toolbarActionTransitionNamespace
 
     @MainActor
     init(container: AppContainer) {
@@ -118,14 +119,15 @@ struct ContentView: View {
                     hoursUntilAvailable: { dailyPuzzleHomeViewModel.hoursUntilAvailable(for: $0) }
                 )
 
-                if let selection = presentedGame {
-                    gameOverlay(for: selection.id)
-                        .transition(.scale(scale: 0.94).combined(with: .opacity))
-                        .zIndex(50)
+                Group {
+                    if let selection = presentedGame {
+                        gameOverlay(for: selection.id)
+                            .transition(.scale(scale: 0.94).combined(with: .opacity))
+                            .zIndex(50)
+                    }
                 }
 
             }
-            .animation(.easeInOut(duration: 0.24), value: presentedGame)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if presentedGame == nil {
@@ -134,7 +136,8 @@ struct ContentView: View {
                         streakCount: historyViewModel.model.currentStreak,
                         onCompletedTap: { presentedSheet = .counter(.completedPuzzles) },
                         onStreakTap: { presentedSheet = .counter(.streak) },
-                        onSettingsTap: { presentedSheet = .settings }
+                        onSettingsTap: { presentedSheet = .settings },
+                        toolbarActionTransitionNamespace: toolbarActionTransitionNamespace
                     )
                 }
             }
@@ -250,7 +253,8 @@ struct ContentView: View {
                 },
                 onSharedStateMutation: {
                     reloadWidgetTimeline()
-                }
+                },
+                toolbarActionTransitionNamespace: toolbarActionTransitionNamespace
             )
         }
     }

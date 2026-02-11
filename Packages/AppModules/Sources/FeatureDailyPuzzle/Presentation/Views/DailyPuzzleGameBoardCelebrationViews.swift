@@ -54,7 +54,7 @@ struct DailyPuzzleWordCelebrationSequenceView: View {
                         .fill(ThemeGradients.brushWarmStrong.opacity(intensity.brushOpacity))
                         .overlay {
                             DailyPuzzleBrushStrokeShape(seed: brushSeed + 41)
-                                .stroke(ColorTokens.accentAmberStrong.opacity(0.30), lineWidth: max(0.8, cellSize * 0.038))
+                                .dsInnerStroke(ColorTokens.accentAmberStrong.opacity(0.30), lineWidth: max(0.8, cellSize * 0.038))
                         }
                         .frame(width: capsuleWidth, height: capsuleHeight)
                         .mask {

@@ -28,11 +28,18 @@ public struct DSButton: View {
 
     private let title: String
     private let style: Style
+    private let cornerRadius: CGFloat
     private let action: () -> Void
 
-    public init(_ title: String, style: Style = .primary, action: @escaping () -> Void) {
+    public init(
+        _ title: String,
+        style: Style = .primary,
+        cornerRadius: CGFloat = RadiusTokens.buttonRadius,
+        action: @escaping () -> Void
+    ) {
         self.title = title
         self.style = style
+        self.cornerRadius = cornerRadius
         self.action = action
     }
 
@@ -45,12 +52,12 @@ public struct DSButton: View {
                 .padding(.vertical, SpacingTokens.sm)
                 .frame(maxWidth: .infinity, minHeight: 44)
                 .background(
-                    RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous)
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .fill(backgroundStyle)
                 )
                 .overlay(
-                    RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous)
-                        .stroke(borderColor, lineWidth: 1)
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .dsInnerStroke(borderColor, lineWidth: 1)
                 )
         }
         .buttonStyle(.plain)

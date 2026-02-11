@@ -146,21 +146,16 @@ public struct SharedWordSearchBoardView: View {
                 ForEach(0..<safeRows, id: \.self) { row in
                     HStack(spacing: 0) {
                         ForEach(0..<safeCols, id: \.self) { col in
-                            let position = SharedWordSearchBoardPosition(row: row, col: col)
                             let letter = row < rows && col < cols ? grid[row][col] : ""
 
                             Text(letter)
                                 .font(TypographyTokens.boardLetter(size: max(10, cellSize * 0.45)))
                                 .foregroundStyle(palette.letterColor)
                                 .frame(width: cellSize, height: cellSize)
-                                .background(cellFill(for: position))
+                                .background(palette.boardCellBackground)
                                 .overlay(
                                     Rectangle()
-                                        .stroke(cellBorderColor(for: position), lineWidth: cellBorderWidth(for: position))
-                                )
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(palette.boardGridStroke, lineWidth: 1)
+                                        .dsInnerStroke(palette.boardGridStroke, lineWidth: 1)
                                 )
                         }
                     }
@@ -171,69 +166,48 @@ public struct SharedWordSearchBoardView: View {
             foundWordOverlay(cellSize: cellSize)
                 .allowsHitTesting(false)
 
-            if activePositions.count > 1 {
-                activeSelectionStroke(cellSize: cellSize)
-                    .allowsHitTesting(false)
-            }
-
-            feedbackOverlay(cellSize: cellSize)
+            selectionOverlay(cellSize: cellSize)
                 .allowsHitTesting(false)
         }
         .compositingGroup()
         .clipShape(boardShape)
         .overlay(
             boardShape
-                .stroke(palette.boardOuterStroke, lineWidth: 1)
+                .dsInnerStroke(palette.boardOuterStroke, lineWidth: 1)
         )
         .frame(width: sideLength, height: sideLength)
     }
 
-    private var activeSet: Set<SharedWordSearchBoardPosition> {
-        Set(activePositions)
-    }
-
-    private var feedbackSet: Set<SharedWordSearchBoardPosition> {
-        Set(feedback?.positions ?? [])
-    }
-
-    private func cellFill(for position: SharedWordSearchBoardPosition) -> Color {
-        if activeSet.contains(position) {
-            return palette.selectionFill
-        }
-        return palette.boardCellBackground
-    }
-
-    private func cellBorderColor(for position: SharedWordSearchBoardPosition) -> Color {
-        guard let anchor, anchor == position, !feedbackSet.contains(position) else {
-            return .clear
-        }
-        return palette.anchorBorder
-    }
-
-    private func cellBorderWidth(for position: SharedWordSearchBoardPosition) -> CGFloat {
-        guard let anchor, anchor == position, !feedbackSet.contains(position) else {
-            return 0
-        }
-        return 1.8
-    }
-
     @ViewBuilder
-    private func feedbackOverlay(cellSize: CGFloat) -> some View {
+    private func selectionOverlay(cellSize: CGFloat) -> some View {
+        let capsuleHeight = cellSize * 0.82
+        let lineWidth = max(1.8, min(3.6, cellSize * 0.12))
+        let baseColor = palette.letterColor.opacity(0.58)
+
         if let feedback,
            let first = feedback.positions.first,
            let last = feedback.positions.last {
-            let capsuleHeight = cellSize * 0.82
-            let lineWidth = max(1.8, min(3.6, cellSize * 0.12))
-            let color = feedback.kind == .correct ? palette.feedbackCorrect : palette.feedbackIncorrect
-
-            SharedWordSearchStretchingCapsule(
+            let feedbackColor = feedback.kind == .correct ? palette.feedbackCorrect : palette.feedbackIncorrect
+            SharedWordSearchSelectionCapsule(
                 start: center(for: first, cellSize: cellSize),
                 end: center(for: last, cellSize: cellSize),
                 capsuleHeight: capsuleHeight,
                 lineWidth: lineWidth,
-                color: color
+                baseColor: baseColor,
+                revealColor: feedbackColor,
+                revealID: feedback.id
             )
-            .id(feedback.id)
+        } else if let first = activePositions.first,
+                  let last = activePositions.last {
+            SharedWordSearchSelectionCapsule(
+                start: center(for: first, cellSize: cellSize),
+                end: center(for: last, cellSize: cellSize),
+                capsuleHeight: capsuleHeight,
+                lineWidth: lineWidth,
+                baseColor: baseColor,
+                revealColor: nil,
+                revealID: nil
+            )
         }
     }
 
@@ -256,7 +230,7 @@ public struct SharedWordSearchBoardView: View {
                         .fill(ThemeGradients.brushWarm.opacity(0.44))
                         .overlay(
                             Capsule(style: .continuous)
-                                .stroke(palette.foundOutlineStroke.opacity(0.42), lineWidth: lineWidth)
+                                .dsInnerStroke(palette.foundOutlineStroke.opacity(0.42), lineWidth: lineWidth)
                         )
                         .frame(width: capsuleWidth, height: capsuleHeight)
                         .rotationEffect(angle)
@@ -264,43 +238,6 @@ public struct SharedWordSearchBoardView: View {
                 }
             }
         }
-    }
-
-    private func activeSelectionStroke(cellSize: CGFloat) -> some View {
-        let points = activePositions.map { center(for: $0, cellSize: cellSize) }
-        let primaryWidth = max(1.1, min(2.0, cellSize * 0.075))
-        let secondaryWidth = primaryWidth * 0.45
-        let path = selectionPath(points: points)
-
-        return path
-            .stroke(
-                palette.letterColor.opacity(0.58),
-                style: StrokeStyle(
-                    lineWidth: primaryWidth,
-                    lineCap: .round,
-                    lineJoin: .round
-                )
-            )
-            .overlay {
-                path.stroke(
-                    palette.boardBackground.opacity(0.36),
-                    style: StrokeStyle(
-                        lineWidth: secondaryWidth,
-                        lineCap: .round,
-                        lineJoin: .round
-                    )
-                )
-            }
-    }
-
-    private func selectionPath(points: [CGPoint]) -> Path {
-        var path = Path()
-        guard let first = points.first else { return path }
-        path.move(to: first)
-        for point in points.dropFirst() {
-            path.addLine(to: point)
-        }
-        return path
     }
 
     private func center(for position: SharedWordSearchBoardPosition, cellSize: CGFloat) -> CGPoint {
@@ -311,14 +248,18 @@ public struct SharedWordSearchBoardView: View {
     }
 }
 
-private struct SharedWordSearchStretchingCapsule: View {
+private struct SharedWordSearchSelectionCapsule: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     let start: CGPoint
     let end: CGPoint
     let capsuleHeight: CGFloat
     let lineWidth: CGFloat
-    let color: Color
+    let baseColor: Color
+    let revealColor: Color?
+    let revealID: String?
 
-    @State private var animate = false
+    @State private var revealProgress: CGFloat = 0
 
     var body: some View {
         let dx = end.x - start.x
@@ -326,17 +267,57 @@ private struct SharedWordSearchStretchingCapsule: View {
         let angle = Angle(radians: atan2(dy, dx))
         let centerPoint = CGPoint(x: (start.x + end.x) / 2, y: (start.y + end.y) / 2)
         let capsuleWidth = max(capsuleHeight, hypot(dx, dy) + capsuleHeight)
+        let revealWidth = capsuleWidth * revealProgress
+        let revealMaskWidth = min(capsuleWidth + lineWidth, max(0, revealWidth + lineWidth))
 
-        return Capsule(style: .continuous)
-            .stroke(color, lineWidth: lineWidth)
+        return ZStack(alignment: .leading) {
+            if revealColor == nil {
+                Capsule(style: .continuous)
+                    .strokeBorder(baseColor, lineWidth: lineWidth, antialiased: true)
+            }
+
+            if let revealColor {
+                Capsule(style: .continuous)
+                    .strokeBorder(revealColor, lineWidth: lineWidth, antialiased: true)
+                    .mask(alignment: .leading) {
+                        Rectangle()
+                            .frame(width: revealMaskWidth)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+            }
+        }
             .frame(width: capsuleWidth, height: capsuleHeight)
-            .scaleEffect(x: animate ? 1 : 0.05, y: 1, anchor: .leading)
             .rotationEffect(angle)
             .position(centerPoint)
             .onAppear {
-                withAnimation(MotionTokens.smooth) {
-                    animate = true
-                }
+                resetRevealState(animated: true)
             }
+            .onChange(of: revealID) { _ in
+                resetRevealState(animated: true)
+            }
+            .onChange(of: revealColor != nil) { _ in
+                resetRevealState(animated: true)
+            }
+    }
+
+    private func resetRevealState(animated: Bool) {
+        guard revealColor != nil else {
+            revealProgress = 0
+            return
+        }
+
+        if reduceMotion {
+            revealProgress = 1
+            return
+        }
+
+        revealProgress = 0
+        if animated {
+            withAnimation(.easeOut(duration: MotionTokens.fastDuration)) {
+                revealProgress = 1
+            }
+        } else {
+            revealProgress = 1
+        }
     }
 }

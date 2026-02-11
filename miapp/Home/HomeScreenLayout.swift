@@ -40,83 +40,77 @@ struct HomeScreenLayout: View {
             let interSectionSpacing = SpacingTokens.xxxl
             let dayCarouselHeight: CGFloat = 106
             let cardWidth = min(geometry.size.width * 0.80, 450)
-            let sidePadding = max((geometry.size.width - cardWidth) / 2, SpacingTokens.xs)
             let availableCardHeight = geometry.size.height - dayCarouselHeight - interSectionSpacing - (verticalInset * 2)
             let cardHeight = min(max(availableCardHeight, 260), 620)
-            let activeOffset = selectedOffset ?? todayOffset
-            let cardIDPrefix = "challenge-card-"
-            let cardID: (Int) -> String = { "\(cardIDPrefix)\($0)" }
-            let cardSelection = Binding<String?>(
+            let focusedOffset = selectedOffset ?? todayOffset
+            let carouselIndex = Binding<Int?>(
                 get: {
-                    guard carouselOffsets.contains(activeOffset) else { return nil }
-                    return cardID(activeOffset)
-                },
-                set: { id in
-                    guard
-                        let id,
-                        id.hasPrefix(cardIDPrefix),
-                        let offset = Int(id.dropFirst(cardIDPrefix.count))
-                    else {
-                        selectedOffset = nil
-                        return
+                    guard !challengeCards.isEmpty else { return nil }
+                    let targetOffset = selectedOffset ?? todayOffset
+
+                    if let current = challengeCards.firstIndex(where: { $0.offset == targetOffset }) {
+                        return current
                     }
+                    if let today = challengeCards.firstIndex(where: { $0.offset == todayOffset }) {
+                        return today
+                    }
+                    return challengeCards.startIndex
+                },
+                set: { index in
+                    guard
+                        let index,
+                        challengeCards.indices.contains(index)
+                    else { return }
+
+                    let offset = challengeCards[index].offset
+                    guard selectedOffset != offset else { return }
                     selectedOffset = offset
                 }
             )
 
-            ScrollViewReader { cardProxy in
-                VStack(spacing: interSectionSpacing) {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack(spacing: SpacingTokens.sm + 2) {
-                            ForEach(challengeCards) { card in
-                                DailyPuzzleChallengeCardView(
-                                    date: card.date,
-                                    puzzleNumber: card.puzzleNumber,
-                                    grid: card.grid,
-                                    words: card.words,
-                                    foundWords: card.progress.foundWords,
-                                    solvedPositions: card.progress.solvedPositions,
-                                    isLocked: card.isLocked,
-                                    hoursUntilAvailable: card.hoursUntilAvailable,
-                                    isLaunching: launchingCardOffset == card.offset
-                                ) {
-                                    onCardTap(card.offset)
-                                }
-                                .frame(width: cardWidth, height: cardHeight)
-                                .scaleEffect(launchingCardOffset == card.offset ? 1.10 : 1)
-                                .opacity(launchingCardOffset == nil || launchingCardOffset == card.offset ? 1 : 0.45)
-                                .zIndex(launchingCardOffset == card.offset ? 5 : 0)
-                                .id(cardID(card.offset))
-                            }
-                        }
-                        .scrollTargetLayout()
-                        .padding(.horizontal, sidePadding)
+            VStack(spacing: interSectionSpacing) {
+                CarouselView(
+                    items: challengeCards,
+                    currentIndex: carouselIndex,
+                    itemWidth: cardWidth,
+                    itemSpacing: SpacingTokens.sm + 2
+                ) { card in
+                    DailyPuzzleChallengeCardView(
+                        date: card.date,
+                        puzzleNumber: card.puzzleNumber,
+                        grid: card.grid,
+                        words: card.words,
+                        foundWords: card.progress.foundWords,
+                        solvedPositions: card.progress.solvedPositions,
+                        isLocked: card.isLocked,
+                        hoursUntilAvailable: card.hoursUntilAvailable,
+                        isLaunching: launchingCardOffset == card.offset,
+                        isFocused: card.offset == focusedOffset
+                    ) {
+                        onCardTap(card.offset)
                     }
                     .frame(height: cardHeight)
-                    .scrollClipDisabled(true)
-                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-                    .scrollPosition(id: cardSelection, anchor: .center)
-
-                    DailyPuzzleDayCarouselView(
-                        offsets: carouselOffsets,
-                        selectedOffset: $selectedOffset,
-                        todayOffset: todayOffset,
-                        unlockedOffsets: unlockedOffsets,
-                        dateForOffset: dateForOffset,
-                        progressForOffset: progressForOffset,
-                        hoursUntilAvailable: hoursUntilAvailable,
-                        onDayTap: { tappedOffset in
-                            withAnimation(.snappy(duration: 0.28, extraBounce: 0.02)) {
-                                cardProxy.scrollTo(cardID(tappedOffset), anchor: .center)
-                            }
-                        }
-                    )
-                    .frame(height: dayCarouselHeight)
-                    .padding(.horizontal, SpacingTokens.sm)
+                    .scaleEffect(launchingCardOffset == card.offset ? 1.10 : 1)
+                    .opacity(launchingCardOffset == nil || launchingCardOffset == card.offset ? 1 : 0.45)
+                    .zIndex(launchingCardOffset == card.offset ? 5 : 0)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .padding(.vertical, verticalInset)
+                .frame(height: cardHeight)
+
+                DailyPuzzleDayCarouselView(
+                    offsets: carouselOffsets,
+                    selectedOffset: $selectedOffset,
+                    todayOffset: todayOffset,
+                    unlockedOffsets: unlockedOffsets,
+                    dateForOffset: dateForOffset,
+                    progressForOffset: progressForOffset,
+                    hoursUntilAvailable: hoursUntilAvailable,
+                    onDayTap: { _ in }
+                )
+                .frame(height: dayCarouselHeight)
+                .padding(.horizontal, SpacingTokens.sm)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.vertical, verticalInset)
         }
     }
 }
@@ -127,6 +121,7 @@ struct HomeToolbarContent: ToolbarContent {
     let onCompletedTap: () -> Void
     let onStreakTap: () -> Void
     let onSettingsTap: () -> Void
+    let toolbarActionTransitionNamespace: Namespace.ID?
 
     var body: some ToolbarContent {
         ToolbarItem(placement: .principal) {
@@ -134,34 +129,46 @@ struct HomeToolbarContent: ToolbarContent {
                 .font(TypographyTokens.screenTitle)
         }
 
-        ToolbarItemGroup(placement: .topBarTrailing) {
-            HistoryNavCounterView(
-                value: completedCount,
-                systemImage: "checkmark.seal.fill",
-                iconGradient: ThemeGradients.brushWarm,
-                accessibilityLabel: AppStrings.completedCounterAccessibility(completedCount),
-                accessibilityHint: AppStrings.completedCounterHint
-            ) {
-                onCompletedTap()
+        if #available(iOS 26.0, *), let toolbarActionTransitionNamespace {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                homeActionsContent
             }
-
-            HistoryNavCounterView(
-                value: streakCount,
-                systemImage: "flame.fill",
-                iconGradient: ThemeGradients.brushWarmStrong,
-                accessibilityLabel: AppStrings.streakCounterAccessibility(streakCount),
-                accessibilityHint: AppStrings.streakCounterHint
-            ) {
-                onStreakTap()
+            .matchedTransitionSource(id: "puzzle-nav-actions", in: toolbarActionTransitionNamespace)
+        } else {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                homeActionsContent
             }
-
-            Button {
-                onSettingsTap()
-            } label: {
-                Image(systemName: "gearshape")
-                    .foregroundStyle(ColorTokens.textPrimary)
-            }
-            .accessibilityLabel(AppStrings.openSettingsAccessibility)
         }
+    }
+
+    @ViewBuilder
+    private var homeActionsContent: some View {
+        HistoryNavCounterView(
+            value: completedCount,
+            systemImage: "checkmark.seal.fill",
+            iconGradient: ThemeGradients.brushWarm,
+            accessibilityLabel: AppStrings.completedCounterAccessibility(completedCount),
+            accessibilityHint: AppStrings.completedCounterHint
+        ) {
+            onCompletedTap()
+        }
+
+        HistoryNavCounterView(
+            value: streakCount,
+            systemImage: "flame.fill",
+            iconGradient: ThemeGradients.brushWarmStrong,
+            accessibilityLabel: AppStrings.streakCounterAccessibility(streakCount),
+            accessibilityHint: AppStrings.streakCounterHint
+        ) {
+            onStreakTap()
+        }
+
+        Button {
+            onSettingsTap()
+        } label: {
+            Image(systemName: "gearshape")
+                .foregroundStyle(ColorTokens.textPrimary)
+        }
+        .accessibilityLabel(AppStrings.openSettingsAccessibility)
     }
 }

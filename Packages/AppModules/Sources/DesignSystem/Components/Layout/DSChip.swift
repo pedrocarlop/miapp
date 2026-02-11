@@ -40,7 +40,7 @@ public struct DSChip: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.chipRadius, style: .continuous)
-                    .stroke(ColorTokens.chipBorder, lineWidth: 1)
+                    .dsInnerStroke(ColorTokens.chipBorder, lineWidth: 1)
             )
     }
 

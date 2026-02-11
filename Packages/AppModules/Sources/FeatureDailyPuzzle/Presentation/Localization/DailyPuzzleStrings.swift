@@ -25,6 +25,18 @@ public enum DailyPuzzleStrings {
         localized("daily.completed", default: "Completado")
     }
 
+    public static var completionCelebrationTitle: String {
+        localized("daily.completion.title", default: "Reto completado")
+    }
+
+    public static var completionCelebrationMessage: String {
+        localized("daily.completion.message", default: "Encontraste todas las palabras de hoy. Gran jugada.")
+    }
+
+    public static var completionContinueAction: String {
+        localized("daily.completion.action_continue", default: "Continuar")
+    }
+
     public static func challengeProgress(found: Int, total: Int) -> String {
         String(
             format: localized("daily.challenge.progress", default: "%d de %d completadas"),
@@ -61,6 +73,10 @@ public enum DailyPuzzleStrings {
 
     public static var resetChallenge: String {
         localized("daily.action.reset", default: "Reiniciar reto")
+    }
+
+    public static var playChallenge: String {
+        localized("daily.action.play", default: "Jugar")
     }
 
     public static var resetAlertTitle: String {

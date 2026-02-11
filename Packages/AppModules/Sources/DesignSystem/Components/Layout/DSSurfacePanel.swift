@@ -49,7 +49,7 @@ public struct DSSurfacePanel<Content: View>: View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(ColorTokens.textPrimary.opacity(0.24), lineWidth: lineWidth)
+                    .dsInnerStroke(ColorTokens.textPrimary.opacity(0.24), lineWidth: lineWidth)
             )
     }
 }

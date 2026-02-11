@@ -22,6 +22,25 @@ import Core
 import DesignSystem
 
 public struct DailyPuzzleChallengeCardView: View {
+    private enum PlayButtonSparkle {
+        static let repeatIntervalNanos: UInt64 = 5_000_000_000
+        static let sweepDuration: Double = 1.0
+        static let stripeAngle: Double = 20
+        static let stripeOpacity: Double = 0.65
+        static let popScale: CGFloat = 1.04
+        static let popOffsetY: CGFloat = -1.4
+        static let popDuration: Double = 0.58
+        static let settleDelayNanos: UInt64 = 470_000_000
+        static let settleDuration: Double = 0.64
+    }
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var playButtonSparkleProgress: CGFloat = 0
+    @State private var playButtonSparkleTask: Task<Void, Never>?
+    @State private var playButtonPulseResetTask: Task<Void, Never>?
+    @State private var playButtonPulseScale: CGFloat = 1
+    @State private var playButtonPulseOffsetY: CGFloat = 0
+
     public let date: Date
     public let puzzleNumber: Int
     public let grid: [[String]]
@@ -31,6 +50,7 @@ public struct DailyPuzzleChallengeCardView: View {
     public let isLocked: Bool
     public let hoursUntilAvailable: Int?
     public let isLaunching: Bool
+    public let isFocused: Bool
     public let onPlay: () -> Void
 
     public init(
@@ -43,6 +63,7 @@ public struct DailyPuzzleChallengeCardView: View {
         isLocked: Bool,
         hoursUntilAvailable: Int?,
         isLaunching: Bool,
+        isFocused: Bool,
         onPlay: @escaping () -> Void
     ) {
         self.date = date
@@ -54,6 +75,7 @@ public struct DailyPuzzleChallengeCardView: View {
         self.isLocked = isLocked
         self.hoursUntilAvailable = hoursUntilAvailable
         self.isLaunching = isLaunching
+        self.isFocused = isFocused
         self.onPlay = onPlay
     }
 
@@ -69,8 +91,21 @@ public struct DailyPuzzleChallengeCardView: View {
         totalWords > 0 && completedWordsCount >= totalWords
     }
 
+    private var progressFraction: CGFloat {
+        guard totalWords > 0 else { return 0 }
+        return CGFloat(completedWordsCount) / CGFloat(totalWords)
+    }
+
     private var shouldDimPreview: Bool {
         isCompleted || isLocked
+    }
+
+    private var showsPlayButton: Bool {
+        !isLocked && !isCompleted
+    }
+
+    private var shouldAnimatePlayButtonSparkle: Bool {
+        showsPlayButton && isFocused && !reduceMotion
     }
 
     private var statusLabel: String {
@@ -88,6 +123,7 @@ public struct DailyPuzzleChallengeCardView: View {
             DSCard {
                 VStack(spacing: SpacingTokens.sm + 6) {
                     header
+                        .carouselParallax(multiplier: 0.04)
 
                     GeometryReader { geometry in
                         let gridSide = min(geometry.size.width, geometry.size.height)
@@ -103,6 +139,7 @@ public struct DailyPuzzleChallengeCardView: View {
                         .saturation(shouldDimPreview ? 0.22 : 1)
                         .opacity(shouldDimPreview ? 0.72 : 1)
                         .blur(radius: shouldDimPreview ? 3 : 0)
+                        .carouselParallax(multiplier: 0.08)
                         .overlay(alignment: .center) {
                             statusBadge
                         }
@@ -112,24 +149,32 @@ public struct DailyPuzzleChallengeCardView: View {
                     }
                     .frame(height: 240)
 
-                    Text(statusLabel)
-                        .font(TypographyTokens.footnote.weight(.semibold))
-                        .foregroundStyle(ColorTokens.textSecondary)
+                    footer
+                        .carouselParallax(multiplier: 0.04)
                 }
             }
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
-                    .stroke(ColorTokens.cardHighlightStroke, lineWidth: 1.4)
+                    .dsInnerStroke(ColorTokens.cardHighlightStroke, lineWidth: 1.4)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
-                    .stroke(ColorTokens.borderDefault, lineWidth: 1)
+                    .dsInnerStroke(ColorTokens.borderDefault, lineWidth: 1)
             )
         }
         .contentShape(RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous))
         .onTapGesture {
             guard !isCompleted else { return }
             onPlay()
+        }
+        .onAppear {
+            updatePlayButtonSparkleLoop()
+        }
+        .onDisappear {
+            stopPlayButtonSparkleLoop(resetProgress: true)
+        }
+        .onChange(of: shouldAnimatePlayButtonSparkle) { _, _ in
+            updatePlayButtonSparkleLoop()
         }
         .scaleEffect(isLaunching ? 1.02 : 1)
         .animation(.easeInOut(duration: MotionTokens.fastDuration), value: isLocked)
@@ -154,16 +199,148 @@ public struct DailyPuzzleChallengeCardView: View {
     }
 
     @ViewBuilder
+    private var footer: some View {
+        if isLocked {
+            Text(statusLabel)
+                .font(TypographyTokens.footnote.weight(.semibold))
+                .foregroundStyle(ColorTokens.textSecondary)
+        } else {
+            ZStack(alignment: .leading) {
+                Capsule(style: .continuous)
+                    .fill(ColorTokens.surfaceSecondary)
+                    .frame(width: progressBarWidth, height: progressBarHeight)
+
+                Capsule(style: .continuous)
+                    .fill(ColorTokens.accentPrimary)
+                    .frame(
+                        width: progressBarWidth * progressFraction,
+                        height: progressBarHeight
+                    )
+            }
+            .frame(width: progressBarWidth, height: progressBarHeight)
+            .accessibilityHidden(true)
+        }
+    }
+
+    @ViewBuilder
     private var statusBadge: some View {
         if isLocked {
             DSStatusBadge(kind: .locked, size: badgeSize)
         } else if isCompleted {
             DSStatusBadge(kind: .completed, size: badgeSize)
+        } else {
+            DSButton(
+                DailyPuzzleStrings.playChallenge,
+                style: .primary,
+                cornerRadius: RadiusTokens.infiniteRadius
+            ) {
+                onPlay()
+            }
+            .frame(width: playButtonWidth)
+            .overlay {
+                playButtonSparkleOverlay
+            }
+            .scaleEffect(playButtonPulseScale)
+            .offset(y: playButtonPulseOffsetY)
         }
     }
 
     private var badgeSize: CGFloat {
         54
+    }
+
+    private var playButtonWidth: CGFloat {
+        120
+    }
+
+    private var progressBarWidth: CGFloat {
+        72
+    }
+
+    private var progressBarHeight: CGFloat {
+        6
+    }
+
+    private var playButtonSparkleOverlay: some View {
+        GeometryReader { geometry in
+            let size = geometry.size
+            let stripeWidth = max(24, size.width * 0.28)
+            let travelDistance = size.width + (stripeWidth * 2.6)
+            let stripeCenterX = (-stripeWidth * 1.3) + (travelDistance * playButtonSparkleProgress)
+
+            LinearGradient(
+                colors: [
+                    .white.opacity(0),
+                    .white.opacity(PlayButtonSparkle.stripeOpacity),
+                    .white.opacity(0)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .frame(width: stripeWidth, height: size.height * 1.8)
+            .rotationEffect(.degrees(PlayButtonSparkle.stripeAngle))
+            .position(x: stripeCenterX, y: size.height / 2)
+            .blendMode(.screen)
+            .frame(width: size.width, height: size.height)
+            .clipShape(RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous))
+            .opacity(shouldAnimatePlayButtonSparkle ? 1 : 0)
+        }
+        .allowsHitTesting(false)
+        .accessibilityHidden(true)
+    }
+
+    private func updatePlayButtonSparkleLoop() {
+        guard shouldAnimatePlayButtonSparkle else {
+            stopPlayButtonSparkleLoop(resetProgress: true)
+            return
+        }
+
+        guard playButtonSparkleTask == nil else { return }
+
+        playButtonSparkleTask = Task { @MainActor in
+            while !Task.isCancelled {
+                triggerPlayButtonSparkle()
+                try? await Task.sleep(nanoseconds: PlayButtonSparkle.repeatIntervalNanos)
+            }
+        }
+    }
+
+    private func stopPlayButtonSparkleLoop(resetProgress: Bool) {
+        playButtonSparkleTask?.cancel()
+        playButtonSparkleTask = nil
+        playButtonPulseResetTask?.cancel()
+        playButtonPulseResetTask = nil
+
+        if resetProgress {
+            playButtonSparkleProgress = 0
+            playButtonPulseScale = 1
+            playButtonPulseOffsetY = 0
+        }
+    }
+
+    private func triggerPlayButtonSparkle() {
+        playButtonPulseResetTask?.cancel()
+        playButtonPulseResetTask = nil
+
+        playButtonSparkleProgress = 0
+        withAnimation(.easeInOut(duration: PlayButtonSparkle.sweepDuration)) {
+            playButtonSparkleProgress = 1
+        }
+
+        withAnimation(.easeInOut(duration: PlayButtonSparkle.popDuration)) {
+            playButtonPulseScale = PlayButtonSparkle.popScale
+            playButtonPulseOffsetY = PlayButtonSparkle.popOffsetY
+        }
+
+        playButtonPulseResetTask = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: PlayButtonSparkle.settleDelayNanos)
+            guard !Task.isCancelled else { return }
+
+            withAnimation(.easeInOut(duration: PlayButtonSparkle.settleDuration)) {
+                playButtonPulseScale = 1
+                playButtonPulseOffsetY = 0
+            }
+        }
     }
 
     private var lockMessage: String {
@@ -254,7 +431,8 @@ private struct DailyPuzzleChallengeCardGridPreview: View {
                 solvedPositions: [],
                 isLocked: false,
                 hoursUntilAvailable: nil,
-                isLaunching: false
+                isLaunching: false,
+                isFocused: true
             ) {}
             .frame(width: 320, height: 360)
 
@@ -267,7 +445,8 @@ private struct DailyPuzzleChallengeCardGridPreview: View {
                 solvedPositions: [],
                 isLocked: true,
                 hoursUntilAvailable: 5,
-                isLaunching: false
+                isLaunching: false,
+                isFocused: false
             ) {}
             .frame(width: 320, height: 360)
         }

@@ -59,7 +59,7 @@ public struct DSFeedbackBanner: View {
         .background(ColorTokens.surfaceSecondary, in: RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous))
         .overlay(
             RoundedRectangle(cornerRadius: RadiusTokens.buttonRadius, style: .continuous)
-                .stroke(color.opacity(0.45), lineWidth: 1)
+                .dsInnerStroke(color.opacity(0.45), lineWidth: 1)
         )
     }
 

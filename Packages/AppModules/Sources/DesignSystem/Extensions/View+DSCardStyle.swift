@@ -28,7 +28,7 @@ public extension View {
             )
             .overlay(
                 RoundedRectangle(cornerRadius: RadiusTokens.cardRadius, style: .continuous)
-                    .stroke(ColorTokens.borderSoft, lineWidth: 1)
+                    .dsInnerStroke(ColorTokens.borderSoft, lineWidth: 1)
             )
     }
 }
