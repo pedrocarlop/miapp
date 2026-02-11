@@ -3,10 +3,10 @@ import Metal
 
 final class WordSuccessScanlineEffect: FXEffect {
     private enum Constants {
-        static let duration: Float = 0.35
-        static let headBuildDuration: Float = 0.06
-        static let travelDuration: Float = 0.24
-        static let falloffDuration: Float = 0.05
+        static let duration: Float = 0.48
+        static let headBuildDuration: Float = 0.08
+        static let travelDuration: Float = 0.31
+        static let falloffDuration: Float = 0.09
         static let maxConcurrentLines = 24
     }
 
@@ -176,12 +176,6 @@ final class WordSuccessScanlineEffect: FXEffect {
         lines.removeAll(keepingCapacity: false)
     }
 
-    private func easeOutCubic(_ value: Float) -> Float {
-        let t = min(max(value, 0), 1)
-        let oneMinusT = 1 - t
-        return 1 - oneMinusT * oneMinusT * oneMinusT
-    }
-
     private func sweepProgress(for age: Float) -> Float {
         if age <= Constants.headBuildDuration {
             return 0
@@ -189,7 +183,8 @@ final class WordSuccessScanlineEffect: FXEffect {
 
         let travelAge = age - Constants.headBuildDuration
         let normalized = min(max(travelAge / Constants.travelDuration, 0), 1)
-        return easeOutCubic(normalized)
+        let smoothNormalized = smoothStep(0, 1, normalized)
+        return (0.12 * normalized) + (0.88 * smoothNormalized)
     }
 
     private func smoothStep(_ edge0: Float, _ edge1: Float, _ value: Float) -> Float {

@@ -3,9 +3,9 @@ import Metal
 
 final class WordSuccessWaveEffect: FXEffect {
     private enum Constants {
-        static let duration: Float = 0.55
-        static let ringWidth: Float = 18
-        static let additiveRingWidth: Float = 12
+        static let duration: Float = 0.66
+        static let ringWidth: Float = 14
+        static let additiveRingWidth: Float = 9
         static let maxConcurrentWaves = 24
     }
 
@@ -56,14 +56,16 @@ final class WordSuccessWaveEffect: FXEffect {
         guard event.type == .wordSuccessWave else { return }
         guard event.gridBounds.width > 0, event.gridBounds.height > 0 else { return }
 
-        guard let center = MetalFXCoordinateMapper.average(event.cellCenters) ?? event.pathPoints.first else {
+        let wavePoints = event.cellCenters.isEmpty ? event.pathPoints : event.cellCenters
+        guard let fallbackCenter = MetalFXCoordinateMapper.average(wavePoints) ?? event.pathPoints.last else {
             return
         }
 
         let intensity = min(max(event.intensity, 0), 1)
-        let pathStart = event.pathPoints.first ?? center
-        let pathEnd = event.pathPoints.last ?? center
-        let maxRadius = Float(hypot(event.gridBounds.width, event.gridBounds.height))
+        let pathStart = event.pathPoints.first ?? fallbackCenter
+        let pathEnd = event.pathPoints.last ?? fallbackCenter
+        let center = pathEnd
+        let maxRadius = localizedMaxRadius(points: wavePoints, gridBounds: event.gridBounds)
 
         waves.append(
             WaveState(
@@ -101,9 +103,10 @@ final class WordSuccessWaveEffect: FXEffect {
         for (index, wave) in activeWaves.enumerated() {
             let age = max(0, elapsedTime - wave.startTime)
             let linearProgress = min(age / Constants.duration, 1)
-            let progress = easeOutCubic(linearProgress)
-            let alphaDecay = 1 - smoothStep(0.74, 1, linearProgress)
-            let additiveDecay = 1 - smoothStep(0.62, 1, linearProgress)
+            let smoothProgress = smoothStep(0, 1, linearProgress)
+            let progress = (0.18 * linearProgress) + (0.82 * smoothProgress)
+            let alphaDecay = 1 - smoothStep(0.72, 1, linearProgress)
+            let additiveDecay = 1 - smoothStep(0.64, 1, linearProgress)
 
             let baseUniforms = FXOverlayUniforms(
                 resolution: resolution,
@@ -133,7 +136,7 @@ final class WordSuccessWaveEffect: FXEffect {
                 progress: min(1.0, progress + 0.025),
                 maxRadius: wave.maxRadius,
                 ringWidth: Constants.additiveRingWidth,
-                alpha: max(0, additiveDecay) * (0.22 + 0.18 * wave.intensity),
+                alpha: max(0, additiveDecay) * (0.17 + 0.14 * wave.intensity),
                 intensity: min(1.2 as Float, wave.intensity + 0.12),
                 debugEnabled: baseUniforms.debugEnabled,
                 pathStart: baseUniforms.pathStart,
@@ -173,17 +176,44 @@ final class WordSuccessWaveEffect: FXEffect {
         waves.removeAll(keepingCapacity: false)
     }
 
-    private func easeOutCubic(_ value: Float) -> Float {
-        let t = min(max(value, 0), 1)
-        let oneMinusT = 1 - t
-        return 1 - oneMinusT * oneMinusT * oneMinusT
-    }
-
     private func smoothStep(_ edge0: Float, _ edge1: Float, _ value: Float) -> Float {
         guard edge0 != edge1 else {
             return value >= edge0 ? 1 : 0
         }
         let t = min(max((value - edge0) / (edge1 - edge0), 0), 1)
         return t * t * (3 - 2 * t)
+    }
+
+    private func localizedMaxRadius(points: [CGPoint], gridBounds: CGRect) -> Float {
+        let minGridSide = Float(min(gridBounds.width, gridBounds.height))
+        let maxGridRadius = min(
+            Float(hypot(gridBounds.width, gridBounds.height)) * 0.42,
+            minGridSide * 0.5
+        )
+
+        guard !points.isEmpty else {
+            return max(52, min(minGridSide * 0.34, maxGridRadius))
+        }
+
+        var minX = Float.greatestFiniteMagnitude
+        var maxX = -Float.greatestFiniteMagnitude
+        var minY = Float.greatestFiniteMagnitude
+        var maxY = -Float.greatestFiniteMagnitude
+
+        for point in points {
+            let x = Float(point.x)
+            let y = Float(point.y)
+            minX = min(minX, x)
+            maxX = max(maxX, x)
+            minY = min(minY, y)
+            maxY = max(maxY, y)
+        }
+
+        let spanX = max(maxX - minX, 1)
+        let spanY = max(maxY - minY, 1)
+        let selectionDiagonal = hypot(spanX, spanY)
+        let localRadius = selectionDiagonal * 0.58 + 34
+
+        return max(52, min(localRadius, maxGridRadius))
     }
 }
