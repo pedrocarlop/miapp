@@ -23,6 +23,55 @@ import Core
 
 @MainActor
 final class DailyPuzzleHomeScreenViewModelTests: XCTestCase {
+    func testInitialWindowLoadsFiveDaysAroundToday() {
+        let (core, now) = makeCore(daysSinceInstall: 14)
+        let viewModel = DailyPuzzleHomeScreenViewModel(
+            core: core,
+            preferredGridSize: 7,
+            now: now
+        )
+
+        let today = viewModel.todayOffset
+        XCTAssertEqual(viewModel.carouselOffsets, [today - 2, today - 1, today, today + 1, today + 2])
+        XCTAssertEqual(
+            viewModel.challengeCards.map(\.offset),
+            [today - 2, today - 1, today, today + 1, today + 2]
+        )
+    }
+
+    func testSelectingAdjacentDayKeepsCurrentWindowToAvoidSwipeJumps() {
+        let (core, now) = makeCore(daysSinceInstall: 20)
+        let viewModel = DailyPuzzleHomeScreenViewModel(
+            core: core,
+            preferredGridSize: 7,
+            now: now
+        )
+        let before = viewModel.carouselOffsets
+        let targetOffset = viewModel.todayOffset + 1
+
+        viewModel.setSelectedOffset(targetOffset)
+
+        XCTAssertEqual(viewModel.carouselOffsets, before)
+    }
+
+    func testSelectingWindowEdgeSlidesLoadedWindowOnDemand() {
+        let (core, now) = makeCore(daysSinceInstall: 20)
+        let viewModel = DailyPuzzleHomeScreenViewModel(
+            core: core,
+            preferredGridSize: 7,
+            now: now
+        )
+        let targetOffset = viewModel.todayOffset + 2
+
+        viewModel.setSelectedOffset(targetOffset)
+
+        XCTAssertEqual(
+            viewModel.carouselOffsets,
+            [targetOffset - 3, targetOffset - 2, targetOffset - 1, targetOffset, targetOffset + 1]
+        )
+        XCTAssertEqual(viewModel.challengeCards.map(\.offset), viewModel.carouselOffsets)
+    }
+
     func testLockedChallengeUnlocksOnTenthTapAndOpensOnNextTap() {
         let core = CoreContainer(store: InMemoryKeyValueStore())
         let viewModel = DailyPuzzleHomeScreenViewModel(core: core, preferredGridSize: 7)
@@ -81,5 +130,16 @@ final class DailyPuzzleHomeScreenViewModelTests: XCTestCase {
         }
 
         XCTAssertTrue(viewModel.challengeCards.contains { $0.offset == lockedOffset && !$0.isLocked })
+    }
+
+    private func makeCore(daysSinceInstall: Int) -> (CoreContainer, Date) {
+        let calendar = Calendar.current
+        let store = InMemoryKeyValueStore()
+        let installDate = calendar.startOfDay(for: Date(timeIntervalSince1970: 1_700_000_000))
+        let baseNow = calendar.date(byAdding: .day, value: daysSinceInstall, to: installDate) ?? installDate
+        let now = calendar.date(byAdding: .hour, value: 12, to: baseNow) ?? baseNow
+        store.set(installDate, forKey: WordSearchConfig.installDateKey)
+        let core = CoreContainer(store: store)
+        return (core, now)
     }
 }

@@ -145,7 +145,7 @@ private struct DailyPuzzleWordToastView: View {
             .padding(.vertical, SpacingTokens.xs)
             .background {
                 Capsule()
-                    .fill(ThemeGradients.brushWarm)
+                    .fill(ColorTokens.chipNeutralFill)
                     .overlay {
                         Capsule()
                             .stroke(ColorTokens.accentAmberStrong.opacity(0.28), lineWidth: 1)

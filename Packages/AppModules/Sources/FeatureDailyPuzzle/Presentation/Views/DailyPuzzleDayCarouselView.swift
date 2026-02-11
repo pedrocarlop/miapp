@@ -29,6 +29,7 @@ public struct DailyPuzzleDayCarouselView: View {
     public let dateForOffset: (Int) -> Date
     public let progressForOffset: (Int) -> Double
     public let hoursUntilAvailable: (Int) -> Int?
+    public let onDayTap: (Int) -> Void
 
     public init(
         offsets: [Int],
@@ -37,7 +38,8 @@ public struct DailyPuzzleDayCarouselView: View {
         unlockedOffsets: Set<Int>,
         dateForOffset: @escaping (Int) -> Date,
         progressForOffset: @escaping (Int) -> Double,
-        hoursUntilAvailable: @escaping (Int) -> Int?
+        hoursUntilAvailable: @escaping (Int) -> Int?,
+        onDayTap: @escaping (Int) -> Void = { _ in }
     ) {
         self.offsets = offsets
         _selectedOffset = selectedOffset
@@ -46,6 +48,7 @@ public struct DailyPuzzleDayCarouselView: View {
         self.dateForOffset = dateForOffset
         self.progressForOffset = progressForOffset
         self.hoursUntilAvailable = hoursUntilAvailable
+        self.onDayTap = onDayTap
     }
 
     public var body: some View {
@@ -76,6 +79,7 @@ public struct DailyPuzzleDayCarouselView: View {
                                     selectedOffset = offset
                                     proxy.scrollTo(offset, anchor: .center)
                                 }
+                                onDayTap(offset)
                             }
                             .id(offset)
                         }

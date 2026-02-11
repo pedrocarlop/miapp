@@ -80,6 +80,8 @@ public struct DailyPuzzleChallengeCardState: Identifiable, Equatable, Sendable {
 public final class DailyPuzzleHomeScreenViewModel {
     private enum Constants {
         static let unlockTapThreshold = 10
+        static let visibleOffsetsRadius = 2
+        static let preferredVisibleOffsetsCount = 5
     }
 
     public private(set) var installDate: Date
@@ -122,8 +124,18 @@ public final class DailyPuzzleHomeScreenViewModel {
     public var maxOffset: Int { todayOffset + 1 }
 
     public func setSelectedOffset(_ offset: Int?) {
-        selectedOffset = offset
+        guard let offset else { return }
+        let previousSelection = selectedOffset
+        selectedOffset = clampedOffset(offset)
         clampSelectedOffsetIfNeeded()
+
+        guard previousSelection != selectedOffset else { return }
+        guard let selectedOffset else { return }
+        guard shouldRebuildWindow(for: selectedOffset) else { return }
+        rebuildDerivedState(
+            preferredGridSize: currentPreferredGridSize,
+            now: referenceNow
+        )
     }
 
     public func selectTodayIfNeeded() {
@@ -135,9 +147,7 @@ public final class DailyPuzzleHomeScreenViewModel {
 
     public func clampSelectedOffsetIfNeeded() {
         guard let selectedOffset else { return }
-        if selectedOffset > maxOffset {
-            self.selectedOffset = maxOffset
-        }
+        self.selectedOffset = clampedOffset(selectedOffset)
     }
 
     public func refresh(
@@ -338,17 +348,28 @@ public final class DailyPuzzleHomeScreenViewModel {
     }
 
     private func rebuildCarouselOffsets() {
-        let expectedCount = maxOffset - minOffset + 1
-        guard expectedCount > 0 else {
-            carouselOffsets = []
+        let selected = activeOffsetForWindow
+        guard
+            let lower = carouselOffsets.first,
+            let upper = carouselOffsets.last
+        else {
+            carouselOffsets = visibleOffsets(around: selected)
             return
         }
-        if carouselOffsets.count == expectedCount,
-           carouselOffsets.first == minOffset,
-           carouselOffsets.last == maxOffset {
-            return
+
+        let nextOffsets: [Int]
+        if selected < lower || selected > upper {
+            nextOffsets = visibleOffsets(around: selected)
+        } else if selected == upper, upper < maxOffset {
+            nextOffsets = shiftedWindow(by: 1, lower: lower, upper: upper)
+        } else if selected == lower, lower > minOffset {
+            nextOffsets = shiftedWindow(by: -1, lower: lower, upper: upper)
+        } else {
+            nextOffsets = carouselOffsets
         }
-        carouselOffsets = Array(minOffset...maxOffset)
+
+        guard carouselOffsets != nextOffsets else { return }
+        carouselOffsets = nextOffsets
     }
 
     private func rebuildChallengeCards(
@@ -384,5 +405,58 @@ public final class DailyPuzzleHomeScreenViewModel {
         let normalizedWords = Set(words.map { $0.uppercased() })
         let foundCount = normalizedFound.intersection(normalizedWords).count
         return min(max(Double(foundCount) / Double(total), 0), 1)
+    }
+
+    private func clampedOffset(_ offset: Int) -> Int {
+        min(max(offset, minOffset), maxOffset)
+    }
+
+    private func shouldRebuildWindow(for selected: Int) -> Bool {
+        guard let lower = carouselOffsets.first, let upper = carouselOffsets.last else {
+            return true
+        }
+        if selected < lower || selected > upper {
+            return true
+        }
+        return selected == lower || selected == upper
+    }
+
+    private var activeOffsetForWindow: Int {
+        let fallback = selectedOffset ?? todayOffset
+        return min(max(fallback, minOffset), maxOffset)
+    }
+
+    private func visibleOffsets(around centerOffset: Int) -> [Int] {
+        guard minOffset <= maxOffset else { return [] }
+
+        var lower = max(minOffset, centerOffset - Constants.visibleOffsetsRadius)
+        var upper = min(maxOffset, centerOffset + Constants.visibleOffsetsRadius)
+
+        while upper - lower + 1 < Constants.preferredVisibleOffsetsCount {
+            if lower > minOffset {
+                lower -= 1
+                continue
+            }
+            if upper < maxOffset {
+                upper += 1
+                continue
+            }
+            break
+        }
+
+        return Array(lower...upper)
+    }
+
+    private func shiftedWindow(by delta: Int, lower: Int, upper: Int) -> [Int] {
+        let count = max(upper - lower + 1, 1)
+        if delta > 0 {
+            let nextUpper = min(upper + 1, maxOffset)
+            let nextLower = max(minOffset, nextUpper - (count - 1))
+            return Array(nextLower...nextUpper)
+        }
+
+        let nextLower = max(lower - 1, minOffset)
+        let nextUpper = min(maxOffset, nextLower + (count - 1))
+        return Array(nextLower...nextUpper)
     }
 }

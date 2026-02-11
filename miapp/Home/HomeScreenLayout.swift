@@ -44,57 +44,79 @@ struct HomeScreenLayout: View {
             let availableCardHeight = geometry.size.height - dayCarouselHeight - interSectionSpacing - (verticalInset * 2)
             let cardHeight = min(max(availableCardHeight, 260), 620)
             let activeOffset = selectedOffset ?? todayOffset
-            let cardSelection = Binding<Int?>(
-                get: { carouselOffsets.contains(activeOffset) ? activeOffset : nil },
-                set: { selectedOffset = $0 }
+            let cardIDPrefix = "challenge-card-"
+            let cardID: (Int) -> String = { "\(cardIDPrefix)\($0)" }
+            let cardSelection = Binding<String?>(
+                get: {
+                    guard carouselOffsets.contains(activeOffset) else { return nil }
+                    return cardID(activeOffset)
+                },
+                set: { id in
+                    guard
+                        let id,
+                        id.hasPrefix(cardIDPrefix),
+                        let offset = Int(id.dropFirst(cardIDPrefix.count))
+                    else {
+                        selectedOffset = nil
+                        return
+                    }
+                    selectedOffset = offset
+                }
             )
 
-            VStack(spacing: interSectionSpacing) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: SpacingTokens.sm + 2) {
-                        ForEach(challengeCards) { card in
-                            DailyPuzzleChallengeCardView(
-                                date: card.date,
-                                puzzleNumber: card.puzzleNumber,
-                                grid: card.grid,
-                                words: card.words,
-                                foundWords: card.progress.foundWords,
-                                solvedPositions: card.progress.solvedPositions,
-                                isLocked: card.isLocked,
-                                hoursUntilAvailable: card.hoursUntilAvailable,
-                                isLaunching: launchingCardOffset == card.offset
-                            ) {
-                                onCardTap(card.offset)
+            ScrollViewReader { cardProxy in
+                VStack(spacing: interSectionSpacing) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack(spacing: SpacingTokens.sm + 2) {
+                            ForEach(challengeCards) { card in
+                                DailyPuzzleChallengeCardView(
+                                    date: card.date,
+                                    puzzleNumber: card.puzzleNumber,
+                                    grid: card.grid,
+                                    words: card.words,
+                                    foundWords: card.progress.foundWords,
+                                    solvedPositions: card.progress.solvedPositions,
+                                    isLocked: card.isLocked,
+                                    hoursUntilAvailable: card.hoursUntilAvailable,
+                                    isLaunching: launchingCardOffset == card.offset
+                                ) {
+                                    onCardTap(card.offset)
+                                }
+                                .frame(width: cardWidth, height: cardHeight)
+                                .scaleEffect(launchingCardOffset == card.offset ? 1.10 : 1)
+                                .opacity(launchingCardOffset == nil || launchingCardOffset == card.offset ? 1 : 0.45)
+                                .zIndex(launchingCardOffset == card.offset ? 5 : 0)
+                                .id(cardID(card.offset))
                             }
-                            .frame(width: cardWidth, height: cardHeight)
-                            .scaleEffect(launchingCardOffset == card.offset ? 1.10 : 1)
-                            .opacity(launchingCardOffset == nil || launchingCardOffset == card.offset ? 1 : 0.45)
-                            .zIndex(launchingCardOffset == card.offset ? 5 : 0)
-                            .id(card.offset)
                         }
+                        .scrollTargetLayout()
+                        .padding(.horizontal, sidePadding)
                     }
-                    .scrollTargetLayout()
-                    .padding(.horizontal, sidePadding)
-                }
-                .frame(height: cardHeight)
-                .scrollClipDisabled(true)
-                .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-                .scrollPosition(id: cardSelection, anchor: .center)
+                    .frame(height: cardHeight)
+                    .scrollClipDisabled(true)
+                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                    .scrollPosition(id: cardSelection, anchor: .center)
 
-                DailyPuzzleDayCarouselView(
-                    offsets: carouselOffsets,
-                    selectedOffset: $selectedOffset,
-                    todayOffset: todayOffset,
-                    unlockedOffsets: unlockedOffsets,
-                    dateForOffset: dateForOffset,
-                    progressForOffset: progressForOffset,
-                    hoursUntilAvailable: hoursUntilAvailable
-                )
-                .frame(height: dayCarouselHeight)
-                .padding(.horizontal, SpacingTokens.sm)
+                    DailyPuzzleDayCarouselView(
+                        offsets: carouselOffsets,
+                        selectedOffset: $selectedOffset,
+                        todayOffset: todayOffset,
+                        unlockedOffsets: unlockedOffsets,
+                        dateForOffset: dateForOffset,
+                        progressForOffset: progressForOffset,
+                        hoursUntilAvailable: hoursUntilAvailable,
+                        onDayTap: { tappedOffset in
+                            withAnimation(.snappy(duration: 0.28, extraBounce: 0.02)) {
+                                cardProxy.scrollTo(cardID(tappedOffset), anchor: .center)
+                            }
+                        }
+                    )
+                    .frame(height: dayCarouselHeight)
+                    .padding(.horizontal, SpacingTokens.sm)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .padding(.vertical, verticalInset)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.vertical, verticalInset)
         }
     }
 }

@@ -57,6 +57,7 @@ struct ContentView: View {
         static let presentGameAnimationDuration: Double = 0.22
         static let launchCardSettleDelayNanos: UInt64 = 110_000_000
         static let launchCardCleanupDelayNanos: UInt64 = 170_000_000
+        static let minimumHomeRefreshInterval: TimeInterval = 0.75
     }
 
     @Environment(\.scenePhase) private var scenePhase
@@ -70,6 +71,7 @@ struct ContentView: View {
     @State private var settingsViewModel: SettingsViewModel
     @State private var historyViewModel: HistorySummaryViewModel
     @State private var dailyPuzzleHomeViewModel: DailyPuzzleHomeScreenViewModel
+    @State private var lastHomeRefreshAt: Date = .distantPast
 
     @MainActor
     init(container: AppContainer) {
@@ -137,13 +139,11 @@ struct ContentView: View {
                 }
             }
             .onAppear {
-                settingsViewModel.refresh()
-                refreshDailyPuzzleState()
+                refreshHomeData(force: true)
             }
             .onChange(of: scenePhase) { _, phase in
                 guard phase == .active else { return }
-                settingsViewModel.refresh()
-                refreshDailyPuzzleState()
+                refreshHomeData(force: false)
             }
             .onDisappear {
                 presentGameTask?.cancel()
@@ -175,6 +175,32 @@ struct ContentView: View {
     private func refreshDailyPuzzleState() {
         dailyPuzzleHomeViewModel.refresh(preferredGridSize: settingsViewModel.model.gridSize)
         historyViewModel.refresh()
+    }
+
+    private func refreshHomeData(force: Bool) {
+        let now = Date()
+        if !force,
+           now.timeIntervalSince(lastHomeRefreshAt) < Constants.minimumHomeRefreshInterval {
+            return
+        }
+
+        lastHomeRefreshAt = now
+        settingsViewModel.refresh()
+        refreshDailyPuzzleState()
+        preloadInitialGameData()
+    }
+
+    private func preloadInitialGameData() {
+        let preferredGridSize = settingsViewModel.model.gridSize
+        let launchOffset = dailyPuzzleHomeViewModel.selectedOffset ?? todayOffset
+        _ = dailyPuzzleHomeViewModel.puzzleForOffset(
+            launchOffset,
+            preferredGridSize: preferredGridSize
+        )
+        _ = dailyPuzzleHomeViewModel.initialProgressRecord(
+            for: launchOffset,
+            preferredGridSize: preferredGridSize
+        )
     }
 
     @ViewBuilder

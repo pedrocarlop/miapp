@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-Ou-zD8">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="Y6W-Ou-zD8" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Nk-Lf-4sP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SplashAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="f4Q-5N-vJm">
+                                <rect key="frame" x="130.5" y="360" width="132" height="132"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BwH-jy-fwf"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.94901960784313721" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="f4Q-5N-vJm" firstAttribute="centerX" secondItem="5Nk-Lf-4sP" secondAttribute="centerX" id="8tK-5x-zob"/>
+                            <constraint firstItem="f4Q-5N-vJm" firstAttribute="centerY" secondItem="5Nk-Lf-4sP" secondAttribute="centerY" id="M7s-KM-8Kg"/>
+                            <constraint firstItem="f4Q-5N-vJm" firstAttribute="width" constant="132" id="Z2P-QS-0FX"/>
+                            <constraint firstItem="f4Q-5N-vJm" firstAttribute="height" constant="132" id="xvX-7U-rBW"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Zx-GN-3uQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53.435114503816788" y="13.380281690140846"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="SplashAppIcon" width="1024" height="1024"/>
+    </resources>
+</document>

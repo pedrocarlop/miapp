@@ -20,10 +20,25 @@
 import Foundation
 
 public final class LocalPuzzleRepository: PuzzleRepository {
-    private let store: KeyValueStore
+    private final class CachedPuzzle {
+        let puzzle: Puzzle
 
-    public init(store: KeyValueStore) {
+        init(puzzle: Puzzle) {
+            self.puzzle = puzzle
+        }
+    }
+
+    private let store: KeyValueStore
+    private let localeProvider: () -> Locale
+    private let puzzleCache = NSCache<NSString, CachedPuzzle>()
+
+    public init(
+        store: KeyValueStore,
+        localeProvider: @escaping () -> Locale = { AppLocalization.currentLocale }
+    ) {
         self.store = store
+        self.localeProvider = localeProvider
+        puzzleCache.countLimit = 128
     }
 
     public func installationDate() -> Date {
@@ -53,10 +68,32 @@ public final class LocalPuzzleRepository: PuzzleRepository {
     }
 
     public func puzzle(for dayKey: DayKey, gridSize: Int) -> Puzzle {
-        PuzzleFactory.puzzle(for: dayKey, gridSize: gridSize)
+        let clampedGridSize = PuzzleFactory.clampGridSize(gridSize)
+        let locale = localeProvider()
+        let key = cacheKey(
+            dayOffset: dayKey.offset,
+            gridSize: clampedGridSize,
+            localeIdentifier: locale.identifier
+        )
+
+        if let cached = puzzleCache.object(forKey: key as NSString) {
+            return cached.puzzle
+        }
+
+        let generated = PuzzleFactory.puzzle(
+            for: dayKey,
+            gridSize: clampedGridSize,
+            locale: locale
+        )
+        puzzleCache.setObject(CachedPuzzle(puzzle: generated), forKey: key as NSString)
+        return generated
     }
 
     public func normalizedPuzzleIndex(_ index: Int) -> Int {
         PuzzleFactory.normalizedPuzzleIndex(index)
+    }
+
+    private func cacheKey(dayOffset: Int, gridSize: Int, localeIdentifier: String) -> String {
+        "\(dayOffset)|\(gridSize)|\(localeIdentifier)"
     }
 }

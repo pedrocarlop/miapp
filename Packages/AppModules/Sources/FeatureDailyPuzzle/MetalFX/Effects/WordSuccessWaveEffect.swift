@@ -147,14 +147,14 @@ final class WordSuccessWaveEffect: FXEffect {
             let age = max(0, elapsedTime - wave.startTime)
             // Progreso lineal [0, 1] segun su edad.
             let linearProgress = min(age / Constants.duration, 1)
-            // Curva suavizada para una expansion mas calmada.
-            let smoothProgress = smoothStep(0, 1, linearProgress)
-            // Mezcla lineal + suavizada para mantener respuesta sin brusquedad.
-            let progress = (0.22 * linearProgress) + (0.78 * smoothProgress)
+            // Curva ease-in-out mas marcada para acelerar/frenar con mas caracter.
+            let easedProgress = easeInOutCubic(linearProgress)
+            // Ligera mezcla con lineal para conservar sensacion de respuesta inmediata.
+            let progress = (0.08 * linearProgress) + (0.92 * easedProgress)
             // Decaimiento de opacidad al final de la animacion.
-            let alphaDecay = 1 - smoothStep(0.78, 1, linearProgress)
+            let alphaDecay = 1 - smoothStep(0.84, 1, linearProgress)
             // Decaimiento algo distinto para la capa aditiva (glow).
-            let additiveDecay = 1 - smoothStep(0.74, 1, linearProgress)
+            let additiveDecay = 1 - smoothStep(0.80, 1, linearProgress)
 
             // Uniforms de la pasada base (anillo principal).
             let baseUniforms = FXOverlayUniforms(
@@ -242,6 +242,16 @@ final class WordSuccessWaveEffect: FXEffect {
         let t = min(max((value - edge0) / (edge1 - edge0), 0), 1)
         // Curva cubica de smoothStep.
         return t * t * (3 - 2 * t)
+    }
+
+    // Curva ease-in-out cubica mas "agresiva" en entrada/salida.
+    private func easeInOutCubic(_ value: Float) -> Float {
+        let t = min(max(value, 0), 1)
+        if t < 0.5 {
+            return 4 * t * t * t
+        }
+        let p = -2 * t + 2
+        return 1 - (p * p * p) / 2
     }
 
     // Calcula un radio maximo local, ajustado a la seleccion y al tablero.

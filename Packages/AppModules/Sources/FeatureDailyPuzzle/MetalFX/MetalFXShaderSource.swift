@@ -157,11 +157,12 @@ float4 renderWaveFragment(FXVertexOut input, constant FXOverlayUniforms &uniform
     float alpha = rippleMask * waveFade * uniforms.alpha * shimmer * grain;
 
     float chroma = 0.5 + 0.5 * sin(radialPhase * 0.78 + uniforms.intensity * 2.5 + coreFlash * 2.6);
-    float3 orangeCore = mix(float3(0.98, 0.56, 0.12), float3(1.0, 0.66, 0.20), uniforms.intensity);
-    float3 orangeGlow = mix(float3(0.90, 0.34, 0.08), float3(0.98, 0.44, 0.12), uniforms.intensity);
-    float3 amberHighlight = mix(float3(1.0, 0.78, 0.40), float3(1.0, 0.86, 0.54), uniforms.intensity);
+    float3 orangeCore = mix(float3(1.0, 0.72, 0.32), float3(1.0, 0.80, 0.44), uniforms.intensity);
+    float3 orangeGlow = mix(float3(0.98, 0.58, 0.20), float3(1.0, 0.68, 0.30), uniforms.intensity);
+    float3 amberHighlight = mix(float3(1.0, 0.90, 0.62), float3(1.0, 0.95, 0.74), uniforms.intensity);
     float3 baseColor = mix(orangeGlow, orangeCore, 0.64 + chroma * 0.18);
     baseColor = mix(baseColor, amberHighlight, 0.10 + chroma * 0.2 + coreFlash * 0.12);
+    baseColor = mix(baseColor, float3(1.0, 0.97, 0.89), 0.12 + uniforms.intensity * 0.08 + coreFlash * 0.16);
 
     if (uniforms.debugEnabled > 0.5) {
         float centerMark = 1.0 - smoothstepFx(0.0, 4.0, distance(pixel, uniforms.center));

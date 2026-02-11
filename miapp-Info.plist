@@ -36,11 +36,8 @@
 		<string>GreatVibes-Regular.ttf</string>
 		<string>InstrumentSerif-Regular.ttf</string>
 	</array>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UILaunchScreen</key>
-		<dict/>
-	</dict>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
