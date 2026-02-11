@@ -23,6 +23,7 @@ public enum FXEventType: Sendable {
     case wordSuccessWave
     case wordSuccessScanline
     case wordSuccessParticles
+    case wordCompletionConfetti
     case wordSuccessTrail
     case wordSuccessPulseBloom
     case wordSuccessScreenBloom

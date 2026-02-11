@@ -39,6 +39,15 @@ final class MetalFXConfigTests: XCTestCase {
         XCTAssertTrue(config.isEnabled(for: .wordSuccessWave))
     }
 
+    func testCompletionConfettiUsesParticlesToggle() {
+        var config = FXConfig()
+        config.enableWordSuccessParticles = false
+
+        XCTAssertFalse(config.isEnabled(for: .wordCompletionConfetti))
+        config.enableWordSuccessParticles = true
+        XCTAssertTrue(config.isEnabled(for: .wordCompletionConfetti))
+    }
+
     func testClipSpacePointUsesExpectedFormula() {
         let size = CGSize(width: 100, height: 80)
 

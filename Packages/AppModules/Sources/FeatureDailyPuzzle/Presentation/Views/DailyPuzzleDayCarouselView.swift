@@ -54,44 +54,48 @@ public struct DailyPuzzleDayCarouselView: View {
             let itemHeight: CGFloat = 92
             let sidePadding = max((geo.size.width - itemWidth) / 2, SpacingTokens.xs)
             let activeOffset = selectedOffset ?? todayOffset
-            let scrollSelection = Binding<Int?>(
-                get: {
-                    let current = selectedOffset ?? todayOffset
-                    return offsets.contains(current) ? current : nil
-                },
-                set: { selectedOffset = $0 }
-            )
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: SpacingTokens.md) {
-                    ForEach(offsets, id: \.self) { offset in
-                        let date = dateForOffset(offset)
-                        let isLocked = offset > todayOffset && !unlockedOffsets.contains(offset)
-                        let progress = progressForOffset(offset)
-                        DailyPuzzleDayCarouselItem(
-                            date: date,
-                            isSelected: offset == activeOffset,
-                            isLocked: isLocked,
-                            isCompleted: progress >= 0.999,
-                            progress: progress,
-                            hoursUntilAvailable: hoursUntilAvailable(offset)
-                        )
-                        .frame(width: itemWidth, height: itemHeight)
-                        .onTapGesture {
-                            withAnimation(.snappy(duration: 0.28, extraBounce: 0.02)) {
-                                selectedOffset = offset
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: SpacingTokens.md) {
+                        ForEach(offsets, id: \.self) { offset in
+                            let date = dateForOffset(offset)
+                            let isLocked = offset > todayOffset && !unlockedOffsets.contains(offset)
+                            let progress = progressForOffset(offset)
+                            DailyPuzzleDayCarouselItem(
+                                date: date,
+                                isSelected: offset == activeOffset,
+                                isLocked: isLocked,
+                                isCompleted: progress >= 0.999,
+                                progress: progress,
+                                hoursUntilAvailable: hoursUntilAvailable(offset)
+                            )
+                            .frame(width: itemWidth, height: itemHeight)
+                            .onTapGesture {
+                                withAnimation(.snappy(duration: 0.28, extraBounce: 0.02)) {
+                                    selectedOffset = offset
+                                    proxy.scrollTo(offset, anchor: .center)
+                                }
                             }
+                            .id(offset)
                         }
-                        .id(offset)
+                    }
+                    .padding(.horizontal, sidePadding)
+                }
+                .padding(.vertical, SpacingTokens.xs)
+                .scrollClipDisabled(true)
+                .onAppear {
+                    guard offsets.contains(activeOffset) else { return }
+                    proxy.scrollTo(activeOffset, anchor: .center)
+                }
+                .onChange(of: selectedOffset) { selection in
+                    let target = selection ?? todayOffset
+                    guard offsets.contains(target) else { return }
+                    withAnimation(.snappy(duration: 0.28, extraBounce: 0.02)) {
+                        proxy.scrollTo(target, anchor: .center)
                     }
                 }
-                .scrollTargetLayout()
-                .padding(.horizontal, sidePadding)
             }
-            .padding(.vertical, SpacingTokens.xs)
-            .scrollClipDisabled(true)
-            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-            .scrollPosition(id: scrollSelection, anchor: .center)
         }
     }
 }

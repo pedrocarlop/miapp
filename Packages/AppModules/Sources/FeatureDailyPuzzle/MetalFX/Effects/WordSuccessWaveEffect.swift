@@ -7,11 +7,11 @@ final class WordSuccessWaveEffect: FXEffect {
     // Parametros globales del efecto.
     private enum Constants {
         // Tiempo total de vida de cada onda.
-        static let duration: Float = 0.66
+        static let duration: Float = 0.58
         // Grosor del anillo base (pasada alpha).
-        static let ringWidth: Float = 14
+        static let ringWidth: Float = 10
         // Grosor del anillo de glow (pasada aditiva).
-        static let additiveRingWidth: Float = 9
+        static let additiveRingWidth: Float = 7
         // Tope de ondas activas para proteger rendimiento.
         static let maxConcurrentWaves = 24
     }
@@ -147,14 +147,14 @@ final class WordSuccessWaveEffect: FXEffect {
             let age = max(0, elapsedTime - wave.startTime)
             // Progreso lineal [0, 1] segun su edad.
             let linearProgress = min(age / Constants.duration, 1)
-            // Curva suavizada para expansion menos mecanica.
+            // Curva suavizada para una expansion mas calmada.
             let smoothProgress = smoothStep(0, 1, linearProgress)
-            // Mezcla lineal + suavizada para equilibrar respuesta y suavidad.
-            let progress = (0.18 * linearProgress) + (0.82 * smoothProgress)
+            // Mezcla lineal + suavizada para mantener respuesta sin brusquedad.
+            let progress = (0.22 * linearProgress) + (0.78 * smoothProgress)
             // Decaimiento de opacidad al final de la animacion.
-            let alphaDecay = 1 - smoothStep(0.72, 1, linearProgress)
+            let alphaDecay = 1 - smoothStep(0.78, 1, linearProgress)
             // Decaimiento algo distinto para la capa aditiva (glow).
-            let additiveDecay = 1 - smoothStep(0.64, 1, linearProgress)
+            let additiveDecay = 1 - smoothStep(0.74, 1, linearProgress)
 
             // Uniforms de la pasada base (anillo principal).
             let baseUniforms = FXOverlayUniforms(
@@ -163,7 +163,7 @@ final class WordSuccessWaveEffect: FXEffect {
                 progress: progress,
                 maxRadius: wave.maxRadius,
                 ringWidth: Constants.ringWidth,
-                alpha: max(0, alphaDecay) * (0.2 + 0.2 * wave.intensity),
+                alpha: max(0, alphaDecay) * (0.16 + 0.15 * wave.intensity),
                 intensity: wave.intensity,
                 debugEnabled: debugEnabled ? 1 : 0,
                 pathStart: SIMD2<Float>(Float(wave.pathStart.x), Float(wave.pathStart.y)),
@@ -183,10 +183,10 @@ final class WordSuccessWaveEffect: FXEffect {
             let additiveUniforms = FXOverlayUniforms(
                 resolution: resolution,
                 center: baseUniforms.center,
-                progress: min(1.0, progress + 0.025),
+                progress: min(1.0, progress + 0.016),
                 maxRadius: wave.maxRadius,
                 ringWidth: Constants.additiveRingWidth,
-                alpha: max(0, additiveDecay) * (0.17 + 0.14 * wave.intensity),
+                alpha: max(0, additiveDecay) * (0.11 + 0.1 * wave.intensity),
                 intensity: min(1.2 as Float, wave.intensity + 0.12),
                 debugEnabled: baseUniforms.debugEnabled,
                 pathStart: baseUniforms.pathStart,

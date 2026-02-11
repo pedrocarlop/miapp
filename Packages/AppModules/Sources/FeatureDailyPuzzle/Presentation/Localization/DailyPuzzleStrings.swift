@@ -106,6 +106,24 @@ public enum DailyPuzzleStrings {
         )
     }
 
+    public static func wordFeedbackMessage(at index: Int) -> String {
+        let messages = [
+            localized("daily.word_feedback.1", default: "Buen trabajo"),
+            localized("daily.word_feedback.2", default: "Excelente"),
+            localized("daily.word_feedback.3", default: "Muy bien"),
+            localized("daily.word_feedback.4", default: "Sigue asi"),
+            localized("daily.word_feedback.5", default: "Perfecto"),
+            localized("daily.word_feedback.6", default: "Gran jugada")
+        ]
+
+        guard !messages.isEmpty else {
+            return localized("daily.word_feedback.fallback", default: "Buen trabajo")
+        }
+
+        let safeIndex = ((index % messages.count) + messages.count) % messages.count
+        return messages[safeIndex]
+    }
+
     private static func localized(_ key: String, default value: String) -> String {
         AppLocalization.localized(key, default: value, bundle: .module)
     }

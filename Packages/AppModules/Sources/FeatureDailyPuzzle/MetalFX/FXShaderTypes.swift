@@ -22,6 +22,8 @@ import simd
 enum FXEffectKind {
     static let wave: Float = 0
     static let scanline: Float = 1
+    static let particles: Float = 2
+    static let confetti: Float = 3
 }
 
 struct FXOverlayUniforms {

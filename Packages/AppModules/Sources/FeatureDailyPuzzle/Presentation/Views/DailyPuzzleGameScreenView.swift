@@ -74,6 +74,11 @@ private struct DailyPuzzleCompletionOverlayState {
     static let hidden = DailyPuzzleCompletionOverlayState()
 }
 
+private struct DailyPuzzleWordToastState: Identifiable {
+    let id = UUID()
+    let message: String
+}
+
 private struct DailyPuzzleCelebrationConfig {
     let brushDuration: TimeInterval
     let waveDuration: TimeInterval
@@ -129,6 +134,28 @@ private final class DailyPuzzleCelebrationController: ObservableObject {
     }
 }
 
+private struct DailyPuzzleWordToastView: View {
+    let message: String
+
+    var body: some View {
+        Text(message)
+            .font(TypographyTokens.bodyStrong)
+            .foregroundStyle(ColorTokens.inkPrimary)
+            .padding(.horizontal, SpacingTokens.md)
+            .padding(.vertical, SpacingTokens.xs)
+            .background {
+                Capsule()
+                    .fill(ThemeGradients.brushWarm)
+                    .overlay {
+                        Capsule()
+                            .stroke(ColorTokens.accentAmberStrong.opacity(0.28), lineWidth: 1)
+                    }
+            }
+            .shadow(color: ColorTokens.accentAmberStrong.opacity(0.18), radius: 8, x: 0, y: 4)
+            .accessibilityAddTraits(.isStaticText)
+    }
+}
+
 private extension CelebrationIntensity {
     var sequenceWaveFactor: Double {
         switch self {
@@ -170,6 +197,10 @@ public struct DailyPuzzleGameScreenView: View {
         static let completionHideToastDelayNanos: UInt64 = 100_000_000
         static let completionHideBackdropDuration: Double = 0.1
         static let completionHideBackdropDelayNanos: UInt64 = 110_000_000
+
+        static let wordToastShowDuration: Double = 0.2
+        static let wordToastHideDuration: Double = 0.22
+        static let wordToastVisibleNanos: UInt64 = 980_000_000
     }
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -202,9 +233,13 @@ public struct DailyPuzzleGameScreenView: View {
     @State private var showResetAlert = false
     @State private var entryState = DailyPuzzleEntryState()
     @State private var completionOverlay = DailyPuzzleCompletionOverlayState.hidden
+    @State private var wordToast: DailyPuzzleWordToastState?
+    @State private var wordToastIndex = 0
+    @State private var wordToastNonce = 0
     @State private var entryTransitionTask: Task<Void, Never>?
     @State private var feedbackDismissTask: Task<Void, Never>?
     @State private var completionOverlayTask: Task<Void, Never>?
+    @State private var wordToastDismissTask: Task<Void, Never>?
 
     public init(
         core: CoreContainer,
@@ -324,6 +359,18 @@ public struct DailyPuzzleGameScreenView: View {
             }
             .allowsHitTesting(!completionOverlay.isVisible)
 
+            if let wordToast, !completionOverlay.isVisible {
+                VStack {
+                    DailyPuzzleWordToastView(message: wordToast.message)
+                    Spacer()
+                }
+                .padding(.top, SpacingTokens.md)
+                .padding(.horizontal, SpacingTokens.lg)
+                .allowsHitTesting(false)
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .zIndex(2)
+            }
+
             if completionOverlay.isVisible {
                 DailyPuzzleCompletionOverlayView(
                     showBackdrop: completionOverlay.showsBackdrop,
@@ -373,6 +420,8 @@ public struct DailyPuzzleGameScreenView: View {
             entryTransitionTask = nil
             feedbackDismissTask?.cancel()
             feedbackDismissTask = nil
+            wordToastDismissTask?.cancel()
+            wordToastDismissTask = nil
             completionOverlayTask?.cancel()
             completionOverlayTask = nil
         }
@@ -439,6 +488,7 @@ private extension DailyPuzzleGameScreenView {
             return
         case .correct:
             showFeedback(kind: .correct, positions: positions)
+            showWordToast()
         }
 
         let completedNow = outcome.completedPuzzleNow
@@ -494,6 +544,9 @@ private extension DailyPuzzleGameScreenView {
         entryTransitionTask = nil
         feedbackDismissTask?.cancel()
         feedbackDismissTask = nil
+        wordToastDismissTask?.cancel()
+        wordToastDismissTask = nil
+        wordToast = nil
         completionOverlayTask?.cancel()
         completionOverlayTask = nil
         completionOverlay = .hidden
@@ -563,18 +616,54 @@ private extension DailyPuzzleGameScreenView {
         }
     }
 
+    private func showWordToast() {
+        wordToastNonce += 1
+        let nonce = wordToastNonce
+        let message = DailyPuzzleStrings.wordFeedbackMessage(at: wordToastIndex)
+        wordToastIndex += 1
+
+        withAnimation(
+            reduceMotion
+                ? .easeInOut(duration: Constants.wordToastShowDuration)
+                : .spring(response: 0.34, dampingFraction: 0.86)
+        ) {
+            wordToast = DailyPuzzleWordToastState(message: message)
+        }
+
+        wordToastDismissTask?.cancel()
+        wordToastDismissTask = Task {
+            try? await Task.sleep(
+                nanoseconds: reduceMotion ? 760_000_000 : Constants.wordToastVisibleNanos
+            )
+            guard !Task.isCancelled else { return }
+            guard nonce == wordToastNonce else { return }
+            await MainActor.run {
+                withAnimation(.easeOut(duration: Constants.wordToastHideDuration)) {
+                    wordToast = nil
+                }
+            }
+        }
+    }
+
     private func onWordValidated(pathCells: [GridPosition], isPuzzleComplete: Bool) {
         let preferences = celebrationPreferencesProvider()
         onWordFeedback(preferences)
         fxManager.setSuccessFXEnabled(preferences.enableCelebrations)
-        triggerWordSuccessWave(pathCells: pathCells, intensity: preferences.intensity)
-        triggerWordSuccessScanline(pathCells: pathCells, intensity: preferences.intensity)
-        _ = isPuzzleComplete
+        guard let context = makeWordPathFXContext(pathCells: pathCells) else { return }
+        let waveIntensity = max(0.32 as Float, preferences.intensity.fxValue * 0.78)
+        let particlesIntensity = max(0.28 as Float, preferences.intensity.fxValue * 0.68)
+        triggerWordSuccessWave(context: context, intensity: waveIntensity)
+        triggerWordSuccessParticles(context: context, intensity: particlesIntensity)
+        if isPuzzleComplete {
+            let confettiIntensity = min(1 as Float, preferences.intensity.fxValue * 0.84 + 0.08)
+            triggerCompletionConfetti(in: context.bounds, intensity: confettiIntensity)
+        }
     }
 
-    private func triggerWordSuccessWave(pathCells: [GridPosition], intensity: CelebrationIntensity) {
-        guard let context = makeWordPathFXContext(pathCells: pathCells) else { return }
-
+    private func triggerWordSuccessWave(
+        context: (bounds: CGRect, centers: [CGPoint]),
+        intensity: Float
+    ) {
         fxManager.play(
             FXEvent(
                 type: .wordSuccessWave,
@@ -583,23 +672,42 @@ private extension DailyPuzzleGameScreenView {
                 pathPoints: context.centers,
                 cellCenters: context.centers,
                 wordRects: nil,
-                intensity: intensity.fxValue
+                intensity: intensity
             )
         )
     }
 
-    private func triggerWordSuccessScanline(pathCells: [GridPosition], intensity: CelebrationIntensity) {
-        guard let context = makeWordPathFXContext(pathCells: pathCells) else { return }
-
+    private func triggerWordSuccessParticles(
+        context: (bounds: CGRect, centers: [CGPoint]),
+        intensity: Float
+    ) {
         fxManager.play(
             FXEvent(
-                type: .wordSuccessScanline,
+                type: .wordSuccessParticles,
                 timestamp: ProcessInfo.processInfo.systemUptime,
                 gridBounds: context.bounds,
                 pathPoints: context.centers,
                 cellCenters: context.centers,
                 wordRects: nil,
-                intensity: intensity.fxValue
+                intensity: intensity
+            )
+        )
+    }
+
+    private func triggerCompletionConfetti(in bounds: CGRect, intensity: Float) {
+        let center = CGPoint(x: bounds.midX, y: bounds.midY)
+        let top = CGPoint(x: bounds.midX, y: bounds.minY + bounds.height * 0.12)
+        let bottom = CGPoint(x: bounds.midX, y: bounds.maxY - bounds.height * 0.08)
+
+        fxManager.play(
+            FXEvent(
+                type: .wordCompletionConfetti,
+                timestamp: ProcessInfo.processInfo.systemUptime,
+                gridBounds: bounds,
+                pathPoints: [top, center, bottom],
+                cellCenters: [center],
+                wordRects: nil,
+                intensity: intensity
             )
         )
     }
@@ -624,6 +732,10 @@ private extension DailyPuzzleGameScreenView {
         streakCount: Int?,
         preferences: DailyPuzzleCelebrationPreferences
     ) {
+        wordToastDismissTask?.cancel()
+        wordToastDismissTask = nil
+        wordToast = nil
+
         completionOverlayTask?.cancel()
         completionOverlay = DailyPuzzleCompletionOverlayState(
             isVisible: true,

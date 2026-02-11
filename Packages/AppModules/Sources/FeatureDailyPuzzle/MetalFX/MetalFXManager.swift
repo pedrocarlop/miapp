@@ -76,6 +76,8 @@ public struct FXConfig: Equatable, Sendable {
             return enableWordSuccessScanline
         case .wordSuccessParticles:
             return enableWordSuccessParticles
+        case .wordCompletionConfetti:
+            return enableWordSuccessParticles
         case .wordSuccessTrail:
             return enableWordSuccessTrail
         case .wordSuccessPulseBloom:
