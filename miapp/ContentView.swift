@@ -72,6 +72,7 @@ struct ContentView: View {
     @State private var historyViewModel: HistorySummaryViewModel
     @State private var dailyPuzzleHomeViewModel: DailyPuzzleHomeScreenViewModel
     @State private var lastHomeRefreshAt: Date = .distantPast
+    @State private var showFirstLaunchSplash: Bool
     @Namespace private var toolbarActionTransitionNamespace
 
     @MainActor
@@ -87,6 +88,7 @@ struct ContentView: View {
                 initialGridSize: initialGridSize
             )
         )
+        _showFirstLaunchSplash = State(initialValue: !UserDefaults.standard.bool(forKey: "hasShownFirstLaunchSplash"))
     }
 
     private var todayOffset: Int {
@@ -124,6 +126,11 @@ struct ContentView: View {
                         .transition(.scale(scale: 0.94).combined(with: .opacity))
                         .zIndex(50)
                 }
+                if showFirstLaunchSplash {
+                    FirstLaunchSplashView()
+                        .transition(.opacity)
+                        .zIndex(100)
+                }
 
             }
             .animation(.easeInOut(duration: 0.24), value: presentedGame)
@@ -142,6 +149,14 @@ struct ContentView: View {
             }
             .onAppear {
                 refreshHomeData(force: true)
+                if showFirstLaunchSplash {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+                        withAnimation(.easeInOut(duration: 0.35)) {
+                            showFirstLaunchSplash = false
+                        }
+                        UserDefaults.standard.set(true, forKey: "hasShownFirstLaunchSplash")
+                    }
+                }
             }
             .onChange(of: scenePhase) { _, phase in
                 guard phase == .active else { return }
@@ -337,6 +352,32 @@ struct ContentView: View {
 
 }
 
+private struct FirstLaunchSplashView: View {
+    @State private var animate = false
+
+    var body: some View {
+        ZStack {
+            ColorTokens.backgroundPrimary
+                .ignoresSafeArea()
+
+            Image("AppLaunchIcon") // Add this image to Assets.xcassets with Light/Dark variants
+                .resizable()
+                .renderingMode(.original)
+                .scaledToFit()
+                .frame(width: 160, height: 160)
+                .scaleEffect(animate ? 1.0 : 0.92)
+                .opacity(animate ? 1.0 : 0.0)
+                .shadow(color: Color.black.opacity(0.12), radius: 16, x: 0, y: 8)
+                .onAppear {
+                    withAnimation(.easeOut(duration: 0.35)) {
+                        animate = true
+                    }
+                }
+                .accessibilityHidden(true)
+        }
+    }
+}
+
 private extension AppearanceMode {
     var colorScheme: ColorScheme? {
         switch self {
@@ -353,3 +394,4 @@ private extension AppearanceMode {
 #Preview {
     ContentView(container: AppContainer.live)
 }
+
